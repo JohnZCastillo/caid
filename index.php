@@ -14,7 +14,7 @@ $base = '/caid/';
 // reroute request to views.
 switch ($request) {
     case $base:
-        require __DIR__ . '/views/home.php';
+        require __DIR__ . '/views/login.php';
         break;
     case $base . 'signup':
         require __DIR__ . '/views/signup.php';
