@@ -1,30 +1,32 @@
 <?php
 
-/* 
-    
-    Note: 
-        This File handle login logic!
+use db\UserDb;
 
-    Desription: 
-        The File expect a JSON Object  with required username and password.
-        failure to suppliment required field will result to an error. 
-    
-*/
+session_start();
 
-//recieved json object
-$json = file_get_contents('php://input');
+try {
 
-// Converts recieved json to php object
-$data = json_decode($json, true);
+    //unset login session
+    unset($_SESSION['isLogin']);
 
-//check if recieved content contains username and password
-//if not then return a 403 status code and an error message
-if (!isset($data['username'], $data['password'])) {
-    http_response_code(403);
-    echo json_encode(['message' => "Username and Password are required"]);
-    //prevent the code below from running
+    // stop executing when username and password is null
+    if (!isset($_POST['username'], $_POST['password'])) {
+        throw new Exception("username and a password are required");
+    }
+
+    //prevent  xss attack
+    $username = htmlspecialchars($_POST['username']);
+    $password = htmlspecialchars($_POST['password']);
+
+    //check db if username and password match.
+    if (!UserDb::login($username, $password)) throw new Exception("Incorrect Username/Password");
+
+
+    // reach this line no error 
+    $_SESSION['isLogin'] = true;
+    header('Location: ./panel');
+} catch (Exception $ex) {
+    $_SESSION['loginError'] = $ex->getMessage();
+    header('Location: ./login');
     die();
 }
-
-http_response_code(403);
-echo json_encode(['message' => "login success"]);

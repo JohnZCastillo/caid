@@ -1,0 +1,177 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url("../images/bg/student-singup.jpg");
+  background-size: contain;
+  background-position: 50%;
+}
+.box {
+  position: relative;
+  width: 500px;
+  height: 660px;
+  background: #1c1c1c;
+  border-radius: 8px;
+  overflow: auto;
+  opacity: 0.95;
+}
+.box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200px;
+  height: 420px;
+  background: linear-gradient(0deg, transparent, #fcfc00, transparent, #180cff);
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+}
+.box::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200px;
+  height: 420px;
+  background: linear-gradient(
+    10deg,
+    transparent,
+    #180cff,
+    transparent,
+    #fcfc00
+  );
+  transform-origin: bottom right;
+  animation: animate 6s linear infinite;
+  animation-delay: -3s;
+}
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.box table {
+  position: relative;
+  width: 100%;
+  top: 5px;
+}
+
+.form {
+  position: absolute;
+  inset: 2px;
+  border-radius: 8px;
+  background: #000f4a;
+  z-index: 10;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 735px;
+}
+.form h2 {
+  color: #fcfc00;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+.inputbox {
+  position: relative;
+  width: 400px;
+  margin-top: 14px;
+}
+.inputbox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 5px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #23242a;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  z-index: 10;
+}
+.inputbox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 0px 10px;
+  font-size: 1em;
+  color: #8f8f8f;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+}
+.inputbox input:valid ~ span,
+.inputbox input:focus ~ span {
+  color: #d3cc00;
+  transform: translateX(0px) translateY(-34px);
+  font-size: 0.75em;
+}
+.inputbox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #d3cc00;
+  border-radius: 4px;
+  transition: 0.5s;
+  pointer-events: none;
+}
+.inputbox input:valid ~ i,
+.inputbox input:focus ~ i {
+  height: 44px;
+}
+input[type="submit"] {
+  background: #d3cc00;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: -1;
+  position: absolute;
+  width: 100px;
+  height: 45px;
+  padding-top: 5px;
+  bottom: 30px;
+  transition: transform 0.4s;
+}
+input[type="submit"]:hover {
+  transform: scale(1.2);
+}
+input[type="submit"]:active {
+  opacity: 0.8;
+}
+select option {
+  background-color: #fcfc00;
+}
+
+#cancelbtn {
+  background: #d3cc00;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: -1;
+  position: absolute;
+  width: 100px;
+  height: 45px;
+  padding-top: 10px;
+  bottom: 30px;
+  transition: transform 0.4s;
+  margin-left: 150px;
+  text-align: center;
+}
+#cancelbtn:hover {
+  transform: scale(1.2);
+}
+a:link {
+  color: black;
+}
+a:visited {
+  color: black;
+}
+a.button:hover,
+a.button:active {
+  background: rgb(74, 74, 252);
+}

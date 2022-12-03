@@ -1,0 +1,181 @@
+<?php
+
+namespace db;
+
+require_once 'autoload.php';
+
+use Exception;
+use model\user\User;
+
+class UserDb {
+
+    public static function login($username, $password) {
+        return true;
+    }
+
+    //register user to db
+    public static function addUser(User $user) {
+
+         //check if id is taken
+         if (self::isIdTaken($user->getId())) {
+             throw new Exception('ID is alredy present');
+         }
+         
+        //check if email is available
+        if (self::isEmailTaken($user->getEmail())) {
+            throw new Exception('Email is already present');
+        }
+
+         //check if username is available
+        if (self::isUsernameTaken($user->getUsername())) {
+            throw new Exception('Username is already taken');
+        }
+        
+         $id = $user->getId();
+         $role= $user->getRole();
+         $username= $user->getUsername();
+         $password= $user->getPassword();
+         $email= $user->getEmail();
+         $fName= $user->getFName();
+         $mName= $user->getMName();
+         $lName= $user->getLName();
+         $gender= $user->getGender();
+         $course= $user->getCourse();
+         $year= $user->getYear();
+         $birthdate= $user->getBirthdate();
+
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("INSERT INTO user values(?,?,?,?,?,?,?,?,?,?,?,?)");
+
+        $stmt->bind_param(
+                "ssssssssssds",
+                $id,
+                $role,
+                $username,
+                $password,
+                $email,
+                $fName,
+                $lName,
+                $mName,
+                $gender,
+                $course,
+                $year,
+                $birthdate,
+        );
+
+        $stmt->execute();
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        return $error;
+    }
+
+    //check if email is taken    
+    public static function isEmailTaken($email) {
+        try {
+
+            // open database connecti/on
+            $conn = Database::open();
+
+            $stmt = $conn->prepare("SELECT username FROM user where email = ?");
+
+            // set the ?'s mark data to parameter's data
+            $stmt->bind_param("s", $email);
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            // store result in array
+            $data = $result->fetch_assoc();
+
+            // throw an exception data is null that means email is not present in db
+            if ($data == null) {
+                Database::close($conn);
+                throw new Exception('Username not found | Invalid Connection');
+            }
+
+            Database::close($conn);
+        } catch (Exception $ex) {
+            return false;
+        }
+
+        return true;
+    }
+
+    //check if username is present
+    public static function isUsernameTaken($username) {
+        try {
+
+            // open database connecti/on
+            $conn = Database::open();
+
+            $stmt = $conn->prepare("SELECT username FROM user where username = ?");
+
+            // set the ?'s mark data to parameter's data
+            $stmt->bind_param("s", $username);
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            // store result in array
+            $data = $result->fetch_assoc();
+
+            // throw an exception data is null that means email is not present in db
+            if ($data == null) {
+                Database::close($conn);
+                throw new Exception('Username not found | Invalid Connection');
+            }
+
+            Database::close($conn);
+        } catch (Exception $ex) {
+            return false;
+        }
+
+        return true;
+    }
+
+    //check if id is present
+    public static function isIdTaken($id) {
+        try {
+
+            // open database connecti/on
+            $conn = Database::open();
+
+            $stmt = $conn->prepare("SELECT username FROM user where student_number = ?");
+
+            // set the ?'s mark data to parameter's data
+            $stmt->bind_param("s", $id);
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            // store result in array
+            $data = $result->fetch_assoc();
+
+            // throw an exception data is null that means email is not present in db
+            if ($data == null) {
+                Database::close($conn);
+                throw new Exception('Username not found | Invalid Connection');
+            }
+
+            Database::close($conn);
+        } catch (Exception $ex) {
+            return false;
+        }
+
+        return true;
+    }
+
+}
