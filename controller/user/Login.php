@@ -21,10 +21,11 @@ try {
     //check db if username and password match.
     if (!UserDb::login($username, $password)) throw new Exception("Incorrect Username/Password");
 
-
     // reach this line no error 
     $_SESSION['isLogin'] = true;
-    header('Location: ./panel');
+    header('Location: ./student');
+    die();
+    
 } catch (Exception $ex) {
     $_SESSION['loginError'] = $ex->getMessage();
     header('Location: ./login');

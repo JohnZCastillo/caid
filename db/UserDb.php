@@ -10,39 +10,44 @@ use model\user\User;
 class UserDb {
 
     public static function login($username, $password) {
-        return true;
+       try{
+           $user = self::getUserByUsername($username);
+           return  $user->getPassword() ===  $password && $user->getUsername() === $username;
+       } catch (Exception $ex) {
+           return false;
+       } 
     }
 
     //register user to db
     public static function addUser(User $user) {
 
-         //check if id is taken
-         if (self::isIdTaken($user->getId())) {
-             throw new Exception('ID is alredy present');
-         }
-         
+        //check if id is taken
+        if (self::isIdTaken($user->getId())) {
+            throw new Exception('ID is alredy present');
+        }
+
         //check if email is available
         if (self::isEmailTaken($user->getEmail())) {
             throw new Exception('Email is already present');
         }
 
-         //check if username is available
+        //check if username is available
         if (self::isUsernameTaken($user->getUsername())) {
             throw new Exception('Username is already taken');
         }
-        
-         $id = $user->getId();
-         $role= $user->getRole();
-         $username= $user->getUsername();
-         $password= $user->getPassword();
-         $email= $user->getEmail();
-         $fName= $user->getFName();
-         $mName= $user->getMName();
-         $lName= $user->getLName();
-         $gender= $user->getGender();
-         $course= $user->getCourse();
-         $year= $user->getYear();
-         $birthdate= $user->getBirthdate();
+
+        $id = $user->getId();
+        $role = $user->getRole();
+        $username = $user->getUsername();
+        $password = $user->getPassword();
+        $email = $user->getEmail();
+        $fName = $user->getFName();
+        $mName = $user->getMName();
+        $lName = $user->getLName();
+        $gender = $user->getGender();
+        $course = $user->getCourse();
+        $year = $user->getYear();
+        $birthdate = $user->getBirthdate();
 
         $connection = Database::open();
 
@@ -176,6 +181,45 @@ class UserDb {
         }
 
         return true;
+    }
+
+    //get user by username    
+    public static function getUserByUsername($username) {
+
+        // open database connection
+        $conn = Database::open();
+
+        $stmt = $conn->prepare("SELECT * FROM user where username = ?");
+
+        // set the ?'s mark data to parameter's data
+        $stmt->bind_param("s", $username);
+
+        // execute prepared statement
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+        // store result in array
+        $data = $result->fetch_assoc();
+
+        // throw an exception data is null that means username is not present in db
+        if ($data == null) {
+            Database::close($conn);
+            throw new Exception('Username not found | Invalid Connection');
+        }
+
+        Database::close($conn);
+
+        //create a user object
+        $user = new User(
+                $data["studen_id"], $data["username"], $data["password"], $data["email"], $data["first_name"], $data["middle_name"], $data["last_name"], $data["gender"], $data["course_id"], $data["year"], $data["birthdate"]
+        );
+
+        // update user base on db
+        $user->setRole($data['role']);
+
+        return $user;
     }
 
 }

@@ -28,6 +28,9 @@ switch ($request) {
     case $base . 'register':
         require __DIR__ . '/controller/user/Signup.php';
         break;
+     case $base . 'student':
+        require __DIR__ . '/views/student.php';
+        break;
     default:
         http_response_code(404);
         require __DIR__ . '/views/error.php';

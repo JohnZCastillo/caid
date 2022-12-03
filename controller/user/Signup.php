@@ -50,9 +50,8 @@ try {
     
     //add user to db    
     UserDb::addUser($user);
+    die();
     
-     echo "hello";
-     
 } catch (Exception $ex) {
      $_SESSION['singupError'] = $ex->getMessage();
      echo $ex ->getMessage();
