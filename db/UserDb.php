@@ -51,13 +51,14 @@ class UserDb
         $course = $user->getCourse();
         $year = $user->getYear();
         $birthdate = $user->getBirthdate();
+        $profile = $user->getProfile();
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("INSERT INTO user values(?,?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt = $connection->prepare("INSERT INTO user values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
         $stmt->bind_param(
-            "ssssssssssds",
+            "ssssssssssdss",
             $id,
             $role,
             $username,
@@ -70,6 +71,7 @@ class UserDb
             $course,
             $year,
             $birthdate,
+            $profile,
         );
 
         $stmt->execute();
@@ -220,7 +222,7 @@ class UserDb
 
         //create a user object
         $user = new User(
-            $data["studen_id"],
+            $data["student_number"],
             $data["username"],
             $data["password"],
             $data["email"],
@@ -236,6 +238,28 @@ class UserDb
         // update user base on db
         $user->setRole($data['role']);
 
+        // update user profile base on db
+        $user->setProfile($data['profile']);
+
         return $user;
+    }
+
+    // upaate products details on db
+    static function updateUserProfile($id, $link)
+    {
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("UPDATE USER set profile = ? WHERE student_number = ?");
+
+        $stmt->bind_param("ss", $link, $id);
+        $stmt->execute();
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($error !== null && $error !== '') {
+            throw new Exception("Update Failed ");
+        }
     }
 }

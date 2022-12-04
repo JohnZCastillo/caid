@@ -28,6 +28,9 @@ switch ($request) {
     case $base . 'register':
         require __DIR__ . '/controller/user/Signup.php';
         break;
+    case $base . 'update-profile':
+        require __DIR__ . '/controller/user/Profile.php';
+        break;
     case $base . 'student':
         require __DIR__ . '/views/student.php';
         break;

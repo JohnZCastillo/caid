@@ -1,6 +1,9 @@
 <?php
 
+namespace controller\user;
+
 use db\UserDb;
+use Exception;
 
 session_start();
 
@@ -32,6 +35,7 @@ try {
     $_SESSION['userRole'] = $currentUser->getRole();
     $_SESSION['userId'] = $currentUser->getId();
     $_SESSION['userName'] =  $currentUser->getFName() . " " . $currentUser->getMName() . " " .  $currentUser->getLName();
+    $_SESSION['userProfile'] = $currentUser->getProfile();
 
     header('Location: ./redirect');
     die();

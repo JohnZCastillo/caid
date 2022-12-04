@@ -3,7 +3,8 @@
 namespace model\user;
 
 // Note the default role of a user is student
-class User{
+class User
+{
 
     private $id;
     private $role;
@@ -17,8 +18,10 @@ class User{
     private $course;
     private $year;
     private $birthdate;
- 
-    public function __construct($id, $username, $password, $email, $fName, $mName, $lName, $gender, $course, $year, $birthdate) {
+    private $profileLink;
+
+    public function __construct($id, $username, $password, $email, $fName, $mName, $lName, $gender, $course, $year, $birthdate)
+    {
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
@@ -33,100 +36,134 @@ class User{
         $this->role = Role::$STUDENT;
     }
 
-    public function getId() {
+    public function setProfile($link)
+    {
+        $this->profileLink = $link;
+    }
+
+    public function getProfile()
+    {
+        return $this->profileLink;
+    }
+
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getRole() {
+    public function getRole()
+    {
         return $this->role;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function getFName() {
+    public function getFName()
+    {
         return $this->fName;
     }
 
-    public function getMName() {
+    public function getMName()
+    {
         return $this->mName;
     }
 
-    public function getLName() {
+    public function getLName()
+    {
         return $this->lName;
     }
 
-    public function getGender() {
+    public function getGender()
+    {
         return $this->gender;
     }
 
-    public function getCourse() {
+    public function getCourse()
+    {
         return $this->course;
     }
 
-    public function getYear() {
+    public function getYear()
+    {
         return $this->year;
     }
 
-    public function getBirthdate() {
+    public function getBirthdate()
+    {
         return $this->birthdate;
     }
 
-    public function setId($id): void {
+    public function setId($id): void
+    {
         $this->id = $id;
     }
 
-    public function setRole($role): void {
+    public function setRole($role): void
+    {
         $this->role = $role;
     }
 
-    public function setUsername($username): void {
+    public function setUsername($username): void
+    {
         $this->username = $username;
     }
 
-    public function setPassword($password): void {
+    public function setPassword($password): void
+    {
         $this->password = $password;
     }
 
-    public function setEmail($email): void {
+    public function setEmail($email): void
+    {
         $this->email = $email;
     }
 
-    public function setFName($fName): void {
+    public function setFName($fName): void
+    {
         $this->fName = $fName;
     }
 
-    public function setMName($mName): void {
+    public function setMName($mName): void
+    {
         $this->mName = $mName;
     }
 
-    public function setLName($lName): void {
+    public function setLName($lName): void
+    {
         $this->lName = $lName;
     }
 
-    public function setGender($gender): void {
+    public function setGender($gender): void
+    {
         $this->gender = $gender;
     }
 
-    public function setCourse($course): void {
+    public function setCourse($course): void
+    {
         $this->course = $course;
     }
 
-    public function setYear($year): void {
+    public function setYear($year): void
+    {
         $this->year = $year;
     }
 
-    public function setBirthdate($birthdate): void {
+    public function setBirthdate($birthdate): void
+    {
         $this->birthdate = $birthdate;
     }
-
 }

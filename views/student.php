@@ -64,7 +64,7 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
             </script>
         </div>
         <div class="profile-pic-div">
-            <img src="/CAIDSA/Photos/profile.png" id="photo">
+            <img src="" id="photo">
             <input type="file" id="file">
             <label for="file" id="uploadBtn">Choose</label>
         </div>
@@ -78,28 +78,26 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
     <div class="box">
         <div class="form">
             <div class="containers">
-                <ul>
-                    <div class="container1">
-                        <a href="" class="pictures">
-                            <li><img src="/CAIDSA/Photos/Student-Rewards.jpg" width="317px" height="180px">
-                        </a></li>
-                    </div>
-                    <div class="container2">
-                        <a href="" class="pictures">
-                            <li><img src="/CAIDSA/Photos/Student-Mastery.jpg" width="317px" height="180px">
-                        </a></li>
-                    </div>
-                    <div class="container3">
-                        <a href="" class="pictures">
-                            <li><img src="/CAIDSA/Photos/Student-Quiz-Scores.jpg" width="317px" height="180px">
-                        </a></li>
-                    </div>
-                    <div class="container4">
-                        <a href="" class="pictures">
-                            <li><img src="/CAIDSA/Photos/Student-Statistics.jpg" width="317px" height="180px">
-                        </a></li>
-                    </div>
-                </ul>
+                <div class="container1">
+                    <a href="" class="pictures">
+                        <img src="./resources/images/icons/rewards.jpg" width="317px" height="180px">
+                    </a>
+                </div>
+                <div class="container2">
+                    <a href="" class="pictures">
+                        <img src="./resources/images/icons/mastery.jpg" width="317px" height="180px">
+                    </a>
+                </div>
+                <div class="container3">
+                    <a href="" class="pictures">
+                        <img src="./resources/images/icons/quiz-score.jpg" width="317px" height="180px">
+                    </a>
+                </div>
+                <div class="container4">
+                    <a href="" class="pictures">
+                        <img src="./resources/images/icons/statistics.jpg" width="317px" height="180px">
+                    </a>
+                </div>
             </div>
         </div>
     </div>

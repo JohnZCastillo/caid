@@ -9,7 +9,6 @@ use model\user\Role;
 
 require_once 'autoload.php';
 
-
 // check weather user is login if not redirect them to login page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
@@ -43,5 +42,6 @@ if (isset($_SESSION['userRole'])) {
     }
 }
 
+echo $_SESSION['userRole'];
 // reach this line if user role is not define
 http_response_code(401);
