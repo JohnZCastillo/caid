@@ -28,8 +28,17 @@ switch ($request) {
     case $base . 'register':
         require __DIR__ . '/controller/user/Signup.php';
         break;
-     case $base . 'student':
+    case $base . 'student':
         require __DIR__ . '/views/student.php';
+        break;
+    case $base . 'admin':
+        require __DIR__ . '/views/admin.php';
+        break;
+    case $base . 'logout':
+        require __DIR__ . '/controller/user/Logout.php';
+        break;
+    case $base . 'redirect':
+        require __DIR__ . '/controller/redirect/Redirect.php';
         break;
     default:
         http_response_code(404);

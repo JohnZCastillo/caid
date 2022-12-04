@@ -1,13 +1,22 @@
 <?php
 
 session_start();
+
+//redirect to user to dasboard if he is already login
+if (isset($_SESSION["isLogin"])) {
+    if ($_SESSION["isLogin"]) {
+        header('Location: ./redirect');
+        exit();
+    }
+}
+
 ?>
 
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Student Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="./resources/css/general.css">
     <link rel="stylesheet" href="./resources/css/login.css">
 </head>

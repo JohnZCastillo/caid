@@ -7,19 +7,22 @@ require_once 'autoload.php';
 use Exception;
 use model\user\User;
 
-class UserDb {
+class UserDb
+{
 
-    public static function login($username, $password) {
-       try{
-           $user = self::getUserByUsername($username);
-           return  $user->getPassword() ===  $password && $user->getUsername() === $username;
-       } catch (Exception $ex) {
-           return false;
-       } 
+    public static function login($username, $password)
+    {
+        try {
+            $user = self::getUserByUsername($username);
+            return  $user->getPassword() ===  $password && $user->getUsername() === $username;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 
     //register user to db
-    public static function addUser(User $user) {
+    public static function addUser(User $user)
+    {
 
         //check if id is taken
         if (self::isIdTaken($user->getId())) {
@@ -54,19 +57,19 @@ class UserDb {
         $stmt = $connection->prepare("INSERT INTO user values(?,?,?,?,?,?,?,?,?,?,?,?)");
 
         $stmt->bind_param(
-                "ssssssssssds",
-                $id,
-                $role,
-                $username,
-                $password,
-                $email,
-                $fName,
-                $lName,
-                $mName,
-                $gender,
-                $course,
-                $year,
-                $birthdate,
+            "ssssssssssds",
+            $id,
+            $role,
+            $username,
+            $password,
+            $email,
+            $fName,
+            $lName,
+            $mName,
+            $gender,
+            $course,
+            $year,
+            $birthdate,
         );
 
         $stmt->execute();
@@ -79,7 +82,8 @@ class UserDb {
     }
 
     //check if email is taken    
-    public static function isEmailTaken($email) {
+    public static function isEmailTaken($email)
+    {
         try {
 
             // open database connecti/on
@@ -114,7 +118,8 @@ class UserDb {
     }
 
     //check if username is present
-    public static function isUsernameTaken($username) {
+    public static function isUsernameTaken($username)
+    {
         try {
 
             // open database connecti/on
@@ -149,7 +154,8 @@ class UserDb {
     }
 
     //check if id is present
-    public static function isIdTaken($id) {
+    public static function isIdTaken($id)
+    {
         try {
 
             // open database connecti/on
@@ -184,7 +190,8 @@ class UserDb {
     }
 
     //get user by username    
-    public static function getUserByUsername($username) {
+    public static function getUserByUsername($username)
+    {
 
         // open database connection
         $conn = Database::open();
@@ -206,14 +213,24 @@ class UserDb {
         // throw an exception data is null that means username is not present in db
         if ($data == null) {
             Database::close($conn);
-            throw new Exception('Username not found | Invalid Connection');
+            throw new Exception('Incorrect username or password');
         }
 
         Database::close($conn);
 
         //create a user object
         $user = new User(
-                $data["studen_id"], $data["username"], $data["password"], $data["email"], $data["first_name"], $data["middle_name"], $data["last_name"], $data["gender"], $data["course_id"], $data["year"], $data["birthdate"]
+            $data["studen_id"],
+            $data["username"],
+            $data["password"],
+            $data["email"],
+            $data["first_name"],
+            $data["middle_name"],
+            $data["last_name"],
+            $data["gender"],
+            $data["course_id"],
+            $data["year"],
+            $data["birthdate"]
         );
 
         // update user base on db
@@ -221,5 +238,4 @@ class UserDb {
 
         return $user;
     }
-
 }

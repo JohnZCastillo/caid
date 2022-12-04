@@ -5,8 +5,8 @@ body {
   min-height: 100vh;
   background: #000000;
   background-image: url("../images/bg/student-login.jpg");
-  background-size: contain;
-  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .box {

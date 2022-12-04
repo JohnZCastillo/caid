@@ -14,10 +14,10 @@ class Config
     private static $database = "caidsa";
 
     //configuration
-    // private static $servername = "";
-    // private static $username = "";
-    // private static $password = "";
-    // private static $database = "";
+//     private static $servername = "sql202.epizy.com";
+//     private static $username = "epiz_33126141";
+//     private static $password = "tVhCeR24pfyASFW";
+//     private static $database = "epiz_33126141_caidsa";
 
     public static function getServername()
     {
