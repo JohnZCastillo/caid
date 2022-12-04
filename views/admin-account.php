@@ -71,17 +71,17 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                 <div class="containers">
                     <div class="container1">
                         <a href="./signup" class="pictures">
-                            <img src="/CAIDSA/Photos/New-Admin-User.jpg" width="180px" height="180px">
+                            <img src="./resources/images/icons/new-admin.jpg" width="180px" height="180px">
                         </a>
                     </div>
                     <div class="container2">
                         <a href="./signup" class="pictures">
-                            <img src="/CAIDSA/Photos/New-Student-User.jpg" width="180px" height="180px">
+                            <img src="./resources/images/icons/new-user.jpg" width="180px" height="180px">
                         </a>
                     </div>
                     <div class="container3">
                         <a href="/" class="pictures">
-                            <img src="/CAIDSA/Photos/Login-Data.jpg" width="180px" height="180px">
+                            <img src="./resources/images/icons/login-data.jpg" width="180px" height="180px">
                         </a>
                     </div>
                 </div>

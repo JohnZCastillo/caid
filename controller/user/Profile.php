@@ -16,8 +16,6 @@ try {
         throw new Exception("Missing Image");
     }
 
-    $_SESSION['userId'] = 'Test1';
-
     // throw an error if user is not login
     if (!isset($_SESSION['userId'])) {
         throw new Exception('userid not found');
