@@ -61,10 +61,11 @@ try {
 
     //add user to db    
     UserDb::addUser($user);
+    header('Location: ./signup');
     die();
 } catch (Exception $ex) {
     http_response_code(403);
     $_SESSION['singupError'] = $ex->getMessage();
-    echo $ex->getMessage();
+    header('Location: ./signup');
     die();
 }

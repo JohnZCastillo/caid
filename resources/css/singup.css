@@ -124,7 +124,7 @@ body {
 .inputbox input:focus ~ i {
   height: 44px;
 }
-input[type="submit"] {
+.add-user {
   background: #d3cc00;
   border-radius: 4px;
   font-weight: 600;
@@ -174,4 +174,8 @@ a:visited {
 a.button:hover,
 a.button:active {
   background: rgb(74, 74, 252);
+}
+
+.error {
+  color: red;
 }

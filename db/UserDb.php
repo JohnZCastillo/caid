@@ -249,7 +249,7 @@ class UserDb
     {
         $connection = Database::open();
 
-        $stmt = $connection->prepare("UPDATE USER set profile = ? WHERE student_number = ?");
+        $stmt = $connection->prepare("UPDATE user set profile = ? WHERE student_number = ?");
 
         $stmt->bind_param("ss", $link, $id);
         $stmt->execute();

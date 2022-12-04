@@ -58,10 +58,10 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
             <!-- <script src="/CAIDSA/Javascripts/app.js"></script> -->
             <h4>ADMIN PROFILE</h4>
         </div>
-        <div id="abtn">
-            <a href="" class="onview">DASHBOARD</a><br><br>
-            <a href="" class="button">Accounts</a><br><br>
-            <a href="./logout" onclick="Login(this.form)" class="button">LOGOUT</a><br><br>
+        <div class="nav">
+            <a href="./admin" class="nav-link nav-link-active">DASHBOARD</a>
+            <a href="./account" class="nav-link">Accounts</a>
+            <a href="./logout" class="nav-link" onclick="Login(this.form)">LOGOUT</a><br><br>
         </div>
         <script type="text/javascript">
             function Login(form) {

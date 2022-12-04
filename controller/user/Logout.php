@@ -10,7 +10,7 @@ if (isset($_SESSION['isLogin'])) {
 
         session_destroy();
 
-        header('Location: /caid/login');
+        header('Location: ./login');
 
         die();
     }
@@ -18,6 +18,6 @@ if (isset($_SESSION['isLogin'])) {
 
 $_SESSION['loginError'] = "You're not login!";
 
-header('Location: /caid/login');
+header('Location: ./login');
 
 die();

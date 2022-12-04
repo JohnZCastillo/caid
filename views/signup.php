@@ -1,6 +1,28 @@
 <?php
 
+use model\user\Role;
+
+session_start();
+
+if (!isset($_SESSION["isLogin"])) {
+    $_SESSION["loginError"] = "You're not login!. Login First";
+    header('Location: ./login');
+    exit();
+}
+
+//redirect to login page if not login
+if (!$_SESSION["isLogin"]) {
+    header('Location: ./login');
+    exit();
+}
+
+// redirect if not admin
+if ($_SESSION['userRole'] !== Role::$ADMIN) {
+    header('Location: ./redirect');
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +40,7 @@
 
 <body>
     <div class="box">
-        <form method="post" action="">
+        <form method="post" action="./register">
             <div class="form">
                 <h2>SIGN UP</h2>
                 <div class="inputbox">
@@ -27,32 +49,32 @@
                     <i></i>
                 </div>
                 <div class="inputbox">
-                    <input id="Username" name="Username" type="text" required>
+                    <input id="Username" name="username" type="text" required>
                     <span>Username</span>
                     <i></i>
                 </div>
                 <div class="inputbox">
-                    <input id="Password" name="Password" type="password" required>
+                    <input id="Password" name="password" type="password" required>
                     <span>Password</span>
                     <i></i>
                 </div>
                 <div class="inputbox">
-                    <input id="FirstName" name="Firstname" required>
+                    <input id="FirstName" name="firstname" required>
                     <span>First Name</span>
                     <i></i>
                 </div>
                 <div class="inputbox">
-                    <input id="MiddleInitial" name="Middle" required>
+                    <input id="MiddleInitial" name="middlename" required>
                     <span>Middle Initial</span>
                     <i></i>
                 </div>
                 <div class="inputbox">
-                    <input id="Lastname" name="Lastname" type="text" required>
+                    <input id="Lastname" name="lastname" type="text" required>
                     <span>Last Name</span>
                     <i></i>
                 </div>
                 <div class="inputbox">
-                    <input date id="Email" name="Email" required>
+                    <input date id="Email" name="email" required>
                     <span>Email</span>
                     <i></i>
                 </div>
@@ -60,8 +82,8 @@
                     <tr>
                         <th>
                             <div class="dropdown">
-                                <select name="Gender" id="Gender">
-                                    <option value="o" selected>Gender</option>
+                                <select name="gender" id="Gender">
+                                    <option value="" selected>Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -69,8 +91,8 @@
                         </th>
                         <th>
                             <div class="dropdown">
-                                <select name="Course" id="Course">
-                                    <option value="c" selected>Course</option>
+                                <select name="course" id="Course">
+                                    <option value="" selected>Course</option>
                                     <option value="BSIT">BSIT</option>
                                     <option value="BSCpE">BSCpE</option>
                                 </select>
@@ -78,8 +100,8 @@
                         </th>
                         <th>
                             <div class="dropdown">
-                                <select name="YearLevel" id="YearLevel">
-                                    <option value="o" selected>Year Level</option>
+                                <select name="year" id="YearLevel">
+                                    <option value="" selected>Year Level</option>
                                     <option value="1st Year">1st Year</option>
                                     <option value="2nd Year">2nd Year</option>
                                     <option value="3rd Year">3rd Year</option>
@@ -89,19 +111,27 @@
                     </tr>
                 </table>
                 <div class="inputbox">
-                    <input type="date" id="Birthdate" name="Birthdate" value="2018-01-01" min="1990-01-01" max="2018-12-31" required>
+                    <input type="date" id="Birthdate" name="birthdate" value="2018-01-01" min="1990-01-01" max="2018-12-31" required>
                     <span>Birth Date</span>
                     <i></i>
                 </div>
-                <input type="submit" onclick="AddUser(this.form)" name="Click" value="Add User">
+                <button type="submit" class="add-user">Add User</button>
                 <div id="cancelbtn">
-                    <a href="/CAIDSA/Admin_Module/Admin-New-Account.php">Cancel</a>
+                    <a href="./account">Cancel</a>
                 </div>
+
+                <div class="error">
+                    <?php
+                    if (isset($_SESSION['singupError'])) {
+                        echo $_SESSION['singupError'];
+                        unset($_SESSION['singupError']);
+                    }
+                    ?>
+                </div>
+
             </div>
         </form>
     </div>
 </body>
-
-
 
 </html>
