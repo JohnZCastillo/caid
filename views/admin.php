@@ -45,10 +45,11 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                 <?php
                 //show default profile
                 if (!isset($_SESSION['userProfile'])) {
-                    echo "<img src='./CAIDSA/Photos/profile.png' id='photo'>";
-                    die();
+                    echo "<img src='./assets/profile/default.png' id='photo'>";
+                    // die();
+                } else {
+                    echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " id='photo'>";
                 }
-                echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " id='photo'>";
                 ?>
 
 
@@ -67,7 +68,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
             function Login(form) {
                 var retVal = confirm("Do you want to log out?");
                 if (retVal == true) {
-                    window.location = "/CAIDSA/Student_Module/Login.php"
+                    window.location = "./login"
                     alert("Account has been logging out!");
                     return true;
                 } else {

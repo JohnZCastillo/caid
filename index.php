@@ -46,6 +46,12 @@ switch ($request) {
     case $base . 'redirect':
         require __DIR__ . '/controller/redirect/Redirect.php';
         break;
+    case $base . 'admin-register':
+        require __DIR__ . '/controller/user/Admin.php';
+        break;
+    case $base . 'singup-admin':
+        require __DIR__ . '/views/admin-register.php';
+        break;
     default:
         http_response_code(404);
         require __DIR__ . '/views/error.php';

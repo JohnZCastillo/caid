@@ -40,7 +40,15 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
     <div class="modules">
         <div id="profile"><br>
             <div class="profile-pic-div">
-                <img src="/CAIDSA/Photos/profile.png" id="photo">
+                <?php
+                //show default profile
+                if (!isset($_SESSION['userProfile'])) {
+                    echo "<img src='./assets/profile/default.png' id='photo'>";
+                } else {
+                    echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " id='photo'>";
+                }
+                ?>
+
                 <input type="file" id="file">
                 <label for="file" id="uploadBtn">Choose</label>
             </div>
@@ -56,7 +64,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
             function Login(form) {
                 var retVal = confirm("Do you want to log out?");
                 if (retVal == true) {
-                    window.location = "/CAIDSA/Student_Module/Login.php"
+                    window.location = "/login"
                     alert("Account has been logging out!");
                     return true;
                 } else {
@@ -70,7 +78,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
             <ul>
                 <div class="containers">
                     <div class="container1">
-                        <a href="./signup" class="pictures">
+                        <a href="./singup-admin" class="pictures">
                             <img src="./resources/images/icons/new-admin.jpg" width="180px" height="180px">
                         </a>
                     </div>
