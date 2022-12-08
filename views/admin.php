@@ -100,8 +100,9 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                         <img src="./resources/images/icons/statistics.jpg" width="180px" height="180px">
                     </a>
                 </div>
+                <!-- modules -->
                 <div class="container5">
-                    <a href="" class="pictures">
+                    <a href="./modules" class="pictures">
                         <img src="./resources/images/icons/modules.jpg" width="180px" height="180px">
                     </a>
                     < </div>

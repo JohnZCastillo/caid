@@ -25,11 +25,17 @@ switch ($request) {
     case $base . 'auth':
         require __DIR__ . '/controller/user/Login.php';
         break;
+    case $base . 'modules':
+        require __DIR__ . '/views/admin/modules.php';
+        break;
     case $base . 'register':
         require __DIR__ . '/controller/user/Signup.php';
         break;
     case $base . 'update-profile':
         require __DIR__ . '/controller/user/Profile.php';
+        break;
+    case $base . 'add-module':
+        require __DIR__ . '/controller/topic/TopicAdd.php';
         break;
     case $base . 'student':
         require __DIR__ . '/views/student.php';
@@ -38,7 +44,7 @@ switch ($request) {
         require __DIR__ . '/views/admin.php';
         break;
     case $base . 'account':
-        require __DIR__ . '/views/admin-account.php';
+        require __DIR__ . '/views/admin/account.php';
         break;
     case $base . 'logout':
         require __DIR__ . '/controller/user/Logout.php';
@@ -50,7 +56,7 @@ switch ($request) {
         require __DIR__ . '/controller/user/Admin.php';
         break;
     case $base . 'singup-admin':
-        require __DIR__ . '/views/admin-register.php';
+        require __DIR__ . '/views/admin/register.php';
         break;
     default:
         http_response_code(404);
