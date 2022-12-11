@@ -25,17 +25,25 @@ use db\TopicDb;
             <?php
             try {
                 foreach (TopicDb::getAllTopics() as $topic) {
-
                     $title = $topic->getTitle();
+                    $id = $topic->getId();
+
                     echo "<div class='module'>";
                     echo "<h2>$title</h2>";
-                    echo "<button class='btn' id='$title'>+</button>";
+                    echo "<div class='module__btn'>";
+                    echo "<div>";
+                    echo "<button class=\"btn\" onclick=\"document.getElementById('$id').click()\">File</button>";
+                    echo "<input type=\"file\" id=\"$id\" class='hide'>";
+                    echo "</div>";
+                    echo "<button class='btn' id='$title'>Quiz</button>";
+                    echo "</div>";
                     echo "</div>";
                 }
             } catch (Exception $e) {
                 echo "No modules found";
             }
             ?>
+
             <button class="btn" id="addm">ADD MODULE</button>
         </div>
     </section>

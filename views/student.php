@@ -1,5 +1,6 @@
 <?php
 
+use db\TopicDb;
 use model\user\Role;
 
 session_start();
@@ -36,16 +37,15 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
     </div>
     <div class="modules">
         <a href="" class="onview">DASHBOARD</a><br><br>
-        <a href="" class="button">1.1 Getting Started</a><br><br>
-        <a href="" class="button" id="b2">1.2 Classes and Objects</a><br><br>
-        <a href="" class="button" id="b3">1.3 Strings, Wrappers, Arrays, and Enum Types</a><br><br>
-        <a href="" class="button" id="b4">1.4 Expressions</a><br><br>
-        <a href="" class="button" id="b5">1.5 Control Flow</a><br><br>
-        <a href="" class="button" id="b6">1.6 Simple Input and Output</a><br><br>
-        <a href="" class="button" id="b7">1.7 An Example Program</a><br><br>
-        <a href="" class="button" id="b8">1.8 Packages and Imports</a><br><br>
-        <a href="" class="button" id="b9">1.9 Software and Development</a><br><br>
-        <a href="" class="button" id="b10">1.10 Exercises</a><br><br>
+
+        <!-- Load topics -->
+        <?php
+
+        foreach (TopicDb::getAllTopics() as $topic) {
+            $title = $topic->getTitle();
+            echo "<a href=\"\" class=\"button\">$title</a><br><br>";
+        }
+        ?>
     </div>
     <div class="profilediv">
         <div class="dropdown">

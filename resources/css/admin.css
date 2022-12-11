@@ -42,6 +42,10 @@ body {
   transform-origin: bottom right;
   animation: animate 6s linear infinite;
 }
+
+.hide {
+  display: none;
+}
 .box::after {
   content: "";
   position: absolute;
