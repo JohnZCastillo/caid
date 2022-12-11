@@ -1,5 +1,6 @@
 <?php
 
+use db\UserDb;
 use model\user\Role;
 
 session_start();
@@ -33,6 +34,8 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
 
 <body>
 
+
+
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
     </div>
@@ -60,40 +63,43 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
             <a href="./account" class="nav-link nav-link-active">Accounts</a>
             <a href="./logout" class="nav-link" onclick="Login(this.form)">LOGOUT</a><br><br>
         </div>
-        <script type="text/javascript">
-            function Login(form) {
-                var retVal = confirm("Do you want to log out?");
-                if (retVal == true) {
-                    window.location = "/login"
-                    alert("Account has been logging out!");
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        </script>
+
     </div>
     <div class="box">
         <div class="form">
-            <ul>
-                <div class="containers">
-                    <div class="container1">
-                        <a href="./singup-admin" class="pictures">
-                            <img src="./resources/images/icons/new-admin.jpg" width="180px" height="180px">
-                        </a>
-                    </div>
-                    <div class="container2">
-                        <a href="./signup" class="pictures">
-                            <img src="./resources/images/icons/new-user.jpg" width="180px" height="180px">
-                        </a>
-                    </div>
-                    <div class="container3">
-                        <a href="./logindata" class="pictures">
-                            <img src="./resources/images/icons/login-data.jpg" width="180px" height="180px">
-                        </a>
-                    </div>
-                </div>
-            </ul>
+            <table class="styled-tabled">
+                <thead>
+                    <tr>
+                        <th>Student Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Course</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    foreach (UserDb::getUsers() as $user) {
+
+                        $id = $user->getId();
+                        $fname = $user->getFname();
+                        $lname = $user->getLname();
+                        $course = $user->getCourse();
+                        $year = $user->getYear();
+
+                        echo "<tr>";
+                        echo "<td>$id</td>";
+                        echo "<td>$fname</td>";
+                        echo "<td>$lname</td>";
+                        echo "<td>$course</td>";
+                        echo "<td>$year</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </body>

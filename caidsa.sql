@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 07, 2022 at 03:59 AM
+-- Generation Time: Dec 11, 2022 at 03:03 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -20,6 +20,44 @@ SET time_zone = "+00:00";
 --
 -- Database: `caidsa`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+CREATE TABLE `content` (
+  `id` int(11) NOT NULL,
+  `topics` int(11) NOT NULL,
+  `type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `topics`
+--
+
+CREATE TABLE `topics` (
+  `id` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `topics`
+--
+
+INSERT INTO `topics` (`id`, `title`) VALUES
+(7, 'wow'),
+(8, 'hehehe'),
+(9, 'hahaha'),
+(10, 'jk'),
+(11, 'khkjh'),
+(12, 'hahah'),
+(13, 'hrhh'),
+(14, 'hah'),
+(15, 'heh');
 
 -- --------------------------------------------------------
 
@@ -48,11 +86,25 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`student_number`, `role`, `username`, `password`, `email`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `year`, `birthdate`, `profile`) VALUES
-('admin', 'ADMIN', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'Male', 'BSIT', 1, '2018-01-09', NULL);
+('admin', 'ADMIN', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'Male', 'BSIT', 1, '2018-01-09', NULL),
+('test', 'STUDENT', 'test', 'test', 'test', 'test', 'test', 'test', 'Male', 'BSCpE', 2, '2018-01-24', NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `content`
+--
+ALTER TABLE `content`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `topics` (`topics`);
+
+--
+-- Indexes for table `topics`
+--
+ALTER TABLE `topics`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -61,6 +113,32 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`student_number`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `content`
+--
+ALTER TABLE `content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `topics`
+--
+ALTER TABLE `topics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `content`
+--
+ALTER TABLE `content`
+  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`topics`) REFERENCES `topics` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
