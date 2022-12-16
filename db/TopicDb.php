@@ -63,13 +63,26 @@ class TopicDb
 
         $stmt->execute();
 
+        $stmt = $connection->prepare("select last_insert_id() as id");
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+        // store result in array
+        $data = $result->fetch_assoc();
+
+        $contentId = $data['id'];
+
         // insert to file
-        $stmt = $connection->prepare("INSERT INTO file(location,topic_id) values (?,?)");
+        $stmt = $connection->prepare("INSERT INTO file(location,topic_id,content_id) values (?,?,?)");
 
         $stmt->bind_param(
-            "sd",
+            "sdd",
             $fileLocation,
-            $id
+            $id,
+            $contentId
         );
 
         $stmt->execute();
@@ -87,9 +100,9 @@ class TopicDb
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("select topic.id, topic.title,con.name,con.description,con.order,ty.title as type,fl.location from topics as topic INNER JOIN content con on con.topics = topic.id INNER JOIN file fl on fl.topic_id = topic.id 
+        $stmt = $connection->prepare("select topic.id, topic.title,con.name,con.description,con.order,ty.title as type_name,fl.location from topics as topic INNER JOIN content con on con.topics = topic.id INNER JOIN file fl on fl.topic_id = topic.id 
         INNER JOIN type ty on ty.id = con.type
-        where topic.id = ?");
+        where topic.id = ? group by fl.content_id");
 
         $stmt->bind_param(
             "s",
@@ -101,25 +114,35 @@ class TopicDb
         //get result
         $result = $stmt->get_result();
 
-        $content = array();
+        $contents = array();
 
         while ($data = $result->fetch_assoc()) {
 
+            $content = new Content();
 
-            $topic = new Topic($data['title']);
+            $content->setId($data['id']);
+            $content->setName($data['name']);
+            $content->setTitle($data['title']);
+            $content->setDescription($data['description']);
+            $content->setOrder($data['order']);
+            $content->setTypeName($data['type_name']);
+            $content->setLocation($data['location']);
 
-            // update id baso on db
-            $topic->setId($data['id']);
-
-            array_push($topics, $topic);
+            array_push($contents, $content);
         }
-
 
         $error = mysqli_error($connection);
 
         Database::close($connection);
 
-        return $error;
+        if ($contents == null) {
+            throw new Exception('Empty Contents');
+        }
+
+        if ($error) {
+            throw new Exception("An error has occured");
+        }
+        return $contents;
     }
 
 

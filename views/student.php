@@ -43,7 +43,8 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
 
         foreach (TopicDb::getAllTopics() as $topic) {
             $title = $topic->getTitle();
-            echo "<a href=\"\" class=\"button\">$title</a><br><br>";
+            $id = $topic->getId();
+            echo "<a href=\"./topic?id=$id\" class=\"button\">$title</a><br><br>";
         }
         ?>
     </div>

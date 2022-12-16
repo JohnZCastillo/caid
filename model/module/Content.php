@@ -13,70 +13,85 @@ class Content
     private $type;
     private $typeName;
     private $location;
-    
-    
-    public function getId() {
+
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return $this->order;
     }
 
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
-    public function getTypeName() {
+    public function getTypeName()
+    {
         return $this->typeName;
     }
 
-    public function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
-    public function setId($id): void {
+    public function setId($id): void
+    {
         $this->id = $id;
     }
 
-    public function setTitle($title): void {
+    public function setTitle($title): void
+    {
         $this->title = $title;
     }
 
-    public function setName($name): void {
+    public function setName($name): void
+    {
         $this->name = $name;
     }
 
-    public function setDescription($description): void {
+    public function setDescription($description): void
+    {
         $this->description = $description;
     }
 
-    public function setOrder($order): void {
+    public function setOrder($order): void
+    {
         $this->order = $order;
     }
 
-    public function setType($type): void {
+    public function setType($type): void
+    {
         $this->type = $type;
     }
 
-    public function setTypeName($typeName): void {
+    public function setTypeName($typeName): void
+    {
         $this->typeName = $typeName;
     }
 
-    public function setLocation($location): void {
+    public function setLocation($location): void
+    {
         $this->location = $location;
     }
-
 }

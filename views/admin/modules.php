@@ -32,8 +32,24 @@ use db\TopicDb;
                     $title = $topic->getTitle();
                     $id = $topic->getId();
 
+
                     echo "<div class='module'>";
                     echo "<h2>$title</h2>";
+
+                    try {
+                        foreach (TopicDb::getContent($id) as $content) {
+                            $location = $content->getLocation();
+                            $name = $content->getName();
+                            echo "<div>
+                            $name
+                            $location
+                            </div>";
+                        }
+                    } catch (Exception $error) {
+                        echo "no content found";
+                    }
+
+
                     echo "<div class='module__btn'>";
                     echo "<a href='./module-file' class='btn'>File</a>";
                     echo "<button class='btn' id='$title'>Delete</button>";
@@ -41,7 +57,8 @@ use db\TopicDb;
                     echo "</div>";
                 }
             } catch (Exception $e) {
-                echo "No modules found";
+                // echo "No modules found";
+                $e->getMessage();
             }
             ?>
 

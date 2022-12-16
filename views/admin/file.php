@@ -6,7 +6,7 @@ use db\TopicDb;
 use Exception;
 use model\module\Content;
 
-if (isset($_FILES['file'], $_POST['title'],$_POST['description'], $_POST['topic'])) {
+if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic'])) {
 
     try {
 
@@ -23,19 +23,18 @@ if (isset($_FILES['file'], $_POST['title'],$_POST['description'], $_POST['topic'
         $topicId = $_POST['topic'];
         $title = $_POST['title'];
         $description =  $_POST['description'];
-    
+
         $content = new Content();
-        
-                 $content->setId($topicId);
-                 $content->setTitle($title);
-                 $content->setDescription($description);
-                 $content->setOrder(1);
-                 $content->setType(3);
-                 $content->setTypeName("FILE");
-                $content->setLocation($imageName);
-                
-                TopicDb::addContent($content);
-                
+
+        $content->setId($topicId);
+        $content->setName($title);
+        $content->setDescription($description);
+        $content->setOrder(1);
+        $content->setType(3);
+        $content->setTypeName("FILE");
+        $content->setLocation($imageName);
+
+        TopicDb::addContent($content);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -83,7 +82,7 @@ if (isset($_FILES['file'], $_POST['title'],$_POST['description'], $_POST['topic'
             <label for="file">File</label>
             <input type="file" name="file">
         </div>
-         <div>
+        <div>
             <label for="file">Description</label>
             <textarea name="description"> </textarea>
         </div>

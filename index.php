@@ -64,6 +64,9 @@ switch ($request) {
     case $base . 'module-file':
         require __DIR__ . '/views/admin/file.php';
         break;
+    case $base . 'topic?' . $_SERVER["QUERY_STRING"]:
+        require __DIR__ . '/views/content.php';
+        break;
     default:
         http_response_code(404);
         require __DIR__ . '/views/error.php';
