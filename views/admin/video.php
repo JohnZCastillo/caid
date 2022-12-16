@@ -13,7 +13,7 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
         //see database type for file type
 
         // path where images will ba saved
-        $imagePath = './assets/file/';
+        $imagePath = './assets/video/';
 
         $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $imageName = $_POST['title'] . '.' . $extension;
@@ -30,8 +30,8 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
         $content->setName($title);
         $content->setDescription($description);
         $content->setOrder(1);
-        $content->setType(3);
-        $content->setTypeName("FILE");
+        $content->setType(4);
+        $content->setTypeName("VIDEO");
         $content->setLocation($imageName);
 
         TopicDb::addContent($content);

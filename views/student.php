@@ -41,11 +41,16 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
         <!-- Load topics -->
         <?php
 
-        foreach (TopicDb::getAllTopics() as $topic) {
-            $title = $topic->getTitle();
-            $id = $topic->getId();
-            echo "<a href=\"./topic?id=$id\" class=\"button\">$title</a><br><br>";
+        try {
+            foreach (TopicDb::getAllTopics() as $topic) {
+                $title = $topic->getTitle();
+                $id = $topic->getId();
+                echo "<a href=\"./topic?id=$id\" class=\"button\">$title</a><br><br>";
+            }
+        } catch (Exception  $e) {
+            echo "No topics yet";
         }
+
         ?>
     </div>
     <div class="profilediv">
