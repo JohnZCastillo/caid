@@ -53,7 +53,7 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
 
 <body>
 
-    <form action="" method="POST" action="./module-file" enctype="multipart/form-data">
+    <form action="" method="POST" action="./module-video" enctype="multipart/form-data">
         <div>
             <label for="name">Title</label>
             <input type="text" name="title">

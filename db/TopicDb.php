@@ -143,9 +143,8 @@ class TopicDb
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("select topic.id, topic.title,con.id as contentId,con.name,con.description,con.order,ty.title as type_name,fl.location from topics as topic INNER JOIN content con on con.topics = topic.id INNER JOIN file fl on fl.topic_id = topic.id 
-        INNER JOIN type ty on ty.id = con.type
-        where topic.id = ? group by fl.content_id");
+        $stmt = $connection->prepare("select  tp.id, tp.title,content.id as contentId,content.name,content.description,content.order,
+        ty.title as type_name,fl.location, fl.content_id from (((content INNER JOIN file fl on content.id = fl.content_id) INNER JOIN topics tp on content.topics = tp.id) INNER JOIN type ty on content.type = ty.id) WHERE content.topics = ?");
 
         $stmt->bind_param(
             "s",

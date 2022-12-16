@@ -62,13 +62,23 @@ if (isset($data['id'], $data['contentId'])) {
 
                     try {
                         foreach (TopicDb::getContent($id) as $content) {
+
                             $location = $content->getLocation();
                             $name = $content->getName();
                             $contentId =  $content->getContentId();
-                            echo "<div>
-                            $name
-                            $location
-                            </div>";
+                            $typeName = $content->getTypeName();
+
+                            echo "<div>";
+
+                            switch ($typeName) {
+                                case "FILE":
+                                    echo "<a href='./assets/file/$location'>$name</a>";
+                                    break;
+                                case "VIDEO":
+                                    echo "<a href='./assets/video/$location'>$name</a>";
+                                    break;
+                            }
+                            echo "</div>";
                         }
                     } catch (Exception $error) {
                         echo "no content found";
