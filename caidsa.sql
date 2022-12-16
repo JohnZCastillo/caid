@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 11, 2022 at 03:03 AM
+-- Generation Time: Dec 16, 2022 at 06:04 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -29,8 +29,36 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `content` (
   `id` int(11) NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `order` int(11) NOT NULL,
   `topics` int(11) NOT NULL,
   `type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file`
+--
+
+CREATE TABLE `file` (
+  `id` int(11) NOT NULL,
+  `location` varchar(30) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `content_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz`
+--
+
+CREATE TABLE `quiz` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `topic_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -44,20 +72,26 @@ CREATE TABLE `topics` (
   `title` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `topics`
+-- Table structure for table `type`
 --
 
-INSERT INTO `topics` (`id`, `title`) VALUES
-(7, 'wow'),
-(8, 'hehehe'),
-(9, 'hahaha'),
-(10, 'jk'),
-(11, 'khkjh'),
-(12, 'hahah'),
-(13, 'hrhh'),
-(14, 'hah'),
-(15, 'heh');
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`id`, `title`) VALUES
+(1, 'GAME'),
+(2, 'QUIZ'),
+(3, 'FILE'),
+(4, 'VIDEO');
 
 -- --------------------------------------------------------
 
@@ -98,12 +132,34 @@ INSERT INTO `user` (`student_number`, `role`, `username`, `password`, `email`, `
 --
 ALTER TABLE `content`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `topics` (`topics`);
+  ADD KEY `topics` (`topics`),
+  ADD KEY `type` (`type`);
+
+--
+-- Indexes for table `file`
+--
+ALTER TABLE `file`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `topic_id` (`topic_id`),
+  ADD KEY `content_id` (`content_id`);
+
+--
+-- Indexes for table `quiz`
+--
+ALTER TABLE `quiz`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `topic_id` (`topic_id`);
 
 --
 -- Indexes for table `topics`
 --
 ALTER TABLE `topics`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `type`
+--
+ALTER TABLE `type`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -122,13 +178,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `file`
+--
+ALTER TABLE `file`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `quiz`
+--
+ALTER TABLE `quiz`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `type`
+--
+ALTER TABLE `type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -138,7 +212,21 @@ ALTER TABLE `topics`
 -- Constraints for table `content`
 --
 ALTER TABLE `content`
-  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`topics`) REFERENCES `topics` (`id`);
+  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`topics`) REFERENCES `topics` (`id`),
+  ADD CONSTRAINT `content_ibfk_2` FOREIGN KEY (`type`) REFERENCES `type` (`id`);
+
+--
+-- Constraints for table `file`
+--
+ALTER TABLE `file`
+  ADD CONSTRAINT `file_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`),
+  ADD CONSTRAINT `file_ibfk_2` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`);
+
+--
+-- Constraints for table `quiz`
+--
+ALTER TABLE `quiz`
+  ADD CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

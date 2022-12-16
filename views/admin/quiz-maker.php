@@ -15,5 +15,12 @@
         </form>
     </section>
 </body>
+<script>
+    const form = document.querySelector("#form");
+
+    const addQuestion = (question, answer, choices) => {
+
+    }
+</script>
 
 </html>
