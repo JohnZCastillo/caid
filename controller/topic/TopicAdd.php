@@ -9,8 +9,6 @@ require_once 'autoload.php';
 use Exception;
 use db\TopicDb;
 
-use function controller\topic\addTopic as TopicaddTopic;
-
 // Takes raw data from the request
 $json = file_get_contents('php://input');
 

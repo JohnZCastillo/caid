@@ -34,6 +34,48 @@ class TopicDb
         return $error;
     }
 
+    //add topic to db
+    public static function deleteTopic($id, $contentId)
+    {
+
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("Delete from file where content_id = ?");
+
+        $stmt->bind_param(
+            "d",
+            $contentId
+        );
+
+        $stmt->execute();
+
+        $stmt = $connection->prepare("Delete from content where topics = ?");
+
+        $stmt->bind_param(
+            "d",
+            $id
+        );
+
+        $stmt->execute();
+
+        $stmt = $connection->prepare("Delete from topics where id = ?");
+
+        $stmt->bind_param(
+            "d",
+            $id
+        );
+
+        $stmt->execute();
+
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        return $error;
+    }
+
+
     public static  function addContent(Content $content)
     {
 
@@ -73,6 +115,7 @@ class TopicDb
         // store result in array
         $data = $result->fetch_assoc();
 
+        //do not remove I know its redundant
         $contentId = $data['id'];
 
         // insert to file
@@ -100,7 +143,7 @@ class TopicDb
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("select topic.id, topic.title,con.name,con.description,con.order,ty.title as type_name,fl.location from topics as topic INNER JOIN content con on con.topics = topic.id INNER JOIN file fl on fl.topic_id = topic.id 
+        $stmt = $connection->prepare("select topic.id, topic.title,con.id as contentId,con.name,con.description,con.order,ty.title as type_name,fl.location from topics as topic INNER JOIN content con on con.topics = topic.id INNER JOIN file fl on fl.topic_id = topic.id 
         INNER JOIN type ty on ty.id = con.type
         where topic.id = ? group by fl.content_id");
 
@@ -119,7 +162,7 @@ class TopicDb
         while ($data = $result->fetch_assoc()) {
 
             $content = new Content();
-
+            $content->setContentId($data['contentId']);
             $content->setId($data['id']);
             $content->setName($data['name']);
             $content->setTitle($data['title']);

@@ -13,7 +13,16 @@ class Content
     private $type;
     private $typeName;
     private $location;
+    private $contentId;
+    
+    
+    public function getContentId() {
+        return $this->contentId;
+    }
 
+    public function setContentId($contentId): void {
+        $this->contentId = $contentId;
+    }
 
     public function getId()
     {

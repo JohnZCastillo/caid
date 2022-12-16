@@ -64,6 +64,9 @@ switch ($request) {
     case $base . 'module-file':
         require __DIR__ . '/views/admin/file.php';
         break;
+    case $base . 'module-video':
+        require __DIR__ . '/views/admin/video.php';
+        break;
     case $base . 'topic?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/content.php';
         break;

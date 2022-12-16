@@ -1,6 +1,28 @@
 <?php
 
 use db\TopicDb;
+use model\module\Topic;
+
+// Takes raw data from the request
+$json = file_get_contents('php://input');
+
+// Converts it into a PHP object
+$data = json_decode($json, true);
+
+if (isset($data['id'], $data['contentId'])) {
+
+    try {
+        $id = $data['id'];
+        $contentId = $data['contentId'];
+        TopicDb::deleteTopic($id, $contentId);
+        echo json_encode(['message' => "Deleted"]);
+        die();
+    } catch (Exception $e) {
+        http_response_code(403);
+        // echo json_encode(['message' => 'Cannot Delete Topic']);
+        echo json_encode(['message' => $e->getMessage()]);
+    }
+}
 
 
 ?>
@@ -22,6 +44,8 @@ use db\TopicDb;
     <section class="content">
         <div class="menu">
             <a class="btn" href="./admin">Done Edit</a>
+            <a class="btn" href="./module-file">Add PDF</a>
+            <a class="btn" href="./module-video">Add Video</a>
         </div>
         <div class="modules box glowing limit">
 
@@ -31,7 +55,7 @@ use db\TopicDb;
 
                     $title = $topic->getTitle();
                     $id = $topic->getId();
-
+                    $contentId = -1;
 
                     echo "<div class='module'>";
                     echo "<h2>$title</h2>";
@@ -40,6 +64,7 @@ use db\TopicDb;
                         foreach (TopicDb::getContent($id) as $content) {
                             $location = $content->getLocation();
                             $name = $content->getName();
+                            $contentId =  $content->getContentId();
                             echo "<div>
                             $name
                             $location
@@ -49,10 +74,8 @@ use db\TopicDb;
                         echo "no content found";
                     }
 
-
                     echo "<div class='module__btn'>";
-                    echo "<a href='./module-file' class='btn'>File</a>";
-                    echo "<button class='btn' id='$title'>Delete</button>";
+                    echo "<button onclick=\"deleteTopic($id,$contentId)\" class='btn' id='$title'>Delete</button>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -121,6 +144,33 @@ use db\TopicDb;
             name.value = fileName;
 
             form.submit();
+        }
+
+        const deleteTopic = async (id, contentId) => {
+            try {
+
+                let result = await fetch("./modules", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: id,
+                        contentId: contentId
+                    })
+                });
+
+                const status = result.ok;
+                result = await result.json();
+
+                if (!status) throw new Error(result.message);
+
+                alert("Topic Deleted");
+                window.location.reload();
+            } catch (error) {
+                alert(error.message);
+            }
+
         }
     </script>
 </body>
