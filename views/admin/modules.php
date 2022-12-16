@@ -2,8 +2,11 @@
 
 use db\TopicDb;
 
+
 ?>
 <html lang="en">
+
+
 
 <head>
     <meta charset="UTF-8">
@@ -25,17 +28,15 @@ use db\TopicDb;
             <?php
             try {
                 foreach (TopicDb::getAllTopics() as $topic) {
+
                     $title = $topic->getTitle();
                     $id = $topic->getId();
 
                     echo "<div class='module'>";
                     echo "<h2>$title</h2>";
                     echo "<div class='module__btn'>";
-                    echo "<div>";
-                    echo "<button class=\"btn\" onclick=\"document.getElementById('$id').click()\">File</button>";
-                    echo "<input type=\"file\" id=\"$id\" class='hide'>";
-                    echo "</div>";
-                    echo "<button class='btn' id='$title'>Quiz</button>";
+                    echo "<a href='./module-file' class='btn'>File</a>";
+                    echo "<button class='btn' id='$title'>Delete</button>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -84,6 +85,26 @@ use db\TopicDb;
             }
 
         })
+
+        function uploadFile(id) {
+
+            console.log("hello");
+
+            const input = document.querySelector(id);
+            const form = document.querySelector(id + "-form");
+            const name = document.querySelector(id + "-form-name");
+
+            const fileName = window.prompt('File name');
+
+            if (name === null) {
+                alert("cancelled");
+                return;
+            }
+
+            name.value = fileName;
+
+            form.submit();
+        }
     </script>
 </body>
 

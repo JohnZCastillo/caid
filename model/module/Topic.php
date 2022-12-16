@@ -4,8 +4,11 @@ namespace model\module;
 
 class Topic
 {
+
     private $id;
     private $title;
+    private $files = array();
+    private $quizes = array();
 
     public function __construct($title)
     {
@@ -30,5 +33,20 @@ class Topic
     public function setTitle($title): void
     {
         $this->title = $title;
+    }
+
+    public function addFile(File $file)
+    {
+        array_push($this->data, $file);
+    }
+
+    public function addQuiz(File $file)
+    {
+        array_push($this->data, $file);
+    }
+
+    public  function getFiles()
+    {
+        return $this->files;
     }
 }

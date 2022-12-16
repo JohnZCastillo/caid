@@ -61,6 +61,9 @@ switch ($request) {
     case $base . 'singup-admin':
         require __DIR__ . '/views/admin/register.php';
         break;
+    case $base . 'module-file':
+        require __DIR__ . '/views/admin/file.php';
+        break;
     default:
         http_response_code(404);
         require __DIR__ . '/views/error.php';
