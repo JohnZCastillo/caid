@@ -35,16 +35,16 @@ class TopicDb
     }
 
     //add topic to db
-    public static function deleteTopic($id, $contentId)
+    public static function deleteTopic($id)
     {
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("Delete from file where content_id = ?");
+        $stmt = $connection->prepare("Delete from file where topic_id = ?");
 
         $stmt->bind_param(
             "d",
-            $contentId
+            $id
         );
 
         $stmt->execute();
@@ -67,11 +67,8 @@ class TopicDb
 
         $stmt->execute();
 
-
         $error = mysqli_error($connection);
-
         Database::close($connection);
-
         return $error;
     }
 

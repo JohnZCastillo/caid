@@ -9,18 +9,18 @@ $json = file_get_contents('php://input');
 // Converts it into a PHP object
 $data = json_decode($json, true);
 
-if (isset($data['id'], $data['contentId'])) {
+if (isset($data['id'])) {
 
     try {
         $id = $data['id'];
-        $contentId = $data['contentId'];
-        TopicDb::deleteTopic($id, $contentId);
+        TopicDb::deleteTopic($id);
         echo json_encode(['message' => "Deleted"]);
         die();
     } catch (Exception $e) {
         http_response_code(403);
         // echo json_encode(['message' => 'Cannot Delete Topic']);
         echo json_encode(['message' => $e->getMessage()]);
+        die();
     }
 }
 
@@ -85,7 +85,7 @@ if (isset($data['id'], $data['contentId'])) {
                     }
 
                     echo "<div class='module__btn'>";
-                    echo "<button onclick=\"deleteTopic($id,$contentId)\" class='btn' id='$title'>Delete</button>";
+                    echo "<button onclick=\"deleteTopic($id)\" class='btn' id='$title'>Delete</button>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -156,7 +156,7 @@ if (isset($data['id'], $data['contentId'])) {
             form.submit();
         }
 
-        const deleteTopic = async (id, contentId) => {
+        const deleteTopic = async (id) => {
             try {
 
                 let result = await fetch("./modules", {
@@ -166,7 +166,6 @@ if (isset($data['id'], $data['contentId'])) {
                     },
                     body: JSON.stringify({
                         id: id,
-                        contentId: contentId
                     })
                 });
 
