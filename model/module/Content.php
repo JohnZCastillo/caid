@@ -6,32 +6,23 @@ class Content
 {
 
     private $id;
-    private $title;
     private $name;
     private $description;
     private $order;
+    private $topics;
     private $type;
-    private $typeName;
-    private $location;
+    private $data = [];
     private $contentId;
-    
-    
-    public function getContentId() {
-        return $this->contentId;
-    }
 
-    public function setContentId($contentId): void {
-        $this->contentId = $contentId;
-    }
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getTitle()
+    public function getContentId()
     {
-        return $this->title;
+        return $this->contentId;
     }
 
     public function getName()
@@ -49,29 +40,24 @@ class Content
         return $this->order;
     }
 
+    public function getTopics()
+    {
+        return $this->topics;
+    }
+
     public function getType()
     {
         return $this->type;
     }
 
-    public function getTypeName()
+    public function getData()
     {
-        return $this->typeName;
-    }
-
-    public function getLocation()
-    {
-        return $this->location;
+        return $this->data;
     }
 
     public function setId($id): void
     {
         $this->id = $id;
-    }
-
-    public function setTitle($title): void
-    {
-        $this->title = $title;
     }
 
     public function setName($name): void
@@ -89,18 +75,23 @@ class Content
         $this->order = $order;
     }
 
+    public function setTopics($topics): void
+    {
+        $this->topics = $topics;
+    }
+
     public function setType($type): void
     {
         $this->type = $type;
     }
 
-    public function setTypeName($typeName): void
+    public function setContentId($contentId): void
     {
-        $this->typeName = $typeName;
+        $this->contentId = $contentId;
     }
 
-    public function setLocation($location): void
+    public function appendData($data): void
     {
-        $this->location = $location;
+        array_push($this->data, $data);
     }
 }

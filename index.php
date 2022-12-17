@@ -70,8 +70,20 @@ switch ($request) {
     case $base . 'quiz-maker':
         require __DIR__ . '/views/admin/quiz-maker.php';
         break;
+    case $base . 'data':
+        require __DIR__ . '/views/data.php';
+        break;
+    case $base . 'intro':
+        require __DIR__ . '/views/intro.php';
+        break;
+    case $base . 'data?' . $_SERVER["QUERY_STRING"]:
+        require __DIR__ . '/views/data.php';
+        break;
     case $base . 'topic?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/content.php';
+        break;
+    case $base . 'intro?' . $_SERVER["QUERY_STRING"]:
+        require __DIR__ . '/views/intro.php';
         break;
     default:
         http_response_code(404);

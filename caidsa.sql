@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 16, 2022 at 06:04 PM
+-- Generation Time: Dec 17, 2022 at 04:21 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -58,7 +58,21 @@ CREATE TABLE `file` (
 CREATE TABLE `quiz` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
+  `content_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_data`
+--
+
+CREATE TABLE `quiz_data` (
+  `id` int(11) NOT NULL,
+  `quiz_id` int(11) NOT NULL,
+  `question` varchar(30) NOT NULL,
+  `answer` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -148,7 +162,15 @@ ALTER TABLE `file`
 --
 ALTER TABLE `quiz`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_ibfk_1` (`content_id`),
   ADD KEY `topic_id` (`topic_id`);
+
+--
+-- Indexes for table `quiz_data`
+--
+ALTER TABLE `quiz_data`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_id` (`quiz_id`);
 
 --
 -- Indexes for table `topics`
@@ -178,25 +200,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `quiz_data`
+--
+ALTER TABLE `quiz_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -226,7 +254,14 @@ ALTER TABLE `file`
 -- Constraints for table `quiz`
 --
 ALTER TABLE `quiz`
-  ADD CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
+  ADD CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`),
+  ADD CONSTRAINT `quiz_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `content` (`topics`);
+
+--
+-- Constraints for table `quiz_data`
+--
+ALTER TABLE `quiz_data`
+  ADD CONSTRAINT `quiz_data_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

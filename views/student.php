@@ -32,6 +32,8 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
 </head>
 
 <body>
+
+
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
     </div>
@@ -45,7 +47,7 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
             foreach (TopicDb::getAllTopics() as $topic) {
                 $title = $topic->getTitle();
                 $id = $topic->getId();
-                echo "<a href=\"./topic?id=$id\" class=\"button\">$title</a><br><br>";
+                echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
             }
         } catch (Exception  $e) {
             echo "No topics yet";
