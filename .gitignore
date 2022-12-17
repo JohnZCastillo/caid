@@ -1,4 +1,3 @@
 /nbproject
-/assets/file/*.pdf
-/assets/file/*.text
-/assets/video/*.mp4
+!/assets/file/test.txt
+!/assets/video/test.txt
