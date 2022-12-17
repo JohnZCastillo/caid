@@ -1,3 +1,4 @@
 /nbproject
-# /assets/file
-# /assets/video
+/assets/file/*.pdf
+/assets/file/*.text
+/assets/video/*.mp4
