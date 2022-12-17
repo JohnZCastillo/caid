@@ -2,6 +2,8 @@
 
 use db\ContentDb;
 use db\TopicDb;
+
+error_reporting(0);
 ?>
 <html lang="en">
 
@@ -41,7 +43,7 @@ use db\TopicDb;
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
     </div>
     <div class="modules">
-        <a href="" class="onview">DASHBOARD</a><br><br>
+        <a href="./student" class="onview">DASHBOARD</a><br><br>
 
         <!-- Load topics -->
         <?php
@@ -67,17 +69,48 @@ use db\TopicDb;
                     // Initialize URL to the variable
                     $topicId = $_REQUEST['id'];
 
+                    $count = 0;
+
                     foreach (ContentDb::getContent($topicId) as $content) {
-                        echo "<div class='topic'>
-                                <a href='/CAIDSA/Student_Module/topic-1/4.1--Handout1.1-open-h.php' class='pictures'>
-                                    <img src='/CAIDSA/Photos/Handout.jpg' class='topic-img'>
+
+                        $type = $content->getType();
+
+                        switch ($type) {
+                            case 1:
+                                echo "<div class='topic'>
+                                        <a href='./data?id=$topicId&index=$count' class='pictures'>
+                                            <img src='./resources/images/bg/quiz.jpg' class='topic-img'>
+                                        </a>
+                                    </div>";
+                                break;
+                            case 2:
+                                echo "<div class='topic'>
+                                            <a  href='./data?id=$topicId&index=$count' class='pictures'>
+                                                <img src='./resources/images/bg/game.jpg' class='topic-img'>
+                                            </a>
+                                        </div>";
+                                break;
+                            case 3:
+                                echo "<div class='topic'>
+                                        <a  href='./data?id=$topicId&index=$count' class='pictures'>
+                                            <img src='./resources/images/bg/handout.jpg' class='topic-img'>
+                                        </a>
+                                    </div>";
+                                break;
+                            case 4:
+                                echo "<div class='topic'>
+                                <a  href='./data?id=$topicId&index=$count' class='pictures'>
+                                    <img src='./resources/images/bg/discussion.jpg' class='topic-img'>
                                 </a>
                             </div>";
+                                break;
+                        }
+
+                        $count++;
                     }
                 } catch (Exception $error) {
-                    echo "no content found";
+                    echo "Hello";
                 }
-
                 ?>
             </div>
         </div>

@@ -5,9 +5,11 @@ namespace db;
 use Exception;
 use model\module\Content;
 
-class ContentDb {
+class ContentDb
+{
 
-    public static function addContent(Content $content) {
+    public static function addContent(Content $content)
+    {
 
         $name = $content->getName();
         $description = $content->getDescription();
@@ -21,12 +23,12 @@ class ContentDb {
         $stmt = $connection->prepare("INSERT INTO content(name,description,`order`,topics,type) values (?,?,?,?,?)");
 
         $stmt->bind_param(
-                "ssddd",
-                $name,
-                $description,
-                $order,
-                $topics,
-                $type
+            "ssddd",
+            $name,
+            $description,
+            $order,
+            $topics,
+            $type
         );
 
         $stmt->execute();
@@ -50,15 +52,16 @@ class ContentDb {
         return $error;
     }
 
-    public static function getContent($id) {
-        
+    public static function getContent($id)
+    {
+
         $connection = Database::open();
 
         $stmt = $connection->prepare("SELECT * FROM content WHERE topics = ?");
 
         $stmt->bind_param(
-                "d",
-                $id
+            "d",
+            $id
         );
 
         $stmt->execute();
@@ -71,22 +74,23 @@ class ContentDb {
         while ($data = $result->fetch_assoc()) {
 
             $content = new Content();
-            
-            $content->setId($id);
+
+            $content->setId($data['id']);
             $content->setName($data['name']);
             $content->setDescription($data['description']);
             $content->setOrder($data['order']);
             $content->setTopics($data['topics']);
-            
-            switch($data['type']){
-                case 3: 
-                    FileDb::appendFile($content);
+            $content->setType($data['type']);
+
+            switch ($data['type']) {
+                case 3:
+                    $content->appendData(FileDb::getFile($content));
                     break;
-                case 4: 
-                    FileDb::appendFile($content);
+                case 4:
+                    $content->appendData(FileDb::getFile($content));
                     break;
             }
-            
+
             array_push($contents, $content);
         }
 

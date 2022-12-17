@@ -22,7 +22,7 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
         $quiz = new Quiz();
 
         $quiz->setName($name);
-        $quiz->setType(4);
+        $quiz->setType(1);
         $quiz->setTypeName("QUIZ");
         $quiz->setDescription("I am a test");
         $quiz->setOrder(2);

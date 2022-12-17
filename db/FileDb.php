@@ -6,9 +6,11 @@ use Exception;
 use model\module\Content;
 use model\module\File;
 
-class FileDb {
+class FileDb
+{
 
-    public static function addFile(File $file) {
+    public static function addFile(File $file)
+    {
 
         //file name
         $location = $file->getLocation();
@@ -21,10 +23,10 @@ class FileDb {
         $stmt = $connection->prepare("INSERT INTO file(location,topic_id,content_id) values (?,?,?)");
 
         $stmt->bind_param(
-                "sdd",
-                $location,
-                $topicId,
-                $contentId
+            "sdd",
+            $location,
+            $topicId,
+            $contentId
         );
 
         $stmt->execute();
@@ -36,22 +38,28 @@ class FileDb {
         return $error;
     }
 
-    public static function appendFile(Content $content) {
+    public static function getFile(Content $content)
+    {
 
-        $id = $content->getTopics();
+        $topicId = $content->getTopics();
+        $contentId = $content->getId();
+
+        // $topicId = 27;
+        // $contentId = 77;
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("SELECT * FROM file WHERE topic_id = ?");
+        $stmt = $connection->prepare("SELECT * FROM file WHERE topic_id = ? and content_id = ?");
 
         $stmt->bind_param(
-                "s",
-                $id
+            "dd",
+            $topicId,
+            $contentId
         );
 
         $stmt->execute();
 
-         //get result
+        //get result
         $result = $stmt->get_result();
 
         // store result in array
@@ -60,25 +68,23 @@ class FileDb {
         $error = mysqli_error($connection);
 
         Database::close($connection);
-                
+
         // throw an exception data is null that means username is not present in db
         if ($data == null) {
             throw new Exception('Empty Result');
         }
-        
+
         $file = new File();
+
         $file->setId($data['id']);
         $file->setLocation($data['location']);
         $file->setTopicId($data['topic_id']);
         $file->setContenId($data['content_id']);
 
-        $content->appendData($file);
-
         if ($error) {
             throw new Exception("An error has occured");
         }
 
-        return $error;
+        return $file;
     }
-
 }

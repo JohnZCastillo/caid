@@ -1,13 +1,13 @@
 <?php
 
-use db\ContentDb;
+use db\FileDb;
 use model\module\Content;
-echo " File not found !";
+
+// echo " File not found !";
 
 $content = new Content();
 $content->setTopics(25);
-
-foreach(ContentDb::getContent(25) as $con){
-   echo $con->getName();
-   echo "<br>";
-}
+$content->setId(74);
+$content->setType(3);
+$content->appendData(FileDb::getFile($content));
+var_dump($content->getData());
