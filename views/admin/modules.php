@@ -46,6 +46,7 @@ if (isset($data['id'])) {
             <a class="btn" href="./admin">Done Edit</a>
             <a class="btn" href="./module-file">Add PDF</a>
             <a class="btn" href="./module-video">Add Video</a>
+            <a class="btn" href="./quiz-maker">Add Quiz</a>
         </div>
         <div class="modules box glowing limit">
 
