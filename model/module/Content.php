@@ -2,105 +2,74 @@
 
 namespace model\module;
 
-class Content
-{
+class Content {
 
     private $id;
-    private $title;
     private $name;
     private $description;
     private $order;
+    private $topics;
     private $type;
-    private $typeName;
-    private $location;
-    private $contentId;
-    
-    
-    public function getContentId() {
-        return $this->contentId;
+    private $data;
+
+    public function __construct() {
+        $this->data = array();
     }
 
-    public function setContentId($contentId): void {
-        $this->contentId = $contentId;
-    }
-
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
-    public function getOrder()
-    {
+    public function getOrder() {
         return $this->order;
     }
 
-    public function getType()
-    {
+    public function getTopics() {
+        return $this->topics;
+    }
+
+    public function getType() {
         return $this->type;
     }
 
-    public function getTypeName()
-    {
-        return $this->typeName;
+    public function getData() {
+        return $this->data;
     }
 
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
-    public function setId($id): void
-    {
+    public function setId($id): void {
         $this->id = $id;
     }
 
-    public function setTitle($title): void
-    {
-        $this->title = $title;
-    }
-
-    public function setName($name): void
-    {
+    public function setName($name): void {
         $this->name = $name;
     }
 
-    public function setDescription($description): void
-    {
+    public function setDescription($description): void {
         $this->description = $description;
     }
 
-    public function setOrder($order): void
-    {
+    public function setOrder($order): void {
         $this->order = $order;
     }
 
-    public function setType($type): void
-    {
+    public function setTopics($topics): void {
+        $this->topics = $topics;
+    }
+
+    public function setType($type): void {
         $this->type = $type;
     }
 
-    public function setTypeName($typeName): void
-    {
-        $this->typeName = $typeName;
+    public function appendData($data): void {
+        array_push($this->data, $data);
     }
 
-    public function setLocation($location): void
-    {
-        $this->location = $location;
-    }
 }

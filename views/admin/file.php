@@ -2,9 +2,12 @@
 
 namespace views\admin;
 
+use db\ContentDb;
+use db\FileDb;
 use db\TopicDb;
 use Exception;
 use model\module\Content;
+use model\module\File;
 
 if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic'])) {
 
@@ -25,16 +28,21 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
         $description =  $_POST['description'];
 
         $content = new Content();
-
-        $content->setId($topicId);
         $content->setName($title);
         $content->setDescription($description);
         $content->setOrder(1);
         $content->setType(3);
-        $content->setTypeName("FILE");
-        $content->setLocation($imageName);
-
-        TopicDb::addContent($content);
+        $content->setTopics($topicId);
+        
+        ContentDb::addContent($content);
+        
+        $file = new File();
+        $file->setContenId($content->getId());
+        $file->setLocation($imageName);
+        $file->setTopicId($topicId);
+        
+        FileDb::addFile($file);
+        
     } catch (Exception $e) {
         echo $e->getMessage();
     }

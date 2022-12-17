@@ -4,25 +4,23 @@ namespace db;
 
 use Exception;
 use model\module\Content;
+use model\module\File;
 use model\module\Topic;
 
 require_once 'autoload.php';
 
-class TopicDb
-{
-
+class TopicDb {
 
     //add topic to db
-    public static function addTopic($id)
-    {
+    public static function addTopic($id) {
 
         $connection = Database::open();
 
         $stmt = $connection->prepare("INSERT INTO topics(title) values(?)");
 
         $stmt->bind_param(
-            "s",
-            $id
+                "s",
+                $id
         );
 
         $stmt->execute();
@@ -35,16 +33,15 @@ class TopicDb
     }
 
     //add topic to db
-    public static function deleteTopic($id)
-    {
+    public static function deleteTopic($id) {
 
         $connection = Database::open();
 
         $stmt = $connection->prepare("Delete from file where topic_id = ?");
 
         $stmt->bind_param(
-            "d",
-            $id
+                "d",
+                $id
         );
 
         $stmt->execute();
@@ -52,8 +49,8 @@ class TopicDb
         $stmt = $connection->prepare("Delete from content where topics = ?");
 
         $stmt->bind_param(
-            "d",
-            $id
+                "d",
+                $id
         );
 
         $stmt->execute();
@@ -61,8 +58,8 @@ class TopicDb
         $stmt = $connection->prepare("Delete from topics where id = ?");
 
         $stmt->bind_param(
-            "d",
-            $id
+                "d",
+                $id
         );
 
         $stmt->execute();
@@ -72,10 +69,8 @@ class TopicDb
         return $error;
     }
 
-
-    public static  function addContent(Content $content)
-    {
-
+    
+    public static function addContent(File $content) {
 
         $id = $content->getId();
         $name = $content->getName();
@@ -92,12 +87,12 @@ class TopicDb
         $stmt = $connection->prepare("INSERT INTO content(name,description,`order`,topics,type) values (?,?,?,?,?)");
 
         $stmt->bind_param(
-            "ssddd",
-            $name,
-            $description,
-            $order,
-            $id,
-            $type
+                "ssddd",
+                $name,
+                $description,
+                $order,
+                $id,
+                $type
         );
 
         $stmt->execute();
@@ -119,10 +114,10 @@ class TopicDb
         $stmt = $connection->prepare("INSERT INTO file(location,topic_id,content_id) values (?,?,?)");
 
         $stmt->bind_param(
-            "sdd",
-            $fileLocation,
-            $id,
-            $contentId
+                "sdd",
+                $fileLocation,
+                $id,
+                $contentId
         );
 
         $stmt->execute();
@@ -135,8 +130,7 @@ class TopicDb
     }
 
     //add topic to db
-    public static function getContent($id)
-    {
+    public static function getContent($id) {
 
         $connection = Database::open();
 
@@ -144,8 +138,8 @@ class TopicDb
         ty.title as type_name,fl.location, fl.content_id from (((content INNER JOIN file fl on content.id = fl.content_id) INNER JOIN topics tp on content.topics = tp.id) INNER JOIN type ty on content.type = ty.id) WHERE content.topics = ?");
 
         $stmt->bind_param(
-            "s",
-            $id
+                "s",
+                $id
         );
 
         $stmt->execute();
@@ -184,9 +178,7 @@ class TopicDb
         return $contents;
     }
 
-
-    public static function getAllTopics()
-    {
+    public static function getAllTopics() {
 
         // open database connection
         $conn = Database::open();
@@ -219,4 +211,5 @@ class TopicDb
 
         return $topics;
     }
+
 }

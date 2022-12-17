@@ -1,22 +1,27 @@
 <?php
 
+use db\ContentDb;
 use db\TopicDb;
 
 // Initialize URL to the variable
 $topicId = $_REQUEST['id'];
 
 try {
-    foreach (TopicDb::getContent($topicId) as $content) {
+    foreach (ContentDb::getContent($topicId) as $content) {
 
         $location = $content->getLocation();
         $name = $content->getName();
-        $typeName = $content->getTypeName();
+
+        $typeName = $content->getType();
+
+        if ($typeName == 3) {
+        }
 
         switch ($typeName) {
-            case "FILE":
+            case 3:
                 echo "<iframe src='./assets/file/$location' style='width:100%; height:600px;' frameborder='0'></iframe>";
                 break;
-            case "VIDEO":
+            case 4:
                 echo "<video width='320' height='240' controls>
                         <source src='./assets/video/$location' type='video/mp4'>
                         Your browser does not support the video tag.

@@ -1,7 +1,7 @@
 <?php
 
+use db\ContentDb;
 use db\TopicDb;
-use model\module\Topic;
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');
@@ -62,24 +62,28 @@ if (isset($data['id'])) {
                     echo "<h2>$title</h2>";
 
                     try {
-                        foreach (TopicDb::getContent($id) as $content) {
+                        foreach (ContentDb::getContent($id) as $content) {
 
-                            $location = $content->getLocation();
                             $name = $content->getName();
-                            $contentId =  $content->getContentId();
-                            $typeName = $content->getTypeName();
-
-                            echo "<div>";
-
-                            switch ($typeName) {
-                                case "FILE":
-                                    echo "<a href='./assets/file/$location'>$name</a>";
-                                    break;
-                                case "VIDEO":
-                                    echo "<a href='./assets/video/$location'>$name</a>";
-                                    break;
-                            }
-                            echo "</div>";
+                            
+                            echo "<div>$name</div>";
+                            
+//                            $location = $content->getLocation();
+//                            $name = $content->getName();
+//                            $contentId =  $content->getContentId();
+//                            $typeName = $content->getTypeName();
+//
+//                            echo "<div>";
+//
+//                            switch ($typeName) {
+//                                case "FILE":
+//                                    echo "<a href='./assets/file/$location'>$name</a>";
+//                                    break;
+//                                case "VIDEO":
+//                                    echo "<a href='./assets/video/$location'>$name</a>";
+//                                    break;
+//                            }
+//                            echo "</div>";
                         }
                     } catch (Exception $error) {
                         echo "no content found";
