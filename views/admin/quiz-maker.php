@@ -17,8 +17,6 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
         $topic = $data['topic'];
         $name = $data['name'];
 
-        //        QuestionDb::addQuestion($questions, $topic, $name);
-
         $quiz = new Quiz();
 
         $quiz->setName($name);
@@ -35,10 +33,7 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
             $quiz->addQuestion($question, $answer, $choices);
         }
 
-
         QuestionDb::addQuiz($quiz);
-
-        // var_dump($questions);
         echo json_encode(['message' => "Added"]);
         die();
     } catch (Exception $e) {
@@ -138,6 +133,7 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
     const form = document.querySelector("#form");
 
     addQuqestionBtn.addEventListener("click", () => {
+
         const question = {
             question: problem.value,
             choices: [choiceA.value, choiceB.value, choiceC.value, choiceD.value],
