@@ -13,7 +13,7 @@ $quizData = QuestionDb::getQuiz($id);
 <head>
     <meta charset="UTF-8">
     <title>DASHBOARD</title>
-    <link rel="stylesheet" href="/CAIDSA/CSS/Topics.css">
+    <link rel="stylesheet" href="./resources/css/topics.css">
 
 </head>
 

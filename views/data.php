@@ -1,6 +1,7 @@
 <?php
 
 use db\ContentDb;
+use db\MasteryDb;
 use db\QuestionDb;
 
 // Initialize URL to the variable
@@ -39,6 +40,7 @@ $payload = array_pop($dataValue);
 
         if (!((count($content) - 1) == $index)) {
             $nextIndex = $index + 1;
+            MasteryDb::register($topicId, $nextIndex);
             echo "<a href='./data?id=$topicId&index=$nextIndex' id='ap1'></a><br><br>";
         }
 
@@ -49,6 +51,7 @@ $payload = array_pop($dataValue);
 
             <?php
             // <object data='\CAIDSA\Student_Module\topic-1\1.1-Getting-Started.pdf' width='725' height='570'>
+            MasteryDb::register($topicId, $index);
 
             try {
                 switch ($type) {

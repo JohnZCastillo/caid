@@ -1,9 +1,17 @@
 <?php
 
+namespace views;
+
+use Exception;
 use db\TopicDb;
+use db\MasteryDb;
 use model\user\Role;
 
+error_reporting(0);
+
+
 session_start();
+
 
 if (!isset($_SESSION["isLogin"])) {
     $_SESSION["loginError"] = "You're not login!. Login First";
@@ -44,9 +52,20 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
         <?php
 
         try {
+            $count = 0;
+
             foreach (TopicDb::getAllTopics() as $topic) {
+
                 $title = $topic->getTitle();
                 $id = $topic->getId();
+
+                //for registering cert for first topic
+                if ($count == 0) {
+                    MasteryDb::register($id, 0);
+                }
+
+                $count++;
+
                 echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
             }
         } catch (Exception  $e) {
@@ -92,12 +111,12 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
                     </a>
                 </div>
                 <div class="container2">
-                    <a href="" class="pictures">
+                    <a href="./mastery" class="pictures">
                         <img src="./resources/images/icons/mastery.jpg" width="317px" height="180px">
                     </a>
                 </div>
                 <div class="container3">
-                    <a href="" class="pictures">
+                    <a href="./scores" class="pictures">
                         <img src="./resources/images/icons/quiz-score.jpg" width="317px" height="180px">
                     </a>
                 </div>
