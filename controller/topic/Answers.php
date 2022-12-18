@@ -4,6 +4,7 @@ namespace controller\topic;
 
 use Exception;
 use db\QuestionDb;
+use db\QuizResult;
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');
@@ -31,6 +32,7 @@ if (isset($data['answers'], $data['quiz'])) {
             $count++;
         }
 
+        QuizResult::addQuiz($id, $score, $count);
         echo json_encode(['message' => $score]);
         die();
     } catch (Exception $e) {
