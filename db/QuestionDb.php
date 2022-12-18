@@ -231,7 +231,6 @@ class QuestionDb
             $answer = $data['answer'];
 
             $id = $data['id'];
-            var_dump($id);
             $choices = QuestionDb::getChoices($id);
 
             $quiz->addQuestion($question, $answer, $choices);
@@ -246,5 +245,36 @@ class QuestionDb
         // }
 
         return $quiz;
+    }
+
+    public static function getQuizId($topicId)
+    {
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT id from quiz where content_id = ?");
+
+        $stmt->bind_param(
+            "d",
+            $topicId
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+        $data = $result->fetch_assoc();
+
+        if ($data == null) {
+            throw new Exception("Id not found!");
+        }
+
+        $id = $data['id'];
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        return $id;
     }
 }
