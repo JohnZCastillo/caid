@@ -2,9 +2,10 @@
 
 use db\QuestionDb;
 
-
 // Initialize URL to the variable
 $id = $_REQUEST['id'];
+
+$quizData = QuestionDb::getQuiz($id);
 
 ?>
 <html lang="en">
@@ -13,6 +14,7 @@ $id = $_REQUEST['id'];
     <meta charset="UTF-8">
     <title>DASHBOARD</title>
     <link rel="stylesheet" href="/CAIDSA/CSS/Topics.css">
+
 </head>
 
 <body>
@@ -45,7 +47,7 @@ $id = $_REQUEST['id'];
 
             try {
 
-                $quizData = QuestionDb::getQuiz($id);
+                echo "<script>var quizId = $id; </script>";
 
                 $quiz = $quizData->getQuiz();
 
@@ -63,7 +65,7 @@ $id = $_REQUEST['id'];
 
                     foreach ($test->getChoices() as $choice) {
                         echo "<li>";
-                        echo "<input type='radio' name='choice' value='$choice'>";
+                        echo "<input onclick=\"addAnswer($number,'$choice')\" type='radio' name='choice' value='$choice'>";
                         echo "<label>$choice</label>";
                         echo "</li>";
                     }
@@ -83,8 +85,15 @@ $id = $_REQUEST['id'];
         </div>
     </div>
     <script>
+        let answers = [];
         let currentIndex = 0;
         const questions = document.querySelectorAll('.test');
+
+        const addAnswer = (number, answer) => {
+            console.log(number, answer);
+            answers[number - 1] = answer;
+            console.log(answers);
+        }
 
         const next = () => {
 
@@ -93,6 +102,7 @@ $id = $_REQUEST['id'];
             console.log(questions.length);
 
             if (currentIndex === questions.length) {
+                processAnswer();
                 return;
             }
 
@@ -106,6 +116,33 @@ $id = $_REQUEST['id'];
             })
 
             currentIndex++;
+        }
+
+        const processAnswer = async () => {
+            try {
+
+                let result = await fetch("./answers", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify({
+                        quiz: quizId,
+                        answers: answers,
+                    })
+                });
+
+                const status = result.ok;
+                result = await result.json();
+
+                if (!status) throw new Error(result.message);
+
+                alert(result.message);
+                window.location.reload();
+            } catch (error) {
+                alert(error.message);
+            }
+
         }
 
         next();

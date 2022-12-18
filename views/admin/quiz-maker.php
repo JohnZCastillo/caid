@@ -141,13 +141,13 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
         }
 
         if (correctA.checked == true) {
-            question.answer = "a";
+            question.answer = choiceA.value;
         } else if (correctB.checked == true) {
-            question.answer = "b";
+            question.answer = choiceB.value;
         } else if (correctC.checked == true) {
-            question.answer = "c";
+            question.answer = choiceC.value;
         } else if (correctD.checked == true) {
-            question.answer = "d";
+            question.answer = choiceD.value;
         }
 
         questions.push(question);

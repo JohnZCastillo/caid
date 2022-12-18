@@ -55,10 +55,12 @@ class TopicDb
             throw new Exception("delete file error");
         }
 
+        $quizIds = [];
+
         try {
 
             // Select quiz id
-            $getQuizId = $connection->prepare("select id from quiz where topic_id = ? LIMIT 1");
+            $getQuizId = $connection->prepare("select id from quiz where topic_id = ?");
 
             $getQuizId->bind_param(
                 "d",
@@ -71,42 +73,42 @@ class TopicDb
             $result = $getQuizId->get_result();
 
             // store result in array
-            $data = $result->fetch_assoc();
-
-            if ($data == null) throw new Exception("Data null");
-
-
-            $quizId = $data['id'];
+            while ($data = $result->fetch_assoc()) {
+                $currentId = $data['id'];
+                array_push($quizIds, $currentId);
+            }
         } catch (Exception $e) {
             throw new Exception("Cannot get quiz id");
         }
 
-        try {
-            // Delete quiz_data
-            $deleteQuizChoice = $connection->prepare("Delete from quiz_choice where quiz_id = ?");
+        foreach ($quizIds as $quizKey) {
+            try {
+                // Delete quiz_choice
+                $deleteQuizChoice = $connection->prepare("Delete from quiz_choice where quiz_id = ?");
 
-            $deleteQuizChoice->bind_param(
-                "d",
-                $quizId
-            );
+                $deleteQuizChoice->bind_param(
+                    "d",
+                    $quizKey
+                );
 
-            $deleteQuizChoice->execute();
-        } catch (Exception $e) {
-            throw new Exception("Cant delete Quiz Choice");
-        }
+                $deleteQuizChoice->execute();
+            } catch (Exception $e) {
+                throw new Exception("Cant delete Quiz Choice");
+            }
 
-        try {
-            // Delete quiz_data
-            $deleteQuizData = $connection->prepare("Delete from quiz_data where quiz_id = ?");
+            try {
+                // Delete quiz_data
+                $deleteQuizData = $connection->prepare("Delete from quiz_data where quiz_id = ?");
 
-            $deleteQuizData->bind_param(
-                "d",
-                $quizId
-            );
+                $deleteQuizData->bind_param(
+                    "d",
+                    $quizKey
+                );
 
-            $deleteQuizData->execute();
-        } catch (Exception $e) {
-            throw new Exception("$quizId Cant delete Quiz Data");
+                $deleteQuizData->execute();
+            } catch (Exception $e) {
+                throw new Exception("$quizId Cant delete Quiz Data");
+            }
         }
 
         try {
