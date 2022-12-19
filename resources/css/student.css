@@ -12,7 +12,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background: #23242a;
-  background-image: url("/CAIDSA/Photos/Dashboard.jpg");
+  background-image: url("../images/bg/Dashboard.jpg");
   background-size: cover;
 }
 .box {
@@ -71,10 +71,11 @@ body {
   flex-direction: column;
   background-color: rgb(28, 87, 196);
   overflow: auto;
-  background-image: url("/CAIDSA/Photos/13.jpg");
+  background-image: url("../images/bg/13.jpg");
   background-size: cover;
   padding: 25px 40px;
 }
+
 .form h2 {
   color: #45f3ff;
   font-weight: 500;
@@ -295,7 +296,7 @@ a.button:active {
   top: 35px;
   left: 600px;
   position: relative;
-  background-image: url("/CAIDSA/Photos/out.png");
+  background-image: url("../images/bg/out.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -326,7 +327,7 @@ a.button:active {
   border: 1px solid #5f5f5f;
   background-color: rgb(28, 87, 196);
   border-radius: 8px;
-  background-image: url("/CAIDSA/Photos/13.jpg");
+  background-image: url("../images/bg/13.jpg");
   background-size: cover;
 }
 img.profilediv:hover {

@@ -109,6 +109,37 @@ class TopicDb
             } catch (Exception $e) {
                 throw new Exception("$quizId Cant delete Quiz Data");
             }
+
+            // delete mastery
+            try {
+                // Delete quiz_data
+                $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ?");
+
+                $deleteMastery->bind_param(
+                    "d",
+                    $id
+                );
+
+                $deleteMastery->execute();
+            } catch (Exception $e) {
+                throw new Exception("Cant delete Mastery");
+            }
+
+
+            // delete result 
+            try {
+                // Delete quiz_data
+                $deleteQuizData = $connection->prepare(" DELETE from quiz_result WHERE id = (SELECT quiz_result.id from ((quiz_result JOIN quiz as qz on quiz_result.quiz_id = qz.id )JOIN content as cn on qz.content_id = cn.id) where cn.topics = ?)");
+
+                $deleteQuizData->bind_param(
+                    "d",
+                    $id
+                );
+
+                $deleteQuizData->execute();
+            } catch (Exception $e) {
+                throw new Exception("$quizId Cant delete result");
+            }
         }
 
         try {
