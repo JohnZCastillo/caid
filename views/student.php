@@ -40,7 +40,11 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
 </head>
 
 <body>
-
+    <style>
+        .ban {
+            cursor: not-allowed;
+        }
+    </style>
 
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
@@ -48,7 +52,6 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
     <div class="modules">
         <a href="" class="onview">DASHBOARD</a><br><br>
 
-        <!-- Load topics -->
         <?php
 
         try {
@@ -56,17 +59,23 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
 
             foreach (TopicDb::getAllTopics() as $topic) {
 
+
                 $title = $topic->getTitle();
                 $id = $topic->getId();
 
-                //for registering cert for first topic
-                if ($count == 0) {
-                    MasteryDb::register($id, 0);
+                $notBan =  MasteryDb::hasCert($id, 0);
+
+                if ($notBan) {
+                    echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                } else {
+                    if ($count == 0) {
+                        echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                    } else {
+                        echo "<a href='' class=\"button ban\">$title</a><br><br>";
+                    }
                 }
 
                 $count++;
-
-                echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
             }
         } catch (Exception  $e) {
             echo "No topics yet";

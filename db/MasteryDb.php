@@ -67,7 +67,7 @@ class MasteryDb
         $hasCert = true;
 
         // throw an exception data is null that means email is not present in db
-        if ($data == null) {
+        if ($data === NULL) {
             $hasCert = false;
         }
 

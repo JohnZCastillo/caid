@@ -8,6 +8,12 @@ use db\QuestionDb;
 $topicId = $_REQUEST['id'];
 $index = $_REQUEST['index'];
 
+$nextTopic = NULL;
+
+if (isset($_REQUEST['next'])) {
+    $nextTopic = $_REQUEST['next'];
+}
+
 $content = ContentDb::getContent($topicId);
 
 $data = $content[$index];
@@ -36,12 +42,19 @@ $payload = array_pop($dataValue);
     <div class="modules">
 
         <?php
+
         echo "<a href='./intro?id=$topicId' class='button'>Back</a><br><br>";
 
         if (!((count($content) - 1) == $index)) {
             $nextIndex = $index + 1;
             MasteryDb::register($topicId, $nextIndex);
             echo "<a href='./data?id=$topicId&index=$nextIndex' id='ap1'></a><br><br>";
+        } else {
+
+            //register next topic 
+            if ($nextTopic !== NULL) {
+                MasteryDb::register($nextTopic, 0);
+            }
         }
 
         ?>
@@ -50,7 +63,7 @@ $payload = array_pop($dataValue);
         <div class="form">
 
             <?php
-            // <object data='\CAIDSA\Student_Module\topic-1\1.1-Getting-Started.pdf' width='725' height='570'>
+
             MasteryDb::register($topicId, $index);
 
             try {
