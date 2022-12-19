@@ -12,22 +12,57 @@ use db\TopicDb;
   <link rel="stylesheet" href="./resources/css/mastery.css">
 </head>
 
-<body>
+<body onload="load()">
   <style>
     .holder {
-      display: flex;
-      flex-wrap: wrap;
+      background-color: white;
+      background-image: none;
+      height: 100%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .circle-wrapper {
-      width: 150px;
-      height: 150px;
-      background: #d9d7da;
+    .border {
+      height: 200px;
+      width: 200px;
       border-radius: 50%;
-      transition: transform .5s;
-      box-shadow: 0px 0px 0px 10px rgb(69 69 255), 0px 0px 5px 15px rgb(243 255 81);
+      border: 10px solid rgb(46, 151, 255);
+      box-shadow: 0 0 10px 0.5em rgba(255, 247, 86, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main {
+      background-color: rgb(8, 8, 116);
+      border-radius: 50%;
+      height: 90%;
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main label {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: "poppins";
+      color: white;
+    }
+
+    .progress {
+      width: max-content;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .progress-title {
+      display: inline-block;
+      padding: 10px;
     }
   </style>
+
   <div class="Header">
     <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
   </div>
@@ -49,10 +84,20 @@ use db\TopicDb;
             $id = $topic->getId();
             $percent = MasteryDb::getPercent($id);
 
-            echo "<div class='data'>";
-            echo "<div><p>$title</p></div>";
-            echo "<div>$percent</div>";
-            echo "</div>";
+            // echo "<div class='data'>";
+            // echo "<div><p>$title</p></div>";
+            // echo "<div>$percent</div>";
+            // echo "</div>";
+
+            echo "
+            <div class='progress'> 
+                <span class='progress-title'>$title</span>
+                <div class='border'>
+                    <div class='main'>
+                      <label class='value'>$percent</label>
+                    </div>
+                </div>
+                </div>";
           }
         } catch (Exception  $e) {
           echo $e->getMessage();
@@ -62,6 +107,20 @@ use db\TopicDb;
       </div>
     </div>
   </div>
+  <script>
+    function load() {
+
+      let value = document.querySelector(".value");
+      let border = document.querySelector(".border");
+
+      value.textContent = value.textContent + "%";
+
+      border.style.background = `conic-gradient(
+        rgba(255, 247, 86, 0.5) ${parseInt(value.textContent) * 3.6}deg,
+        grey  ${parseInt(value.textContent) * 3.6}deg
+        )`;
+    }
+  </script>
 </body>
 
 </html>

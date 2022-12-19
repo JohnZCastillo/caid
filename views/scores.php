@@ -1,3 +1,8 @@
+<?php
+
+use db\QuizResult;
+
+?>
 <html lang="en">
 
 <head>
@@ -7,8 +12,6 @@
 </head>
 
 <body>
-    <style>
-    </style>
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
     </div>
@@ -23,26 +26,40 @@
                     <li><span>50%</span></li>
                     <li><span>0%</span></li>
                 </ul>
+
+
                 <ul class="bars">
-                    <li>
-                        <div class="bar" data-percentage="50"></div>
-                    </li>
-                    <li>
-                        <div class="bar" data-percentage="30"></div>
-                    </li>
-                    <li>
-                        <div class="bar" data-percentage="60"></div>
-                    </li>
-                    <li>
-                        <div class="bar" data-percentage="100"></div>
-                    </li>
-                    <li>
-                        <div class="bar" data-percentage="80"></div>
-                    </li>
+                    <?php
+
+                    $ids = QuizResult::getQuizIds();
+
+                    foreach ($ids as $id) {
+                        $stats = QuizResult::getResult($id);
+
+                        if ($stats !== NULL) {
+
+                            $score = (int) $stats['score'];
+                            $perfect = (int)$stats['perfect'];
+
+                            $percent = 0;
+
+                            if ($score > 0) {
+                                $percent = ($score / $perfect) * 100;
+                            }
+
+                            echo "<li>
+                                    <div class='bar' style='height:$percent' data-percentage='$percent'></div>
+                                </li>";
+                        }
+                    }
+
+                    ?>
                 </ul>
             </div>
         </div>
     </div>
+
+
 </body>
 
 </html>

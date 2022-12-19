@@ -91,7 +91,17 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
             </script>
         </div>
         <div class="profile-pic-div">
-            <img src="" id="photo">
+
+            <?php
+            //show default profile
+            if (!isset($_SESSION['userProfile'])) {
+                echo "<img src='./assets/profile/default.png' id='photo'>";
+                // die();
+            } else {
+                echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " id='photo'>";
+            }
+            ?>
+
             <input type="file" id="file">
             <label for="file" id="uploadBtn">Choose</label>
         </div>
