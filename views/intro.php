@@ -97,7 +97,6 @@ error_reporting(0);
 
                     $index = 0;
 
-
                     foreach (ContentDb::getContent($topicId) as $content) {
 
                         $index++;
@@ -111,8 +110,11 @@ error_reporting(0);
                             $notBan = true;
                         }
 
-                        $nextId = $topics[$index]->getId();
+                        $nextId = $topics[0]->getId();
 
+                        if (count($topics) > 1) {
+                            $nextId = (int) $topics[$index]->getId();
+                        }
 
                         switch ($type) {
                             case 1:
