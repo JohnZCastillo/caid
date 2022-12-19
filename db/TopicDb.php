@@ -110,20 +110,7 @@ class TopicDb
                 throw new Exception("$quizId Cant delete Quiz Data");
             }
 
-            // delete mastery
-            try {
-                // Delete quiz_data
-                $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ?");
 
-                $deleteMastery->bind_param(
-                    "d",
-                    $id
-                );
-
-                $deleteMastery->execute();
-            } catch (Exception $e) {
-                throw new Exception("Cant delete Mastery");
-            }
 
 
             // delete result 
@@ -140,6 +127,21 @@ class TopicDb
             } catch (Exception $e) {
                 throw new Exception("$quizId Cant delete result");
             }
+        }
+
+        // delete mastery
+        try {
+            // Delete quiz_data
+            $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ?");
+
+            $deleteMastery->bind_param(
+                "d",
+                $id
+            );
+
+            $deleteMastery->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete Mastery");
         }
 
         try {
