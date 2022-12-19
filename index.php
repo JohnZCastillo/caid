@@ -40,6 +40,9 @@ switch ($request) {
     case $base . 'student':
         require __DIR__ . '/views/student.php';
         break;
+    case $base . 'answers':
+        require __DIR__ . '/controller/topic/Answers.php';
+        break;
     case $base . 'logindata':
         require __DIR__ . '/views/admin/logindata.php';
         break;
@@ -48,6 +51,12 @@ switch ($request) {
         break;
     case $base . 'account':
         require __DIR__ . '/views/admin/account.php';
+        break;
+    case $base . 'mastery':
+        require __DIR__ . '/views/mastery.php';
+        break;
+    case $base . 'scores':
+        require __DIR__ . '/views/scores.php';
         break;
     case $base . 'logout':
         require __DIR__ . '/controller/user/Logout.php';
@@ -76,6 +85,9 @@ switch ($request) {
     case $base . 'intro':
         require __DIR__ . '/views/intro.php';
         break;
+    case $base . 'quiz-shower':
+        require __DIR__ . '/views/quiz-shower.php';
+        break;
     case $base . 'data?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/data.php';
         break;
@@ -84,6 +96,9 @@ switch ($request) {
         break;
     case $base . 'intro?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/intro.php';
+        break;
+    case $base . 'quiz-shower?' . $_SERVER["QUERY_STRING"]:
+        require __DIR__ . '/views/quiz-shower.php';
         break;
     default:
         http_response_code(404);

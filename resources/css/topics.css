@@ -12,7 +12,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background: #ffff7f;
-  background-image: url("../images/bg/Dashboard.jpg");
+  background-image: url("../images/bg/admin-dashboard.jpg");
   background-size: cover;
 }
 .box {
@@ -905,7 +905,7 @@ img#wizardpic10 {
   padding: 0;
   width: 50px;
   height: 100%;
-  display: inline-block;
+  /* display: inline-block; */
   float: left;
 }
 .numbers li {

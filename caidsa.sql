@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 17, 2022 at 04:21 PM
+-- Generation Time: Dec 19, 2022 at 07:42 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -52,6 +52,19 @@ CREATE TABLE `file` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mastery`
+--
+
+CREATE TABLE `mastery` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(30) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `step` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quiz`
 --
 
@@ -65,6 +78,19 @@ CREATE TABLE `quiz` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `quiz_choice`
+--
+
+CREATE TABLE `quiz_choice` (
+  `id` int(11) NOT NULL,
+  `choice` varchar(30) NOT NULL,
+  `quiz_data` int(11) NOT NULL,
+  `quiz_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quiz_data`
 --
 
@@ -73,6 +99,20 @@ CREATE TABLE `quiz_data` (
   `quiz_id` int(11) NOT NULL,
   `question` varchar(30) NOT NULL,
   `answer` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_result`
+--
+
+CREATE TABLE `quiz_result` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(30) NOT NULL,
+  `quiz_id` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `perfect` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -134,7 +174,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`student_number`, `role`, `username`, `password`, `email`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `year`, `birthdate`, `profile`) VALUES
-('admin', 'ADMIN', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'Male', 'BSIT', 1, '2018-01-09', NULL),
+('a', 'ADMIN', 'a', 'a', 'a', 'a', 'a', 'a', '', '', 0, '2018-01-01', NULL),
+('admin', 'ADMIN', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'Male', 'BSIT', 1, '2018-01-09', 'admin.png'),
+('student', 'STUDENT', 'student', 'student', 'student', 'student', 'student', 'student', 'Male', 'BSIT', 1, '2018-01-01', NULL),
 ('test', 'STUDENT', 'test', 'test', 'test', 'test', 'test', 'test', 'Male', 'BSCpE', 2, '2018-01-24', NULL);
 
 --
@@ -158,6 +200,14 @@ ALTER TABLE `file`
   ADD KEY `content_id` (`content_id`);
 
 --
+-- Indexes for table `mastery`
+--
+ALTER TABLE `mastery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `topic_id` (`topic_id`);
+
+--
 -- Indexes for table `quiz`
 --
 ALTER TABLE `quiz`
@@ -166,10 +216,26 @@ ALTER TABLE `quiz`
   ADD KEY `topic_id` (`topic_id`);
 
 --
+-- Indexes for table `quiz_choice`
+--
+ALTER TABLE `quiz_choice`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_data` (`quiz_data`),
+  ADD KEY `quiz_id` (`quiz_id`);
+
+--
 -- Indexes for table `quiz_data`
 --
 ALTER TABLE `quiz_data`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_id` (`quiz_id`);
+
+--
+-- Indexes for table `quiz_result`
+--
+ALTER TABLE `quiz_result`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
   ADD KEY `quiz_id` (`quiz_id`);
 
 --
@@ -200,31 +266,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT for table `mastery`
+--
+ALTER TABLE `mastery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=302;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- AUTO_INCREMENT for table `quiz_choice`
+--
+ALTER TABLE `quiz_choice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
 
 --
 -- AUTO_INCREMENT for table `quiz_data`
 --
 ALTER TABLE `quiz_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+
+--
+-- AUTO_INCREMENT for table `quiz_result`
+--
+ALTER TABLE `quiz_result`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -251,6 +335,13 @@ ALTER TABLE `file`
   ADD CONSTRAINT `file_ibfk_2` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`);
 
 --
+-- Constraints for table `mastery`
+--
+ALTER TABLE `mastery`
+  ADD CONSTRAINT `mastery_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`student_number`),
+  ADD CONSTRAINT `mastery_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
+
+--
 -- Constraints for table `quiz`
 --
 ALTER TABLE `quiz`
@@ -258,10 +349,24 @@ ALTER TABLE `quiz`
   ADD CONSTRAINT `quiz_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `content` (`topics`);
 
 --
+-- Constraints for table `quiz_choice`
+--
+ALTER TABLE `quiz_choice`
+  ADD CONSTRAINT `quiz_choice_ibfk_1` FOREIGN KEY (`quiz_data`) REFERENCES `quiz_data` (`id`),
+  ADD CONSTRAINT `quiz_choice_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`);
+
+--
 -- Constraints for table `quiz_data`
 --
 ALTER TABLE `quiz_data`
   ADD CONSTRAINT `quiz_data_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`);
+
+--
+-- Constraints for table `quiz_result`
+--
+ALTER TABLE `quiz_result`
+  ADD CONSTRAINT `quiz_result_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`student_number`),
+  ADD CONSTRAINT `quiz_result_ibfk_2` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,10 +1,18 @@
 <?php
 
 use db\ContentDb;
+use db\MasteryDb;
+use db\QuestionDb;
 
 // Initialize URL to the variable
 $topicId = $_REQUEST['id'];
 $index = $_REQUEST['index'];
+
+$nextTopic = NULL;
+
+if (isset($_REQUEST['next'])) {
+    $nextTopic = $_REQUEST['next'];
+}
 
 $content = ContentDb::getContent($topicId);
 
@@ -34,11 +42,19 @@ $payload = array_pop($dataValue);
     <div class="modules">
 
         <?php
+
         echo "<a href='./intro?id=$topicId' class='button'>Back</a><br><br>";
 
         if (!((count($content) - 1) == $index)) {
             $nextIndex = $index + 1;
+            MasteryDb::register($topicId, $nextIndex);
             echo "<a href='./data?id=$topicId&index=$nextIndex' id='ap1'></a><br><br>";
+        } else {
+
+            //register next topic 
+            if ($nextTopic !== NULL) {
+                MasteryDb::register($nextTopic, 0);
+            }
         }
 
         ?>
@@ -47,11 +63,16 @@ $payload = array_pop($dataValue);
         <div class="form">
 
             <?php
+
+            MasteryDb::register($topicId, $index);
+
             try {
                 switch ($type) {
                     case 1:
-                        echo "<div id='handout'>
-                                <object data='\CAIDSA\Student_Module\topic-1\1.1-Getting-Started.pdf' width='725' height='570'>
+                        $id = $data->getId();
+                        $quizId = QuestionDb::getQuizId($id);
+                        echo "<div id='handout' style='height:100%'>
+                                    <iframe src='http://localhost/caid/quiz-shower?id=$quizId' width='100%' height='100%'></iframe>
                             </div>";
                         break;
                     case 2:
@@ -73,7 +94,7 @@ $payload = array_pop($dataValue);
                         break;
                 }
             } catch (Exception $error) {
-                echo "no content found";
+                echo $error->getMessage();
             }
             ?>
         </div>

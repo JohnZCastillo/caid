@@ -1,6 +1,7 @@
 <?php
 
 use db\ContentDb;
+use db\MasteryDb;
 use db\TopicDb;
 
 error_reporting(0);
@@ -38,6 +39,10 @@ error_reporting(0);
             justify-content: center;
             align-items: center;
         } */
+
+        .ban {
+            cursor: not-allowed !important;
+        }
     </style>
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
@@ -49,10 +54,27 @@ error_reporting(0);
         <?php
 
         try {
+            $count = 0;
+
             foreach (TopicDb::getAllTopics() as $topic) {
+
+
                 $title = $topic->getTitle();
                 $id = $topic->getId();
-                echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+
+                $notBan =  MasteryDb::hasCert($id, 0);
+
+                if ($notBan) {
+                    echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                } else {
+                    if ($count == 0) {
+                        echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                    } else {
+                        echo "<a href='' class=\"button ban\">$title</a><br><br>";
+                    }
+                }
+
+                $count++;
             }
         } catch (Exception  $e) {
             echo "No topics yet";
@@ -71,38 +93,90 @@ error_reporting(0);
 
                     $count = 0;
 
+                    $topics = TopicDb::getAllTopics();
+
+                    $index = 0;
+
                     foreach (ContentDb::getContent($topicId) as $content) {
+
+                        $index++;
+
+                        $notBan =  MasteryDb::hasCert($topicId, $count);
 
                         $type = $content->getType();
 
+                        //allow for first topic 
+                        if ($count == 0) {
+                            $notBan = true;
+                        }
+
+                        $nextId = $topics[0]->getId();
+
+                        if (count($topics) > 1) {
+                            $nextId = (int) $topics[$index]->getId();
+                        }
+
                         switch ($type) {
                             case 1:
-                                echo "<div class='topic'>
-                                        <a href='./data?id=$topicId&index=$count' class='pictures'>
-                                            <img src='./resources/images/bg/quiz.jpg' class='topic-img'>
-                                        </a>
-                                    </div>";
+                                if ($notBan) {
+                                    echo "<div class='topic'>
+                                    <a href='./data?id=$topicId&index=$count&next=$nextId' class='pictures'>
+                                        <img src='./resources/images/bg/quiz.jpg' class='topic-img'>
+                                    </a>
+                                </div>";
+                                } else {
+                                    echo "<div class='topic'>
+                                    <a href='' class='pictures ban'>
+                                        <img src='./resources/images/bg/quiz.jpg' class='topic-img ban'>
+                                    </a>
+                                </div>";
+                                }
                                 break;
                             case 2:
-                                echo "<div class='topic'>
-                                            <a  href='./data?id=$topicId&index=$count' class='pictures'>
-                                                <img src='./resources/images/bg/game.jpg' class='topic-img'>
+                                if ($notBan) {
+                                    echo "<div class='topic'>
+                                    <a  href='./data?id=$topicId&index=$count&next=$nextId' class='pictures'>
+                                        <img src='./resources/images/bg/game.jpg' class='topic-img'>
+                                    </a>
+                                </div>";
+                                } else {
+                                    echo "<div class='topic'>
+                                            <a  href='' class='pictures  ban'>
+                                                <img src='./resources/images/bg/game.jpg' class='topic-img ban'>
                                             </a>
                                         </div>";
+                                }
                                 break;
                             case 3:
-                                echo "<div class='topic'>
-                                        <a  href='./data?id=$topicId&index=$count' class='pictures'>
-                                            <img src='./resources/images/bg/handout.jpg' class='topic-img'>
-                                        </a>
-                                    </div>";
+                                if ($notBan) {
+                                    echo "<div class='topic'>
+                                    <a  href='./data?id=$topicId&index=$count&next=$nextId' class='pictures'>
+                                        <img src='./resources/images/bg/handout.jpg' class='topic-img'>
+                                    </a>
+                                </div>";
+                                } else {
+                                    echo "<div class='topic'>
+                                    <a  href='' class='pictures ban'>
+                                        <img src='./resources/images/bg/handout.jpg' class='topic-img ban'>
+                                    </a>
+                                </div>";
+                                }
                                 break;
                             case 4:
-                                echo "<div class='topic'>
-                                <a  href='./data?id=$topicId&index=$count' class='pictures'>
-                                    <img src='./resources/images/bg/discussion.jpg' class='topic-img'>
-                                </a>
-                            </div>";
+                                if ($notBan) {
+                                    echo "<div class='topic'>
+                                    <a  href='./data?id=$topicId&index=$count&next=$nextId' class='pictures'>
+                                        <img src='./resources/images/bg/discussion.jpg' class='topic-img'>
+                                    </a>
+                                </div>";
+                                } else {
+                                    echo "<div class='topic'>
+                                    <a  href='' class='pictures ban'>
+                                        <img src='./resources/images/bg/discussion.jpg' class='topic-img ban'>
+                                    </a>
+                                </div>";
+                                }
+
                                 break;
                         }
 

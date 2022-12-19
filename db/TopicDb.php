@@ -43,67 +43,119 @@ class TopicDb
 
         try {
             // delete file
-            $stmt = $connection->prepare("Delete from file where topic_id = ?");
+            $deleteFile = $connection->prepare("Delete from file where topic_id = ?");
 
-            $stmt->bind_param(
+            $deleteFile->bind_param(
                 "d",
                 $id
             );
 
-            $stmt->execute();
+            $deleteFile->execute();
         } catch (Exception $e) {
+            throw new Exception("delete file error");
         }
+
+        $quizIds = [];
 
         try {
 
             // Select quiz id
-            $stmt = $connection->prepare("select id from quiz where topic_id = ? LIMIT 1");
+            $getQuizId = $connection->prepare("select id from quiz where topic_id = ?");
 
-            $stmt->bind_param(
+            $getQuizId->bind_param(
                 "d",
                 $id
             );
 
-            $stmt->execute();
+            $getQuizId->execute();
 
             //get result
-            $result = $stmt->get_result();
-
+            $result = $getQuizId->get_result();
 
             // store result in array
-            $data = $result->fetch_assoc();
-
-            if ($data == null) throw new Exception("Data null");
-
-
-            $quizId = $data['id'];
+            while ($data = $result->fetch_assoc()) {
+                $currentId = $data['id'];
+                array_push($quizIds, $currentId);
+            }
         } catch (Exception $e) {
+            throw new Exception("Cannot get quiz id");
         }
 
+        foreach ($quizIds as $quizKey) {
+            try {
+                // Delete quiz_choice
+                $deleteQuizChoice = $connection->prepare("Delete from quiz_choice where quiz_id = ?");
+
+                $deleteQuizChoice->bind_param(
+                    "d",
+                    $quizKey
+                );
+
+                $deleteQuizChoice->execute();
+            } catch (Exception $e) {
+                throw new Exception("Cant delete Quiz Choice");
+            }
+
+            try {
+                // Delete quiz_data
+                $deleteQuizData = $connection->prepare("Delete from quiz_data where quiz_id = ?");
+
+                $deleteQuizData->bind_param(
+                    "d",
+                    $quizKey
+                );
+
+                $deleteQuizData->execute();
+            } catch (Exception $e) {
+                throw new Exception("$quizId Cant delete Quiz Data");
+            }
+
+
+
+
+            // delete result 
+            try {
+                // Delete quiz_data
+                $deleteQuizData = $connection->prepare(" DELETE from quiz_result WHERE id = (SELECT quiz_result.id from ((quiz_result JOIN quiz as qz on quiz_result.quiz_id = qz.id )JOIN content as cn on qz.content_id = cn.id) where cn.topics = ?)");
+
+                $deleteQuizData->bind_param(
+                    "d",
+                    $id
+                );
+
+                $deleteQuizData->execute();
+            } catch (Exception $e) {
+                throw new Exception("$quizId Cant delete result");
+            }
+        }
+
+        // delete mastery
         try {
             // Delete quiz_data
-            $stmt = $connection->prepare("Delete from quiz_data where quiz_id = ?");
+            $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ?");
 
-            $stmt->bind_param(
+            $deleteMastery->bind_param(
                 "d",
-                $quizId
+                $id
             );
 
-            $stmt->execute();
+            $deleteMastery->execute();
         } catch (Exception $e) {
+            throw new Exception("Cant delete Mastery");
         }
 
         try {
             // Delete quiz
-            $stmt = $connection->prepare("Delete from quiz where topic_id = ?");
+            $deleteQuiz = $connection->prepare("Delete from quiz where topic_id = ?");
 
-            $stmt->bind_param(
+            $deleteQuiz->bind_param(
                 "d",
                 $id
             );
 
-            $stmt->execute();
+            $deleteQuiz->execute();
         } catch (Exception $e) {
+            throw new Exception("$id Cant delete quiz" . $e->getMessage());
         }
 
 
@@ -119,6 +171,7 @@ class TopicDb
 
             $stmt->execute();
         } catch (Exception $e) {
+            throw new Exception("Cant delete quiz");
         }
 
         // Delete topic

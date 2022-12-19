@@ -28,6 +28,7 @@ class Quiz{
                 
         array_push($this->quiz,$data);
     }
+    
     public function getId() {
         return $this->id;
     }

@@ -42,6 +42,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
     <div class="modules">
         <div id="profile"><br>
             <div class="profile-pic-div">
+
                 <?php
                 //show default profile
                 if (!isset($_SESSION['userProfile'])) {

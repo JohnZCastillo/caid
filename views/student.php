@@ -1,9 +1,17 @@
 <?php
 
+namespace views;
+
+use Exception;
 use db\TopicDb;
+use db\MasteryDb;
 use model\user\Role;
 
+error_reporting(0);
+
+
 session_start();
+
 
 if (!isset($_SESSION["isLogin"])) {
     $_SESSION["loginError"] = "You're not login!. Login First";
@@ -32,7 +40,11 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
 </head>
 
 <body>
-
+    <style>
+        .ban {
+            cursor: not-allowed;
+        }
+    </style>
 
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
@@ -40,14 +52,30 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
     <div class="modules">
         <a href="" class="onview">DASHBOARD</a><br><br>
 
-        <!-- Load topics -->
         <?php
 
         try {
+            $count = 0;
+
             foreach (TopicDb::getAllTopics() as $topic) {
+
+
                 $title = $topic->getTitle();
                 $id = $topic->getId();
-                echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+
+                $notBan =  MasteryDb::hasCert($id, 0);
+
+                if ($notBan) {
+                    echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                } else {
+                    if ($count == 0) {
+                        echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                    } else {
+                        echo "<a href='' class=\"button ban\">$title</a><br><br>";
+                    }
+                }
+
+                $count++;
             }
         } catch (Exception  $e) {
             echo "No topics yet";
@@ -72,7 +100,17 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
             </script>
         </div>
         <div class="profile-pic-div">
-            <img src="" id="photo">
+
+            <?php
+            //show default profile
+            if (!isset($_SESSION['userProfile'])) {
+                echo "<img src='./assets/profile/default.png' id='photo'>";
+                // die();
+            } else {
+                echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " id='photo'>";
+            }
+            ?>
+
             <input type="file" id="file">
             <label for="file" id="uploadBtn">Choose</label>
         </div>
@@ -92,12 +130,12 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
                     </a>
                 </div>
                 <div class="container2">
-                    <a href="" class="pictures">
+                    <a href="./mastery" class="pictures">
                         <img src="./resources/images/icons/mastery.jpg" width="317px" height="180px">
                     </a>
                 </div>
                 <div class="container3">
-                    <a href="" class="pictures">
+                    <a href="./scores" class="pictures">
                         <img src="./resources/images/icons/quiz-score.jpg" width="317px" height="180px">
                     </a>
                 </div>
