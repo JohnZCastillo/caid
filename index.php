@@ -49,6 +49,9 @@ switch ($request) {
     case $base . 'admin':
         require __DIR__ . '/views/admin.php';
         break;
+    case $base . 'scores':
+        require __DIR__ . '/views/admin/scores.php';
+        break;
     case $base . 'account':
         require __DIR__ . '/views/admin/account.php';
         break;

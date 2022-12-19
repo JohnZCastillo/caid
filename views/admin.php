@@ -92,7 +92,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                     </a>
                 </div>
                 <div class="container3">
-                    <a href="" class="pictures">
+                    <a href="./scores" class="pictures">
                         <img src="./resources/images/icons/quiz-score.jpg" width="180px" height="180px">
                     </a>
                 </div>

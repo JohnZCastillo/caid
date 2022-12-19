@@ -115,17 +115,40 @@ class TopicDb
 
             // delete result 
             try {
-                // Delete quiz_data
-                $deleteQuizData = $connection->prepare(" DELETE from quiz_result WHERE id = (SELECT quiz_result.id from ((quiz_result JOIN quiz as qz on quiz_result.quiz_id = qz.id )JOIN content as cn on qz.content_id = cn.id) where cn.topics = ?)");
 
-                $deleteQuizData->bind_param(
+                $ids = [];
+
+                $selectIds = $connection->prepare("SELECT quiz_result.id from ((quiz_result JOIN quiz as qz on quiz_result.quiz_id = qz.id )JOIN content as cn on qz.content_id = cn.id) where cn.topics = ?");
+
+                $selectIds->bind_param(
                     "d",
                     $id
                 );
 
-                $deleteQuizData->execute();
+                // execute prepared statement
+                $selectIds->execute();
+
+                //get result
+                $result =  $selectIds->get_result();
+
+                while ($data = $result->fetch_assoc()) {
+                    array_push($ids, $data['id']);
+                }
+
+                // Delete quiz_data
+                $deleteQuizData = $connection->prepare("DELETE from quiz_result WHERE id = ?");
+
+                foreach ($ids as $currentId) {
+
+                    $deleteQuizData->bind_param(
+                        "d",
+                        $currentId
+                    );
+
+                    $deleteQuizData->execute();
+                }
             } catch (Exception $e) {
-                throw new Exception("$quizId Cant delete result");
+                throw new Exception("$id Cant delete result");
             }
         }
 
