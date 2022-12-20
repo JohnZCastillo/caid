@@ -40,6 +40,7 @@ class TopicDb
 
         $connection = Database::open();
         $quizId = -1;
+        $quizIds = [];
 
         try {
             // delete file
@@ -55,7 +56,6 @@ class TopicDb
             throw new Exception("delete file error");
         }
 
-        $quizIds = [];
 
         try {
 
@@ -209,6 +209,9 @@ class TopicDb
 
         Database::close($connection);
 
+        if ($error) {
+            throw new Exception($error);
+        }
         return $error;
     }
 

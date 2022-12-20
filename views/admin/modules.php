@@ -73,8 +73,8 @@ if (isset($data['id'])) {
                                       </div>";
                                     break;
                                 case 2:
-                                    $id = $content->getId();
-                                    $quizId = QuestionDb::getQuizId($id);
+                                    $contenId = $content->getId();
+                                    $quizId = QuestionDb::getQuizId($contenId);
                                     echo "<div><a href='./quiz-shower?id=$quizId'>$name</a></div>";
                                     break;
                                 case 3:
@@ -166,9 +166,9 @@ if (isset($data['id'])) {
             try {
 
 
-                // if (!(window.confirm('Are you sure you want to delete this module?'))) {
-                //     return;
-                // }
+                if (!(window.confirm('Are you sure you want to delete this module?'))) {
+                    return;
+                }
 
                 let result = await fetch("./modules", {
                     method: "POST",
