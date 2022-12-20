@@ -1,6 +1,7 @@
 <?php
 
 use db\QuizResult;
+use db\UserDb;
 
 ?>
 <html lang="en">
@@ -104,26 +105,39 @@ use db\QuizResult;
 
                     <div class='main'>
                         <?php
+
                         $ids = QuizResult::getQuizIds();
+
                         foreach ($ids as $id) {
-                            $stats = QuizResult::getResult($id);
 
-                            if ($stats !== NULL) {
 
-                                $score = (int) $stats['score'];
-                                $perfect = (int)$stats['perfect'];
+                            $userCount = 0;
+                            $score = 0;
+                            $perfect = 0;
 
-                                $percent = 0;
+                            foreach (UserDb::getUsers() as $user) {
 
-                                if ($score > 0) {
-                                    $percent = ($score / $perfect) * 100;
+                                if ($user->getRole() == 'ADMIN') {
+                                    continue;
                                 }
 
-                                echo "<div class='bar'>
-                                                <div class='bar-value'>$percent</div>
-                                                <div class='bar-name'></div>
-                                          </div>";
+                                $userCount++;
+                                $userId = $user->getId();
+                                $stats = QuizResult::getResultByStudent($id, $userId);
+
+                                if ($stats !== NULL) {
+                                    $score += (int) $stats['score'];
+                                    $perfect = (int) $stats['perfect'];
+                                }
                             }
+
+                            $score /= $userCount;
+                            $score = ($score / $perfect) * 100;
+
+                            echo "<div class='bar'>
+                                    <div class='bar-value'>$score</div>
+                                            <div class='bar-name'></div>
+                                    </div>";
                         }
                         ?>
                     </div>

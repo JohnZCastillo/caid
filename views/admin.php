@@ -63,17 +63,12 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
         <div class="nav">
             <a href="./admin" class="nav-link nav-link-active">DASHBOARD</a>
             <a href="./account" class="nav-link">Accounts</a>
-            <a href="./logout" class="nav-link" onclick="Login(this.form)">LOGOUT</a><br><br>
+            <a href="" class="nav-link" onclick="Login(this.form)">LOGOUT</a><br><br>
         </div>
         <script type="text/javascript">
             function Login(form) {
-                var retVal = confirm("Do you want to log out?");
-                if (retVal == true) {
-                    window.location = "./login"
-                    alert("Account has been logging out!");
-                    return true;
-                } else {
-                    return false;
+                if ((window.confirm('Are you sure you want to logout'))) {
+                    window.location = "./logout"
                 }
             }
         </script>
@@ -87,12 +82,12 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                     </a>
                 </div>
                 <div class="container2">
-                    <a href="" class="pictures">
+                    <a href="./admin-mastery" class="pictures">
                         <img src="./resources/images/icons/mastery.jpg" width="180px" height="180px">
                     </a>
                 </div>
                 <div class="container3">
-                    <a href="" class="pictures">
+                    <a href="./scores" class="pictures">
                         <img src="./resources/images/icons/quiz-score.jpg" width="180px" height="180px">
                     </a>
                 </div>
