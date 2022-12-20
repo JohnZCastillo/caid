@@ -5,6 +5,10 @@ use db\MasteryDb;
 use db\TopicDb;
 
 error_reporting(0);
+
+// Initialize URL to the variable
+$topicId = $_REQUEST['id'];
+
 ?>
 <html lang="en">
 
@@ -50,8 +54,7 @@ error_reporting(0);
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
     </div>
     <div class="modules">
-        <a href="./student" class="onview">DASHBOARD</a><br><br>
-
+        <a href="./student" class="button">DASHBOARD</a><br><br>
         <!-- Load topics -->
         <?php
 
@@ -65,13 +68,19 @@ error_reporting(0);
 
                 $notBan =  MasteryDb::hasCert($id, 0);
 
+                $classlist = "button";
+
+                if ($id == $topicId) {
+                    $classlist = "button onview";
+                }
+
                 if ($notBan) {
-                    echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                    echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a><br><br>";
                 } else {
                     if ($count == 0) {
-                        echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                        echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a><br><br>";
                     } else {
-                        echo "<a href='' class=\"button ban\">$title</a><br><br>";
+                        echo "<a href='' class=\"$classlist ban\">$title</a><br><br>";
                     }
                 }
 
@@ -89,8 +98,7 @@ error_reporting(0);
                 <?php
                 try {
 
-                    // Initialize URL to the variable
-                    $topicId = $_REQUEST['id'];
+
 
                     $count = 0;
 
