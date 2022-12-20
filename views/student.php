@@ -114,7 +114,6 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
                 }
                 ?>
 
-
                 <input type="file" id="file">
                 <label for="file" id="uploadBtn">Choose</label>
             </div>
@@ -129,7 +128,7 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
         <div class="form">
             <div class="containers">
                 <div class="container1">
-                    <a href="" class="pictures">
+                    <a href="./rewards" class="pictures">
                         <img src="./resources/images/icons/rewards.jpg" width="317px" height="180px">
                     </a>
                 </div>

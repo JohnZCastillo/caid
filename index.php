@@ -40,6 +40,9 @@ switch ($request) {
     case $base . 'student':
         require __DIR__ . '/views/student.php';
         break;
+    case $base . 'rewards':
+        require __DIR__ . '/views/rewards.php';
+        break;
     case $base . 'answers':
         require __DIR__ . '/controller/topic/Answers.php';
         break;

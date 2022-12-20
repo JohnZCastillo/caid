@@ -131,8 +131,14 @@ use db\UserDb;
                                 }
                             }
 
+
                             $score /= $userCount;
-                            $score = ($score / $perfect) * 100;
+
+                            if ($score > 0 && $perfect > 0) {
+                                $score = ($score / $perfect) * 100;
+                            } else {
+                                $score = 0;
+                            }
 
                             echo "<div class='bar'>
                                     <div class='bar-value'>$score</div>

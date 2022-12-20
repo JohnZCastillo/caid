@@ -14,7 +14,6 @@ $quizData = QuestionDb::getQuiz($id);
     <meta charset="UTF-8">
     <title>DASHBOARD</title>
     <link rel="stylesheet" href="./resources/css/topics.css">
-
 </head>
 
 <body>

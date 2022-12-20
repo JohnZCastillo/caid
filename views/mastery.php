@@ -17,10 +17,11 @@ use db\TopicDb;
     .holder {
       background-color: white;
       background-image: none;
-      height: 100%;
-
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      /* height: 100%; */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      /* grid-template-columns: 1fr 1fr 1fr; */
     }
 
     .border {
@@ -53,13 +54,16 @@ use db\TopicDb;
 
     .progress {
       width: max-content;
+      max-width: 200px;
       text-align: center;
       padding: 10px;
     }
 
     .progress-title {
-      display: inline-block;
+      /* display: inline-block; */
       padding: 10px;
+      max-width: 20ch;
+      white-space: nowrap;
     }
   </style>
 

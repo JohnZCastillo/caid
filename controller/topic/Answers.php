@@ -15,6 +15,7 @@ $data = json_decode($json, true);
 if (isset($data['answers'], $data['quiz'])) {
     try {
 
+
         $id = $data['quiz'];
 
         $quizData = QuestionDb::getQuiz($id);
@@ -26,13 +27,15 @@ if (isset($data['answers'], $data['quiz'])) {
         foreach ($quiz as $test) {
 
             if ($test->getAnswer() === $answers[$count]) {
-                $score++;
+                $score += 5;
             }
 
             $count++;
         }
 
-        QuizResult::addQuiz($id, $score, $count);
+        $perfect = $count * 5;
+
+        QuizResult::addQuiz($id, $score, $perfect);
         echo json_encode(['message' => $score]);
         die();
     } catch (Exception $e) {
