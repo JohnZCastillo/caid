@@ -49,6 +49,9 @@ switch ($request) {
     case $base . 'admin':
         require __DIR__ . '/views/admin.php';
         break;
+    case $base . 'test':
+        require __DIR__ . '/views/admin/testme.php';
+        break;
     case $base . 'scores':
         require __DIR__ . '/views/admin/scores.php';
         break;
@@ -60,6 +63,9 @@ switch ($request) {
         break;
     case $base . 'my-score':
         require __DIR__ . '/views/scores.php';
+        break;
+    case $base . 'admin-mastery':
+        require __DIR__ . '/views/admin/mastery.php';
         break;
     case $base . 'logout':
         require __DIR__ . '/controller/user/Logout.php';
@@ -74,10 +80,10 @@ switch ($request) {
         require __DIR__ . '/views/admin/register.php';
         break;
     case $base . 'module-file':
-        require __DIR__ . '/views/admin/file.php';
+        require __DIR__ . '/views/add-file.php';
         break;
     case $base . 'module-video':
-        require __DIR__ . '/views/admin/video.php';
+        require __DIR__ . '/views/add-video.php';
         break;
     case $base . 'quiz-maker':
         require __DIR__ . '/views/admin/quiz-maker.php';

@@ -19,7 +19,6 @@ use db\QuizResult;
 
     <table>
 
-
         <?php
 
         $ids = QuizResult::getQuizIds();
@@ -66,6 +65,7 @@ use db\QuizResult;
 
             echo "<tr>";
         }
+
 
         ?>
     </table>

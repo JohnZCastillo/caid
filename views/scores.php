@@ -121,7 +121,7 @@ use db\QuizResult;
 
                                 echo "<div class='bar'>
                                                 <div class='bar-value'>$percent</div>
-                                                <div class='bar-name'>test</div>
+                                                <div class='bar-name'></div>
                                           </div>";
                             }
                         }

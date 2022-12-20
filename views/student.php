@@ -119,7 +119,6 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
                 <label for="file" id="uploadBtn">Choose</label>
             </div>
         </div>
-        <script src="/CAIDSA/Javascripts/app.js"></script>
         <div id="nameandbio">
             <h3><span style="padding-left:100px;"><?php echo $_SESSION['userName'] ?></h3>
             <h6><span style="padding-left:100px;">Course & Section: BSIT 701</h6>
