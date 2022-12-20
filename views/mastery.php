@@ -84,10 +84,10 @@ use db\TopicDb;
             $id = $topic->getId();
             $percent = MasteryDb::getPercent($id);
 
-            // echo "<div class='data'>";
-            // echo "<div><p>$title</p></div>";
-            // echo "<div>$percent</div>";
-            // echo "</div>";
+            //format decimal when percent is not whole number eg 33.3333
+            if (str_contains($percent, ".")) {
+              $percent = number_format($percent, 2);
+            }
 
             echo "
             <div class='progress'> 

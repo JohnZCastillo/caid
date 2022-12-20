@@ -110,9 +110,6 @@ class TopicDb
                 throw new Exception("$quizId Cant delete Quiz Data");
             }
 
-
-
-
             // delete result 
             try {
 
@@ -197,6 +194,7 @@ class TopicDb
             throw new Exception("Cant delete quiz");
         }
 
+
         // Delete topic
         $stmt = $connection->prepare("Delete from topics where id = ?");
 
@@ -208,7 +206,9 @@ class TopicDb
         $stmt->execute();
 
         $error = mysqli_error($connection);
+
         Database::close($connection);
+
         return $error;
     }
 

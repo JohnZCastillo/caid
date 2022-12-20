@@ -58,7 +58,7 @@ switch ($request) {
     case $base . 'mastery':
         require __DIR__ . '/views/mastery.php';
         break;
-    case $base . 'scores':
+    case $base . 'my-score':
         require __DIR__ . '/views/scores.php';
         break;
     case $base . 'logout':

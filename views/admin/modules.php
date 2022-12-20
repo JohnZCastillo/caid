@@ -1,7 +1,8 @@
 <?php
 
-use db\ContentDb;
 use db\TopicDb;
+use db\ContentDb;
+use db\QuestionDb;
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');
@@ -24,8 +25,6 @@ if (isset($data['id'])) {
 
 ?>
 <html lang="en">
-
-
 
 <head>
     <meta charset="UTF-8">
@@ -62,25 +61,31 @@ if (isset($data['id'])) {
                         foreach (ContentDb::getContent($id) as $content) {
 
                             $name = $content->getName();
+                            $dataValue = $content->getData();
+                            $payload = array_pop($dataValue);
 
-                            echo "<div>$name</div>";
+                            $type = $content->getType();
 
-                            //                            $location = $content->getLocation();
-                            //                            $name = $content->getName();
-                            //                            $contentId =  $content->getContentId();
-                            //                            $typeName = $content->getTypeName();
-                            //
-                            //                            echo "<div>";
-                            //
-                            //                            switch ($typeName) {
-                            //                                case "FILE":
-                            //                                    echo "<a href='./assets/file/$location'>$name</a>";
-                            //                                    break;
-                            //                                case "VIDEO":
-                            //                                    echo "<a href='./assets/video/$location'>$name</a>";
-                            //                                    break;
-                            //                            }
-                            //                            echo "</div>";
+                            switch ($type) {
+                                case 1:
+                                    echo "<div id='handout'>
+                                        <object data='\CAIDSA\Student_Module\topic-1\1.1-Getting-Started.pdf' width='725' height='570'>
+                                      </div>";
+                                    break;
+                                case 2:
+                                    $id = $content->getId();
+                                    $quizId = QuestionDb::getQuizId($id);
+                                    echo "<div><a href='./quiz-shower?id=$quizId'>$name</a></div>";
+                                    break;
+                                case 3:
+                                    $location = $payload->getLocation();
+                                    echo "<div><a href='./assets/file/$location'>$name</a></div>";
+                                    break;
+                                case 4:
+                                    $location = $payload->getLocation();
+                                    echo "<div><a href='./assets/video/$location'>$name</a></div>";
+                                    break;
+                            }
                         }
                     } catch (Exception $error) {
                         echo "no content found";
@@ -92,8 +97,7 @@ if (isset($data['id'])) {
                     echo "</div>";
                 }
             } catch (Exception $e) {
-                // echo "No modules found";
-                $e->getMessage();
+                echo $e->getMessage();
             }
             ?>
 
@@ -161,6 +165,11 @@ if (isset($data['id'])) {
         const deleteTopic = async (id) => {
             try {
 
+
+                // if (!(window.confirm('Are you sure you want to delete this module?'))) {
+                //     return;
+                // }
+
                 let result = await fetch("./modules", {
                     method: "POST",
                     headers: {
@@ -176,8 +185,9 @@ if (isset($data['id'])) {
 
                 if (!status) throw new Error(result.message);
 
-                alert("Topic Deleted");
+                alert(result.message);
                 window.location.reload();
+
             } catch (error) {
                 alert(error.message);
             }

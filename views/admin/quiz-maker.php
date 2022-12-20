@@ -20,7 +20,7 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
         $quiz = new Quiz();
 
         $quiz->setName($name);
-        $quiz->setType(1);
+        $quiz->setType(2);
         $quiz->setTypeName("QUIZ");
         $quiz->setDescription("I am a test");
         $quiz->setOrder(2);
@@ -110,6 +110,10 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
                 <input type="text" name="d" id="d">
             </div>
             <div>
+                <span>Total Question </span>
+                <span class="question-count">0</span>
+            </div>
+            <div>
                 <button type="submit">Submit</button>
                 <span id="add-question">Add question</span>
             </div>
@@ -120,6 +124,8 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
     const questions = [];
     const topic = document.querySelector("#topic");
     const name = document.querySelector("#quiz-name");
+    const count = document.querySelector(".question-count");
+
     let problem = document.querySelector("#question");
     let choiceA = document.querySelector("#a");
     let choiceB = document.querySelector("#b");
@@ -134,30 +140,53 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
 
     addQuqestionBtn.addEventListener("click", () => {
 
-        const question = {
-            question: problem.value,
-            choices: [choiceA.value, choiceB.value, choiceC.value, choiceD.value],
-            answer: ""
+        try {
+
+            if (problem.value.length <= 0) {
+                throw new Error("No question define");
+            }
+
+            const question = {
+                question: problem.value,
+                choices: [choiceA.value, choiceB.value, choiceC.value, choiceD.value],
+                answer: ""
+            }
+
+            if (correctA.checked == true) {
+                question.answer = choiceA.value;
+            } else if (correctB.checked == true) {
+                question.answer = choiceB.value;
+            } else if (correctC.checked == true) {
+                question.answer = choiceC.value;
+            } else if (correctD.checked == true) {
+                question.answer = choiceD.value;
+            } else {
+                throw new Error("No answer define. Please tick the radio box for the correct answer");
+            }
+
+            questions.push(question);
+            count.innerHTML = questions.length;
+            form.reset();
+        } catch (error) {
+            alert(error.message);
         }
 
-        if (correctA.checked == true) {
-            question.answer = choiceA.value;
-        } else if (correctB.checked == true) {
-            question.answer = choiceB.value;
-        } else if (correctC.checked == true) {
-            question.answer = choiceC.value;
-        } else if (correctD.checked == true) {
-            question.answer = choiceD.value;
-        }
 
-        questions.push(question);
-        form.reset();
     })
 
     form.addEventListener('submit', async (event) => {
-        event.preventDefault();
 
         try {
+
+            event.preventDefault();
+
+            if (questions.length <= 0) {
+                throw new Error("Empty Question");
+            }
+
+            if (name.value.length <= 0) {
+                throw new Error("The quiz has no name");
+            }
 
             let result = await fetch("./quiz-maker", {
                 method: "POST",
