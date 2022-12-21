@@ -12,6 +12,13 @@ a {
   text-decoration: none;
 }
 
+.scale {
+  transition: transform 0.7s;
+}
+.scale:hover {
+  transform: scale(1.2);
+}
+
 /* Effects */
 @keyframes rotate {
   100% {
@@ -60,6 +67,7 @@ a {
 .main-wrapper {
   max-width: 1400px;
   min-height: 100vh;
+  /* max-height: 1000px; */
   margin: 0 auto;
   padding-bottom: 20px;
 }
@@ -67,7 +75,7 @@ a {
 .header {
   text-align: center;
   color: white;
-  padding-block: 20px;
+  padding-block: 10px;
   background-color: rgb(28, 87, 196);
   font-size: 24px;
   text-shadow: 1px 0 0 rgb(200, 200, 200), 0 -1px 0 rgb(200, 200, 200),
@@ -97,7 +105,7 @@ a {
 .content-right,
 .content-left {
   height: 100%;
-  max-height: 500px;
+  max-height: 550px;
   border-radius: 10px;
 }
 
@@ -107,7 +115,7 @@ a {
 
 .content-left {
   background-color: blue;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .btn {
@@ -148,6 +156,39 @@ a {
   background-size: cover;
 }
 
+.shadow {
+  box-shadow: 0px 0px 0px 3px rgb(69 69 255), 0px 0px 0px 5px rgb(243 255 81);
+}
+.shadow:hover {
+  box-shadow: 0px 0px 5px 3px rgb(69 69 255), 0px 0px 10px 15px rgb(243 255 81);
+}
+
+.btn-img {
+  width: 260px;
+  height: 150px;
+  border-radius: 10px;
+}
+
 .bg-dashboard {
   background-image: url("../images/bg/Dashboard.jpg");
+}
+
+.bg-student {
+  background-image: url("../images/bg/13.jpg");
+}
+
+.bg-rewards {
+  background-image: url("../images/icons/rewards.jpg");
+}
+
+.bg-mastery {
+  background-image: url("../images/icons/mastery.jpg");
+}
+
+.bg-stats {
+  background-image: url("../images/icons/statistics.jpg");
+}
+
+.bg-quiz-score {
+  background-image: url("../images/icons/quiz-score.jpg");
 }
