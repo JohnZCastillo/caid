@@ -4,6 +4,7 @@ require_once 'autoload.php';
 
 use views\components\Modules;
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,32 +18,22 @@ use views\components\Modules;
 </head>
 
 <body>
-    <section class="main-wrapper bg bg-dashboard">
+
+    <style>
+
+    </style>
+    <section class="main-wrapper">
         <header class="header">COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</header>
         <section class="content">
             <div class="content-left">
                 <nav class="nav">
-                    <a href="" class="nav__link btn onview">Dashboard</a>
                     <?php
-                    // Note: return  <a class='nav_link btn'>title</a>
                     Modules::getModules(76);
                     ?>
                 </nav>
             </div>
-            <div class="content-right rainbow">
-                <div class="bio">
-                    <?php
-                    //show default profile
-                    if (!isset($_SESSION['userProfile'])) {
-                        echo "<img src='./assets/profile/default.png' class='profile'>";
-                        exit();
-                    }
-                    echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " class='profile'>";
-                    ?>
-                </div>
-                <div class="action">
+            <div class="content-right">
 
-                </div>
             </div>
         </section>
     </section>
