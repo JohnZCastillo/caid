@@ -20,8 +20,9 @@ class Test
 
         // file_put_contents("TEST.jpg", file_get_contents($jpg_image));
 
+
         // Output the image
-        imagejpeg($jpg_image);
+        // imagejpeg($jpg_image);
 
         // Free up memory
         // imagedestroy($jpg_image);

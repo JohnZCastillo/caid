@@ -49,8 +49,6 @@ try {
             $score = (int) $stats['score'];
             $perfect = (int)$stats['perfect'];
 
-            echo "<div>";
-
             if ($score >= 30 && $score <= 35) {
                 echo "bronze";
             } else if ($score >= 40 && $score <= 45) {
@@ -58,10 +56,8 @@ try {
             } else if ($score == 50) {
                 echo "gold";
             } else {
-                header('Content-Type: image/jpeg');
-                imagejpeg(Gold::getGold());
-                // echo Gold::getGold();
-                exit();
+                $location =  Gold::getGold();
+                echo "<img src='./assets/cert/$location'>";
             }
         }
     }

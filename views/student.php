@@ -52,7 +52,7 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
     </div>
     <div class="modules">
-        <a href="" class="onview">DASHBOARD</a><br><br>
+        <a href="" class="button onview">DASHBOARD</a>
 
         <?php
 
@@ -68,12 +68,12 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
                 $notBan =  MasteryDb::hasCert($id, 0);
 
                 if ($notBan) {
-                    echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                    echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a>";
                 } else {
                     if ($count == 0) {
-                        echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a><br><br>";
+                        echo "<a href=\"./intro?id=$id\" class=\"button\">$title</a>";
                     } else {
-                        echo "<a href='' class=\"button ban\">$title</a><br><br>";
+                        echo "<a href='' class=\"button ban\">$title</a>";
                     }
                 }
 

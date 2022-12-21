@@ -6,6 +6,10 @@
   box-sizing: border-box;
   font-family: "poppins", sans-serif;
 }
+
+a {
+  text-decoration: none;
+}
 body {
   display: flex;
   justify-content: center;
@@ -236,40 +240,30 @@ p {
   height: 595px;
   border-radius: 8px;
   margin-top: 34px;
-  padding-top: 30px;
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  overflow-y: scroll;
 }
+
 .button {
-  text-decoration: none;
   border: 1px solid black;
   outline: none;
   background: #fff04b;
-  width: 419px;
   border-radius: 4px;
   font-weight: 600;
-  position: absolute;
   cursor: pointer;
-  text-align: left;
-  margin-left: 20px;
-  padding: 7px 20px;
+  padding: 10px 20px;
+  word-break: break-all;
   text-shadow: 1px 0 0 rgb(200, 200, 200), 0 -1px 0 rgb(200, 200, 200),
     0 1px 0 rgb(200, 200, 200), -1px 0 0 rgb(200, 200, 200);
 }
 .onview {
   border: 1px solid rgb(255, 247, 0);
-  outline: none;
   background: rgb(70, 70, 70);
-  width: 419px;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-  position: absolute;
-  text-align: left;
-  margin-left: 20px;
-  padding: 7px 20px;
-  text-decoration: none;
-  text-shadow: 1px 0 0 rgb(200, 200, 200), 0 -1px 0 rgb(200, 200, 200),
-    0 1px 0 rgb(200, 200, 200), -1px 0 0 rgb(200, 200, 200);
 }
+
 a:link {
   color: blue;
 }

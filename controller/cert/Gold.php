@@ -7,11 +7,11 @@ session_start();
 class Gold
 {
 
-    public static function generate($imageName)
+    public static function generate($certificate)
     {
 
         // // Create Image From Existing File
-        $jpg_image = imagecreatefromjpeg($imageName);
+        $jpg_image = imagecreatefromjpeg($certificate);
 
         // // Allocate A Color For The Text
         $white = imagecolorallocate($jpg_image, 37, 150, 190);
@@ -21,7 +21,7 @@ class Gold
 
         // $name_text = trim($_SESSION['userName']);
 
-        $name_text = "Anne Pauline Castillo";
+        $name_text = $_SESSION['userName'];
 
         $offset = (int) (strlen($name_text) / 2) * 46;
 
@@ -32,7 +32,16 @@ class Gold
 
         imagettftext($jpg_image, 100, 0, $position, 830, $white, $font_path, $name_text);
 
-        return $jpg_image;
+        $imageName = $name_text . $certificate;
+        $imagePath = "assets/cert/";
+
+        // move_uploaded_file($jpg_image, $imagePath . $imageName);
+        imagejpeg($jpg_image, $imagePath . $imageName);
+
+        // Output the image
+        imagedestroy($jpg_image);
+
+        return $imageName;
     }
 
     public static function getGold()
