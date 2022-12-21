@@ -17,6 +17,7 @@ use db\TopicDb;
     .holder {
       background-color: white;
       background-image: none;
+      min-height: 100%;
       /* height: 100%; */
       display: flex;
       flex-wrap: wrap;

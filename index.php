@@ -112,6 +112,9 @@ switch ($request) {
     case $base . 'quiz-shower?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/quiz-shower.php';
         break;
+    case $base . 'testme':
+        require __DIR__ . '/controller/cert/Test.php';
+        break;
     default:
         http_response_code(404);
         require __DIR__ . '/views/error.php';

@@ -3,6 +3,8 @@
 use db\FileDb;
 use db\QuestionDb;
 use db\QuizResult;
+use controller\cert\Gold;
+use controller\cert\Test;
 use model\module\Content;
 
 // echo " File not found !";
@@ -37,14 +39,12 @@ use model\module\Content;
 // imagedestroy($jpg_image);
 
 try {
-
     $ids = QuizResult::getQuizIds();
 
     foreach ($ids as $id) {
         $stats = QuizResult::getResult($id);
 
         if ($stats !== NULL) {
-
 
             $score = (int) $stats['score'];
             $perfect = (int)$stats['perfect'];
@@ -58,13 +58,30 @@ try {
             } else if ($score == 50) {
                 echo "gold";
             } else {
-                echo "no reward";
+                header('Content-Type: image/jpeg');
+                imagejpeg(Gold::getGold());
+                // echo Gold::getGold();
+                exit();
             }
-            echo "</div>";
         }
     }
 } catch (Exception $e) {
     echo "An error has occured";
 }
 
-echo "Not found!";
+// echo "Not found!";
+
+// $jpg_image = Gold::getGold();
+
+// // $jpg_image = imagecreatefromjpeg($im);
+// // file_put_contents($output, file_get_contents($input));
+
+// // $im = Gold::getGold();
+// // Set the content type header - in this case image/jpeg
+// header('Content-Type: image/jpeg');
+
+// // Output the image
+// imagejpeg($jpg_image);
+
+// // Free up memory
+// imagedestroy($jpg_image);
