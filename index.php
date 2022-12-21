@@ -115,6 +115,12 @@ switch ($request) {
     case $base . 'testme':
         require __DIR__ . '/controller/cert/Test.php';
         break;
+    case $base . 'modules':
+        require __DIR__ . '/views/components/Modules.php';
+        break;
+    case $base . 'sample':
+        require __DIR__ . '/views/sample.php';
+        break;
     default:
         http_response_code(404);
         require __DIR__ . '/views/error.php';

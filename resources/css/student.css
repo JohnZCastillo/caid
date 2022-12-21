@@ -20,15 +20,13 @@ body {
   background-size: cover;
 }
 .box {
-  top: 90px;
-  position: relative;
-  width: 750px;
   height: 450px;
+  position: relative;
   background: #5f5f5f;
   border-radius: 8px;
   overflow: hidden;
-  margin-left: 10px;
 }
+
 .box::before {
   content: "";
   position: absolute;
@@ -259,6 +257,7 @@ p {
   text-shadow: 1px 0 0 rgb(200, 200, 200), 0 -1px 0 rgb(200, 200, 200),
     0 1px 0 rgb(200, 200, 200), -1px 0 0 rgb(200, 200, 200);
 }
+
 .onview {
   border: 1px solid rgb(255, 247, 0);
   background: rgb(70, 70, 70);
@@ -286,17 +285,14 @@ a.button:hover,
 a.button:active {
   background: rgb(70, 70, 70);
 }
+
 .mainmenubtn {
-  top: 35px;
-  left: 600px;
-  position: relative;
   background-image: url("../images/bg/out.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 50%;
   color: white;
   cursor: pointer;
-  z-index: 9999999;
   border-radius: 50px;
   width: 70px;
   height: 70px;
@@ -312,17 +308,15 @@ a.button:active {
   display: inline-block;
 }
 .profilediv {
-  margin-bottom: 420px;
-  margin-left: 458px;
-  position: absolute;
-  width: 747px;
   height: 140px;
-  z-index: 999999;
   border: 1px solid #5f5f5f;
   background-color: rgb(28, 87, 196);
   border-radius: 8px;
   background-image: url("../images/bg/13.jpg");
   background-size: cover;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
 }
 img.profilediv:hover {
   transform: scale(1.05);
@@ -330,11 +324,6 @@ img.profilediv:hover {
     0px 0px 10px 15px rgb(243, 255, 81);
 }
 #nameandbio {
-  width: 700px;
-  height: 110px;
-  position: absolute;
-  margin-left: 15px;
-  top: 15px;
   background-color: #fff04b;
   padding: 20px 10px;
   border-radius: 5px;
@@ -345,13 +334,9 @@ img.profilediv:hover {
   background-color: skyblue;
 }
 .profile-pic-div {
-  margin-left: 70px;
   height: 70px;
   width: 70;
-  position: absolute;
   transform: translate(-50%, -50%);
-  overflow: hidden;
-  z-index: 999999;
   border: 1px solid grey;
   border-radius: 55%;
 }
@@ -445,4 +430,22 @@ img.profilediv:hover {
   opacity: 0.6;
   border-radius: 5px;
   pointer-events: none;
+}
+
+.content-container {
+  padding-inline: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 2fr;
+}
+
+.content-right {
+  display: flex;
+  flex-direction: column;
+}
+
+#profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
