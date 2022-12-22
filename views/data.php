@@ -3,6 +3,8 @@
 use db\ContentDb;
 use db\MasteryDb;
 use db\QuestionDb;
+use model\module\Content;
+use views\components\TopicBg;
 
 // Initialize URL to the variable
 $topicId = $_REQUEST['id'];
@@ -31,6 +33,7 @@ $payload = array_pop($dataValue);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./resources/css/data.css">
+    <link rel="stylesheet" href="./resources/css/style.css">
     <title>Data</title>
 </head>
 
@@ -47,35 +50,23 @@ $payload = array_pop($dataValue);
         try {
 
             if (!((count($content) - 1) == $index)) {
+
                 $nextIndex = $index + 1;
                 MasteryDb::register($topicId, $nextIndex);
                 $nextContent = ContentDb::getContent($topicId);
 
                 $nextType = $nextContent[$nextIndex]->getType();
 
-                $iconId = "";
+                $iconId = TopicBg::getTopicBackground($nextType);
 
-                switch ($nextType) {
-                    case 1:
-                        $iconId = "g1";
-                        break;
-                    case 2:
-                        $iconId = "q1";
-                        break;
-                    case 3:
-                        $iconId = "h1";
-                        break;
-                    case 4:
-                        $iconId = "ap1";
-                        break;
-                }
+                $iconId = $iconId . " bg img-btn-sm";
 
-                $icon = "<a href='./data?id=$topicId&index=$nextIndex&next=$nextTopic' id='$iconId'></a><br><br>";
+                $icon = "<a href='./data?id=$topicId&index=$nextIndex&next=$nextTopic' class='$iconId'></a><br><br>";
 
                 if ($nextTopic !== NULL) {
                     echo $icon;
                 } else {
-                    echo "<a href='./data?id=$topicId&index=$nextIndex' id='$iconId'></a><br><br>";
+                    echo "<a href='./data?id=$topicId&index=$nextIndex' class='$iconId'></a><br><br>";
                 }
             } else {
                 //register next topic 

@@ -52,12 +52,9 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                     echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " id='photo'>";
                 }
                 ?>
-
-
                 <input type="file" id="file">
                 <label for="file" id="uploadBtn">Choose</label>
             </div>
-            <!-- <script src="/CAIDSA/Javascripts/app.js"></script> -->
             <h4>ADMIN PROFILE</h4>
         </div>
         <div class="nav">
@@ -106,7 +103,6 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
             </div>
         </div>
 
-        <!-- <script src="/CAIDSA/Javascripts/app.js"></script> -->
         <script src="./resources/js/profile.js"></script>
 </body>
 

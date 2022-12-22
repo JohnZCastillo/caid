@@ -56,7 +56,7 @@ use views\components\Modules;
                     <a href="" class="nav__link btn onview">Dashboard</a>
                     <?php
                     // Note: return  <a class='nav_link btn'>title</a>
-                    Modules::getModules(76);
+                    Modules::getModules(-1);
                     ?>
                 </nav>
             </div>
@@ -74,12 +74,11 @@ use views\components\Modules;
                 <section class="rainbow bg bg-student">
                     <div class="action">
                         <a href="./my-score" class="btn-img bg bg-rewards scale shadow"></a>
-                        <a href="./my-score" class="btn-img bg bg-mastery scale shadow"></a>
+                        <a href="./mastery" class="btn-img bg bg-mastery scale shadow"></a>
                         <a href="./my-score" class="btn-img bg bg-quiz-score scale shadow"></a>
-                        <a href="./my-score" class="btn-img bg bg-stats scale shadow"></a>
+                        <a href="./my-stats" class="btn-img bg bg-stats scale shadow"></a>
                     </div>
                 </section>
-
             </div>
         </section>
     </section>

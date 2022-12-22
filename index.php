@@ -38,7 +38,7 @@ switch ($request) {
         require __DIR__ . '/controller/topic/TopicAdd.php';
         break;
     case $base . 'student':
-        require __DIR__ . '/views/student.php';
+        require __DIR__ . '/views/sample.php';
         break;
     case $base . 'rewards':
         require __DIR__ . '/views/rewards.php';
@@ -62,10 +62,13 @@ switch ($request) {
         require __DIR__ . '/views/admin/account.php';
         break;
     case $base . 'mastery':
-        require __DIR__ . '/views/mastery.php';
+        require __DIR__ . '/views/my-progess.php';
         break;
     case $base . 'my-score':
-        require __DIR__ . '/views/scores.php';
+        require __DIR__ . '/views/my-score.php';
+        break;
+    case $base . 'my-stats':
+        require __DIR__ . '/views/my-stats.php';
         break;
     case $base . 'admin-mastery':
         require __DIR__ . '/views/admin/mastery.php';
@@ -101,13 +104,19 @@ switch ($request) {
         require __DIR__ . '/views/quiz-shower.php';
         break;
     case $base . 'data?' . $_SERVER["QUERY_STRING"]:
-        require __DIR__ . '/views/data.php';
+        require __DIR__ . '/views/content-data.php';
+        break;
+    case $base . 'content-data?' . $_SERVER["QUERY_STRING"]:
+        require __DIR__ . '/views/content-data.php';
         break;
     case $base . 'topic?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/content.php';
         break;
     case $base . 'intro?' . $_SERVER["QUERY_STRING"]:
-        require __DIR__ . '/views/intro.php';
+        require __DIR__ . '/views/topic.php';
+        break;
+    case $base . 'topic?' . $_SERVER["QUERY_STRING"]:
+        require __DIR__ . '/views/topic.php';
         break;
     case $base . 'quiz-shower?' . $_SERVER["QUERY_STRING"]:
         require __DIR__ . '/views/quiz-shower.php';

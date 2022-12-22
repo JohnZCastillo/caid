@@ -92,7 +92,6 @@ if ($_SESSION['userRole'] !== Role::$STUDENT) {
             <div class="profilediv">
                 <div id="profile">
                     <div class="profile-pic-div">
-
                         <?php
                         //show default profile
                         if (!isset($_SESSION['userProfile'])) {

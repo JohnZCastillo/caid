@@ -27,7 +27,7 @@ class Modules
                 //check weather the student is ban on the current topic
                 $notBan =  MasteryDb::hasCert($id, 0);
 
-                $classlist = $id == $topicId ? "nav__link btn" :  "nav__link btn onview";
+                $classlist = $id == $topicId ? "nav__link btn onview" :  "nav__link btn";
 
                 if ($notBan || $count == 0) {
                     echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a>";

@@ -3,6 +3,7 @@
 use db\ContentDb;
 use db\MasteryDb;
 use db\TopicDb;
+use views\components\Contents;
 
 error_reporting(0);
 
@@ -15,7 +16,8 @@ $topicId = $_REQUEST['id'];
 <head>
     <meta charset="UTF-8">
     <title>Geting Started</title>
-    <link rel="stylesheet" href="./resources/css/student.css">
+    <!-- <link rel="stylesheet" href="./resources/css/student.css"> -->
+    <link rel="stylesheet" href="./resources/css/style.css">
 </head>
 
 <body>
@@ -59,33 +61,33 @@ $topicId = $_REQUEST['id'];
         <?php
 
         try {
-            $count = 0;
+            // $count = 0;
 
-            foreach (TopicDb::getAllTopics() as $topic) {
+            // foreach (TopicDb::getAllTopics() as $topic) {
 
-                $title = $topic->getTitle();
-                $id = $topic->getId();
+            //     $title = $topic->getTitle();
+            //     $id = $topic->getId();
 
-                $notBan =  MasteryDb::hasCert($id, 0);
+            //     $notBan =  MasteryDb::hasCert($id, 0);
 
-                $classlist = "button";
+            //     $classlist = "button";
 
-                if ($id == $topicId) {
-                    $classlist = "button onview";
-                }
+            //     if ($id == $topicId) {
+            //         $classlist = "button onview";
+            //     }
 
-                if ($notBan) {
-                    echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a><br><br>";
-                } else {
-                    if ($count == 0) {
-                        echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a><br><br>";
-                    } else {
-                        echo "<a href='' class=\"$classlist ban\">$title</a><br><br>";
-                    }
-                }
+            //     if ($notBan) {
+            //         echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a><br><br>";
+            //     } else {
+            //         if ($count == 0) {
+            //             echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a><br><br>";
+            //         } else {
+            //             echo "<a href='' class=\"$classlist ban\">$title</a><br><br>";
+            //         }
+            //     }
 
-                $count++;
-            }
+            //     $count++;
+            // }
         } catch (Exception  $e) {
             echo "No topics yet";
         }
@@ -96,84 +98,84 @@ $topicId = $_REQUEST['id'];
         <div class="form">
             <div class="containers">
                 <?php
-                try {
+                $contents = Contents::getContents($topicId);
+                echo "<div class='height-auto'>$contents</div>"
 
+                // try {
 
+                //     $count = 0;
 
-                    $count = 0;
+                //     $topics = TopicDb::getAllTopics();
+                //     $nextId = NULL;
+                //     $first = false;
 
-                    $topics = TopicDb::getAllTopics();
-                    $nextId = NULL;
-                    $first = false;
+                //     for ($i = 0; $i <= count($topics) - 1; $i++) {
+                //         if ($topics[$i]->getId() == $topicId && $i <  (count($topics) - 1)) {
+                //             $nextId = $topics[$i + 1]->getId();
+                //         }
+                //     }
 
-                    for ($i = 0; $i <= count($topics) - 1; $i++) {
-                        if ($topics[$i]->getId() == $topicId && $i <  (count($topics) - 1)) {
-                            $nextId = $topics[$i + 1]->getId();
-                            // $first = $i === 0 ? TRUE : FALSE;
-                        }
-                    }
+                //     foreach (ContentDb::getContent($topicId) as $content) {
 
-                    foreach (ContentDb::getContent($topicId) as $content) {
+                //         $notBan =  MasteryDb::hasCert($topicId, $count);
 
-                        $notBan =  MasteryDb::hasCert($topicId, $count);
+                //         $type = $content->getType();
 
-                        $type = $content->getType();
+                //         $url = "";
+                //         $classlist = "topic-img";
 
-                        $url = "";
-                        $classlist = "topic-img";
+                //         //allow for first topic 
+                //         if ($count == 0) {
+                //             $notBan = true;
+                //         }
 
-                        //allow for first topic 
-                        if ($count == 0) {
-                            $notBan = true;
-                        }
+                //         //chnage url base on progress
+                //         if ($notBan && $nextId !== NULL) {
+                //             $url = "./data?id=$topicId&index=$count&next=$nextId";
+                //         } else if ($notBan) {
+                //             $url = "./data?id=$topicId&index=$count";
+                //         } else {
+                //             $url = "";
+                //             $classlist = "topic-img topic-ban";
+                //         }
 
-                        //chnage url base on progress
-                        if ($notBan && $nextId !== NULL) {
-                            $url = "./data?id=$topicId&index=$count&next=$nextId";
-                        } else if ($notBan) {
-                            $url = "./data?id=$topicId&index=$count";
-                        } else {
-                            $url = "";
-                            $classlist = "topic-img topic-ban";
-                        }
+                //         //check the type of content to render is properly
+                //         switch ($type) {
+                //             case 1:
+                //                 echo "<div class='topic'>
+                //                         <a href='$url' class='pictures'>
+                //                             <img src='./resources/images/bg/game.jpg' class='$classlist'>
+                //                         </a>
+                //                     </div>";
+                //                 break;
+                //             case 2:
+                //                 echo "<div class='topic'>
+                //                             <a  href='$url' class='pictures'>
+                //                                 <img src='./resources/images/bg/quiz.jpg' class='$classlist'>
+                //                             </a>
+                //                         </div>";
+                //                 break;
+                //             case 3:
+                //                 echo "<div class='topic'>
+                //                         <a  href='$url' class='pictures'>
+                //                             <img src='./resources/images/bg/handout.jpg' class='$classlist'>
+                //                         </a>
+                //                     </div>";
+                //                 break;
+                //             case 4:
+                //                 echo "<div class='topic'>
+                //                         <a  href='$url' class='pictures'>
+                //                             <img src='./resources/images/bg/discussion.jpg' class='$classlist'>
+                //                         </a>
+                //                     </div>";
+                //                 break;
+                //         }
 
-                        //check the type of content to render is properly
-                        switch ($type) {
-                            case 1:
-                                echo "<div class='topic'>
-                                        <a href='$url' class='pictures'>
-                                            <img src='./resources/images/bg/game.jpg' class='$classlist'>
-                                        </a>
-                                    </div>";
-                                break;
-                            case 2:
-                                echo "<div class='topic'>
-                                            <a  href='$url' class='pictures'>
-                                                <img src='./resources/images/bg/quiz.jpg' class='$classlist'>
-                                            </a>
-                                        </div>";
-                                break;
-                            case 3:
-                                echo "<div class='topic'>
-                                        <a  href='$url' class='pictures'>
-                                            <img src='./resources/images/bg/handout.jpg' class='$classlist'>
-                                        </a>
-                                    </div>";
-                                break;
-                            case 4:
-                                echo "<div class='topic'>
-                                        <a  href='$url' class='pictures'>
-                                            <img src='./resources/images/bg/discussion.jpg' class='$classlist'>
-                                        </a>
-                                    </div>";
-                                break;
-                        }
-
-                        $count++;
-                    }
-                } catch (Exception $error) {
-                    echo "Hello";
-                }
+                //         $count++;
+                //     }
+                // } catch (Exception $error) {
+                //     echo "Hello";
+                // }
                 ?>
             </div>
         </div>
