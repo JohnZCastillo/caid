@@ -89,6 +89,9 @@ class ContentDb
                 case 4:
                     $content->appendData(FileDb::getFile($content));
                     break;
+                case 5:
+                    $content->appendData(FileDb::getFile($content));
+                    break;
             }
 
             array_push($contents, $content);

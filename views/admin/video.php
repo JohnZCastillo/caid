@@ -9,7 +9,7 @@ use Exception;
 use model\module\Content;
 use model\module\File;
 
-if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic'])) {
+if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic'], $_POST['type'])) {
 
     try {
 
@@ -26,21 +26,22 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
         $topicId = $_POST['topic'];
         $title = $_POST['title'];
         $description =  $_POST['description'];
+        $type = $_POST['type'];
 
         $content = new Content();
         $content->setName($title);
         $content->setDescription($description);
         $content->setOrder(1);
-        $content->setType(4);
+        $content->setType($type);
         $content->setTopics($topicId);
-        
+
         ContentDb::addContent($content);
-        
+
         $file = new File();
         $file->setContenId($content->getId());
         $file->setLocation($imageName);
         $file->setTopicId($topicId);
-        
+
         FileDb::addFile($file);
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -83,6 +84,13 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
                     echo "No modules found";
                 }
                 ?>
+            </select>
+        </div>
+        <div>
+            <label for="type">Type</label>
+            <select name="type" required>
+                <option value="4">Animated Presentation</option>
+                <option value="5">Practical Discussion</option>
             </select>
         </div>
         <div>

@@ -26,9 +26,23 @@ use views\components\Modules;
             background-color: transparent !important;
         }
 
-        .bio {
+        .student {
             flex-basis: 20%;
             border-radius: 10px;
+            padding: 10px 20px;
+        }
+
+        .bio {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+
+        .btn-logout {
+            margin-left: auto;
+            width: 60px;
+            height: 60px;
         }
 
         .rainbow {
@@ -61,7 +75,11 @@ use views\components\Modules;
                 </nav>
             </div>
             <div class="content-right">
-                <div class="bio bg bg-student">
+                <div class="bg bg-student student">
+                    <section class="bio">
+                        <a href="./logout" class="bg btn-logout scale shadow"></a>
+
+                    </section>
                     <?php
                     //show default profile
                     // if (!isset($_SESSION['userProfile'])) {
@@ -73,7 +91,7 @@ use views\components\Modules;
                 </div>
                 <section class="rainbow bg bg-student">
                     <div class="action">
-                        <a href="./my-score" class="btn-img bg bg-rewards scale shadow"></a>
+                        <a href="./my-rewards" class="btn-img bg bg-rewards scale shadow"></a>
                         <a href="./mastery" class="btn-img bg bg-mastery scale shadow"></a>
                         <a href="./my-score" class="btn-img bg bg-quiz-score scale shadow"></a>
                         <a href="./my-stats" class="btn-img bg bg-stats scale shadow"></a>

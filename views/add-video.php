@@ -26,14 +26,27 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
     header('Location: ./redirect');
 }
 
-if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic'])) {
+if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic'], $_POST['type'])) {
 
     try {
 
         //see database type for file type
 
+
+
+        $type =  $_POST['type'];
+
         // path where images will ba saved
-        $imagePath = './assets/video/';
+        $imagePath = "";
+
+        switch ($type) {
+            case 4:
+                $imagePath = './assets/video/';
+                break;
+            case 5:
+                $imagePath = './assets/discussion/';
+                break;
+        }
 
         $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $imageName = $_POST['title'] . '.' . $extension;
@@ -48,12 +61,13 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
         $content->setName($title);
         $content->setDescription($description);
         $content->setOrder(1);
-        $content->setType(4);
+        $content->setType($type);
         $content->setTopics($topicId);
 
         ContentDb::addContent($content);
 
         $file = new File();
+
         $file->setContenId($content->getId());
         $file->setLocation($imageName);
         $file->setTopicId($topicId);
@@ -159,6 +173,13 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
                             echo "No modules found";
                         }
                         ?>
+                    </select>
+                </div>
+                <div>
+                    <label for="type">Type</label>
+                    <select name="type" required>
+                        <option value="4">Animated Presentation</option>
+                        <option value="5">Practical Discussion</option>
                     </select>
                 </div>
                 <div>

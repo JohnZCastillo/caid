@@ -7,7 +7,7 @@ session_start();
 class Gold
 {
 
-    public static function generate($certificate)
+    public static function generate($certificate, $topic)
     {
 
         // // Create Image From Existing File
@@ -32,7 +32,8 @@ class Gold
 
         imagettftext($jpg_image, 100, 0, $position, 830, $white, $font_path, $name_text);
 
-        $imageName = $name_text . $certificate;
+        $imageName = $name_text . "_" . $certificate . "_" . $topic;
+
         $imagePath = "assets/cert/";
 
         // move_uploaded_file($jpg_image, $imagePath . $imageName);
@@ -44,8 +45,8 @@ class Gold
         return $imageName;
     }
 
-    public static function getGold()
+    public static function getGold($topic)
     {
-        return Gold::generate('certificate.jpg');
+        return Gold::generate('certificate.jpg', $topic);
     }
 }

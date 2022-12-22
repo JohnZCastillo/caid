@@ -76,6 +76,9 @@ switch ($request) {
     case $base . 'logout':
         require __DIR__ . '/controller/user/Logout.php';
         break;
+    case $base . 'my-rewards':
+        require __DIR__ . '/views/my-rewards.php';
+        break;
     case $base . 'redirect':
         require __DIR__ . '/controller/redirect/Redirect.php';
         break;

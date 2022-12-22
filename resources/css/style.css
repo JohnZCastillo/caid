@@ -144,9 +144,10 @@ a {
 
 .btn-logout {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   background-image: url("../images/bg/out.png");
+  border-radius: 100%;
 }
 /* Helper class */
 .hide {
@@ -235,6 +236,15 @@ a {
   background-image: url("../images/bg/discussion.jpg");
 }
 
+.bg-animated {
+  background-image: url("../images/bg/Animated-Presentation.jpg");
+}
+
 .bg-handout {
   background-image: url("../images/bg/handout.jpg");
+}
+
+.cert {
+  width: 300px;
+  height: auto;
 }

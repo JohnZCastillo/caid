@@ -85,6 +85,10 @@ if (isset($data['id'])) {
                                     $location = $payload->getLocation();
                                     echo "<div><a href='./assets/video/$location'>$name</a></div>";
                                     break;
+                                case 5:
+                                    $location = $payload->getLocation();
+                                    echo "<div><a href='./assets/discussion/$location'>$name</a></div>";
+                                    break;
                             }
                         }
                     } catch (Exception $error) {

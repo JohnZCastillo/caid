@@ -27,6 +27,9 @@ class TopicBg
                 return "bg-handout";
                 break;
             case 4:
+                return "bg-animated";
+                break;
+            case 5:
                 return "bg-discussion";
                 break;
         }

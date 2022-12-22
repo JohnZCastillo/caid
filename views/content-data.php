@@ -130,6 +130,10 @@ $payload = array_pop($dataValue);
                                 $location = $payload->getLocation();
                                 echo "<object data='./assets/video/$location' width='100%' height='100%'>";
                                 break;
+                            case 5:
+                                $location = $payload->getLocation();
+                                echo "<object data='./assets/discussion/$location' width='100%' height='100%'>";
+                                break;
                         }
                     } catch (Exception $error) {
                         echo $error->getMessage();

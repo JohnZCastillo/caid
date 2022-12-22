@@ -38,32 +38,32 @@ use model\module\Content;
 // // Clear Memory
 // imagedestroy($jpg_image);
 
-try {
-    $ids = QuizResult::getQuizIds();
+// try {
+//     $ids = QuizResult::getQuizIds();
 
-    foreach ($ids as $id) {
-        $stats = QuizResult::getResult($id);
+//     foreach ($ids as $id) {
+//         $stats = QuizResult::getResult($id);
 
-        if ($stats !== NULL) {
+//         if ($stats !== NULL) {
 
-            $score = (int) $stats['score'];
-            $perfect = (int)$stats['perfect'];
+//             $score = (int) $stats['score'];
+//             $perfect = (int)$stats['perfect'];
 
-            if ($score >= 30 && $score <= 35) {
-                echo "bronze";
-            } else if ($score >= 40 && $score <= 45) {
-                echo "Silver";
-            } else if ($score == 50) {
-                echo "gold";
-            } else {
-                $location =  Gold::getGold();
-                echo "<img src='./assets/cert/$location'>";
-            }
-        }
-    }
-} catch (Exception $e) {
-    echo "An error has occured";
-}
+//             if ($score >= 30 && $score <= 35) {
+//                 echo "bronze";
+//             } else if ($score >= 40 && $score <= 45) {
+//                 echo "Silver";
+//             } else if ($score == 50) {
+//                 echo "gold";
+//             } else {
+//                 $location =  Gold::getGold();
+//                 echo "<img src='./assets/cert/$location'>";
+//             }
+//         }
+//     }
+// } catch (Exception $e) {
+//     echo "An error has occured";
+// }
 
 // echo "Not found!";
 
@@ -81,3 +81,5 @@ try {
 
 // // Free up memory
 // imagedestroy($jpg_image);
+?>
+<iframe src="./assets/game/game1/index.html" frameborder="0" width="500px" height="500px"></iframe>

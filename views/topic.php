@@ -28,6 +28,7 @@ $topicId = $_REQUEST['id'];
         .content-wrapper {
             padding-block: 50px;
             display: flex;
+            height: 100%;
             flex-direction: column;
             align-items: center;
             gap: 50px;
