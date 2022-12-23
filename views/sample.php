@@ -28,19 +28,27 @@ use views\components\Profile;
         }
 
         .student {
+
+            background-color: yellow;
             flex-basis: 20%;
             border-radius: 10px;
-            padding: 10px 20px;
-
+            padding: 20px;
             display: flex;
+
+        }
+
+        .student>* {
+            padding: 10px 10px;
         }
 
         .bio {
             display: flex;
             align-items: center;
             padding: 10px;
-        }
+            background-color: inherit;
+            border-radius: 0px 8px 8px 0px;
 
+        }
 
         .btn-logout {
             margin-left: auto;
@@ -68,6 +76,40 @@ use views\components\Profile;
         .pointer {
             cursor: pointer;
         }
+
+        #photo {
+            width: 90px;
+            height: 90px;
+        }
+
+        .profile-pic-div {
+            width: 90px;
+            height: 90px;
+        }
+
+        .profile {
+            height: auto;
+            background-color: inherit;
+            border-radius: 8px 0px 0px 8px;
+        }
+
+        .name {
+            flex-basis: 80%;
+            background-color: inherit;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .user-section {
+            font-size: 12px;
+        }
     </style>
     <section class="main-wrapper bg bg-dashboard">
         <header class="header">COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</header>
@@ -86,18 +128,13 @@ use views\components\Profile;
                     <div class="profile">
                         <?php Profile::getProfile() ?>
                     </div>
+                    <div class="name">
+                        <span class="user-name"><?php echo $_SESSION['userName'] ?></span>
+                        <span class="user-section">Course & Section: <?php echo $_SESSION['userSection'] ?></span>
+                    </div>
                     <section class="bio">
                         <a onclick="logout()" class="bg btn-logout scale shadow pointer"></a>
                     </section>
-
-                    <?php
-                    //show default profile
-                    // if (!isset($_SESSION['userProfile'])) {
-                    //     echo "<img src='./assets/profile/default.png' class='profile'>";
-                    //     exit();
-                    // }
-                    // echo "<img src='./assets/profile/" . $_SESSION['userProfile'] . "'" . " class='profile'>";
-                    ?>
                 </div>
                 <section class="rainbow bg bg-student">
                     <div class="action">

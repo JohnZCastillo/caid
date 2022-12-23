@@ -58,7 +58,7 @@ use views\components\Profile;
             </div>
             <div class="content-right rainbow">
                 <section class="filler">
-                    <a href="./my-rewards" class="btn-img bg bg-rewards scale shadow"></a>
+                    <a href="#" class="btn-img bg bg-rewards scale shadow"></a>
                     <a href="./admin-progress" class="btn-img bg bg-mastery scale shadow"></a>
                     <a href="./admin-score" class="btn-img bg bg-quiz-score scale shadow"></a>
                     <a href="./admin-stats" class="btn-img bg bg-stats scale shadow"></a>

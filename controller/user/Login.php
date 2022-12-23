@@ -36,6 +36,7 @@ try {
     $_SESSION['userId'] = $currentUser->getId();
     $_SESSION['userName'] =  $currentUser->getFName() . " " . $currentUser->getMName() . " " .  $currentUser->getLName();
     $_SESSION['userProfile'] = $currentUser->getProfile();
+    $_SESSION['userSection'] = $currentUser->getYear() . " " . $currentUser->getCourse();
 
     header('Location: ./redirect');
     die();
