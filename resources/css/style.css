@@ -171,6 +171,9 @@ a {
   background-size: cover;
 }
 
+.bg-modules {
+  background-image: url("../images/icons/modules.jpg");
+}
 .shadow {
   box-shadow: 0px 0px 0px 3px rgb(69 69 255), 0px 0px 0px 5px rgb(243 255 81);
 }
@@ -218,6 +221,17 @@ a {
 
 .bg-mastery {
   background-image: url("../images/icons/mastery.jpg");
+}
+
+.bg-new-admin {
+  background-image: url("../images/icons/new-admin.jpg");
+}
+
+.bg-new-student {
+  background-image: url("../images/icons/new-user.jpg");
+}
+.bg-account-data {
+  background-image: url("../images/icons/login-data.jpg");
 }
 
 .bg-stats {

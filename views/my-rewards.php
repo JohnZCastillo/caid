@@ -2,9 +2,8 @@
 
 require_once 'autoload.php';
 
+use controller\cert\Certificate;
 use db\QuizResult;
-use controller\cert\Gold;
-use views\components\Modules;
 
 error_reporting(0);
 ?>
@@ -40,6 +39,7 @@ error_reporting(0);
                     <?php
                     try {
                         $ids = QuizResult::getQuizIds();
+                        $location = "./assets/cert/";
 
                         foreach ($ids as $id) {
                             $stats = QuizResult::getResult($id);
@@ -51,13 +51,20 @@ error_reporting(0);
                                 $perfect = (int)$stats['perfect'];
 
                                 if ($score >= 30 && $score <= 35) {
-                                    echo "bronze";
+                                    $name =  Certificate::getBronze("yawa");
+                                    $path = $location . $name;
+                                    echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                    echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
                                 } else if ($score >= 40 && $score <= 45) {
-                                    // echo "Silver";
-                                    $location =  Gold::getGold("yawa");
-                                    echo "<img src='./assets/cert/$location' class='cert'>";
+                                    $name =  Certificate::getSilver("yawa");
+                                    $path = $location . $name;
+                                    echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                    echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
                                 } else if ($score == 50) {
-                                    echo "gold";
+                                    $name =  Certificate::getGold("yawa");
+                                    $path = $location . $name;
+                                    echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                    echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
                                 }
                             }
                         }

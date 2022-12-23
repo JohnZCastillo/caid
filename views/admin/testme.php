@@ -42,7 +42,10 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
 
     <div class="box">
         <div class="form">
-
+            <form method="post" action='./upload-game' enctype="multipart/form-data">
+                <input type="file" name="files[]" id="files" webkitdirectory mozdirectory>
+                <input class="button" type="submit" value="Upload" />
+            </form>
         </div>
     </div>
 </body>

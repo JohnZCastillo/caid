@@ -117,7 +117,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                 </div>
                 <button type="submit" class="add-user">Add User</button>
                 <div id="cancelbtn">
-                    <a href="./account">Cancel</a>
+                    <a href="./accounts">Cancel</a>
                 </div>
 
                 <div class="error">

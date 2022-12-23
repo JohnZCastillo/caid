@@ -25,8 +25,8 @@ switch ($request) {
     case $base . 'auth':
         require __DIR__ . '/controller/user/Login.php';
         break;
-    case $base . 'modules':
-        require __DIR__ . '/views/admin/modules.php';
+    case $base . 'admin-module':
+        require __DIR__ . '/views/admin/admin-module.php';
         break;
     case $base . 'register':
         require __DIR__ . '/controller/user/Signup.php';
@@ -50,19 +50,25 @@ switch ($request) {
         require __DIR__ . '/views/admin/logindata.php';
         break;
     case $base . 'admin':
-        require __DIR__ . '/views/admin.php';
+        require __DIR__ . '/views/admin/admin.php';
         break;
     case $base . 'test':
         require __DIR__ . '/views/admin/testme.php';
         break;
-    case $base . 'scores':
-        require __DIR__ . '/views/admin/scores.php';
+    case $base . 'admin-score':
+        require __DIR__ . '/views/admin/admin-score.php';
         break;
     case $base . 'account':
         require __DIR__ . '/views/admin/account.php';
         break;
+    case $base . 'accounts':
+        require __DIR__ . '/views/admin/accounts.php';
+        break;
     case $base . 'mastery':
         require __DIR__ . '/views/my-progess.php';
+        break;
+    case $base . 'admin-progress':
+        require __DIR__ . '/views/admin/admin-progess.php';
         break;
     case $base . 'my-score':
         require __DIR__ . '/views/my-score.php';
@@ -72,6 +78,9 @@ switch ($request) {
         break;
     case $base . 'admin-mastery':
         require __DIR__ . '/views/admin/mastery.php';
+        break;
+    case $base . 'admin-stats':
+        require __DIR__ . '/views/admin/admin-stats.php';
         break;
     case $base . 'logout':
         require __DIR__ . '/controller/user/Logout.php';
@@ -85,7 +94,7 @@ switch ($request) {
     case $base . 'admin-register':
         require __DIR__ . '/controller/user/Admin.php';
         break;
-    case $base . 'singup-admin':
+    case $base . 'signup-admin':
         require __DIR__ . '/views/admin/register.php';
         break;
     case $base . 'module-file':
@@ -99,6 +108,9 @@ switch ($request) {
         break;
     case $base . 'data':
         require __DIR__ . '/views/data.php';
+        break;
+    case $base . 'upload-game':
+        require __DIR__ . '/controller/topic/Game.php';
         break;
     case $base . 'intro':
         require __DIR__ . '/views/intro.php';
@@ -125,7 +137,7 @@ switch ($request) {
         require __DIR__ . '/views/quiz-shower.php';
         break;
     case $base . 'testme':
-        require __DIR__ . '/controller/cert/Test.php';
+        require __DIR__ . '/views/admin/testme.php';
         break;
     case $base . 'modules':
         require __DIR__ . '/views/components/Modules.php';
