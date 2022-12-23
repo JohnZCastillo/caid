@@ -171,7 +171,7 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
                 </div>
                 <div class="btn-wrapper">
                     <button type="submit" class="btn btn-submit">Submit</button>
-                    <a href="./modules" class="btn">cancel</a>
+                    <a href="./admin-module" class="btn">cancel</a>
                 </div>
             </form>
         </div>

@@ -1,6 +1,6 @@
-const formProfile = document.querySelector("#profile");
-const profileImage = document.querySelector("#file");
-const photo = document.querySelector("#photo");
+let formProfile = document.querySelector("#profile");
+let profileImage = document.querySelector("#file");
+let photo = document.querySelector("#photo");
 
 const imgDiv = document.querySelector(".profile-pic-div");
 imgDiv.addEventListener("mouseenter", function () {
@@ -43,6 +43,7 @@ const updateProfile = async (event) => {
     //update profile photo
     photo.src = "./assets/profile/" + result.message;
     console.log(result.message);
+    window.target.reload();
   } catch (error) {
     console.log(error.message);
   }

@@ -4,3 +4,7 @@
 /assets/file/ *.pdf
 /assets/video/*.mp4
 /assets/video/ *.mp4
+/assets/cert/*
+/assets/discussion/*
+/assets/game/*
+

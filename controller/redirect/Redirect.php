@@ -12,11 +12,11 @@ require_once 'autoload.php';
 // check weather user is login if not redirect them to login page
 if (isset($_SESSION['isLogin'])) {
     if (!$_SESSION['isLogin']) {
-        header('Location: /caid/login');
+        header('Location: ./login');
         die();
     }
 } else {
-    header('Location: /caid/login');
+    header('Location: ./login');
     die();
 }
 
@@ -26,7 +26,7 @@ if (isset($_SESSION['userRole'])) {
 
         case Role::$ADMIN:
 
-            header('Location: /caid/admin');
+            header('Location: ./admin');
 
             die();
 
@@ -34,7 +34,7 @@ if (isset($_SESSION['userRole'])) {
 
         case Role::$STUDENT;
 
-            header('Location: /caid/student');
+            header('Location: ./student');
 
             die();
 

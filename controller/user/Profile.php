@@ -40,6 +40,7 @@ try {
 
     //return profile name
     echo json_encode(['message' => $imageName]);
+    die();
 } catch (Exception $e) {
     http_response_code(403);
     echo json_encode(['message' => $e->getMessage()]);

@@ -14,7 +14,6 @@ $quizData = QuestionDb::getQuiz($id);
     <meta charset="UTF-8">
     <title>DASHBOARD</title>
     <link rel="stylesheet" href="./resources/css/topics.css">
-
 </head>
 
 <body>
@@ -89,20 +88,25 @@ $quizData = QuestionDb::getQuiz($id);
         let currentIndex = 0;
         const questions = document.querySelectorAll('.test');
 
+        const header = document.querySelector('.quiz-header');
+        const submit = document.querySelector('#submit');
+
         const addAnswer = (number, answer) => {
             console.log(number, answer);
             answers[number - 1] = answer;
             console.log(answers);
         }
 
-        const next = () => {
+        const next = async () => {
 
             console.log(currentIndex);
 
             console.log(questions.length);
 
             if (currentIndex === questions.length) {
-                processAnswer();
+                let result = await processAnswer();
+                header.innerHTML = "Your Score Is " + result;
+                submit.classList.add('hide');
                 return;
             }
 
@@ -137,8 +141,9 @@ $quizData = QuestionDb::getQuiz($id);
 
                 if (!status) throw new Error(result.message);
 
-                alert(result.message);
-                window.location.reload();
+                // alert(result.message);
+                // window.location.reload();
+                return result.message
             } catch (error) {
                 alert(error.message);
             }

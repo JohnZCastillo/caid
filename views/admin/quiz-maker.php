@@ -1,8 +1,11 @@
 <?php
 
-use db\QuestionDb;
 use db\TopicDb;
+use db\QuestionDb;
 use model\module\Quiz;
+use views\components\Security;
+
+Security::adminOnlyStrict();
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');
