@@ -120,7 +120,7 @@ $payload = array_pop($dataValue);
                             case 2:
                                 $id = $data->getId();
                                 $quizId = QuestionDb::getQuizId($id);
-                                echo "<iframe src='http://localhost/caid/quiz-shower?id=$quizId' width='100%' height='100%'></iframe>";
+                                echo "<iframe src='./quiz-shower?id=$quizId' width='100%' height='100%'></iframe>";
                                 break;
                             case 3:
                                 $location = $payload->getLocation();

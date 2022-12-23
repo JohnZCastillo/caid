@@ -2,9 +2,11 @@
 
 require_once 'autoload.php';
 
-use views\components\Modules;
+use model\user\Role;
 use views\components\Profile;
+use views\components\Security;
 
+Security::adminOnlyStrict();
 
 ?>
 <!DOCTYPE html>

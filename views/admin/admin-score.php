@@ -4,8 +4,10 @@ require_once 'autoload.php';
 
 use db\UserDb;
 use db\QuizResult;
-use views\components\Modules;
+use views\components\Security;
 
+
+Security::adminOnlyStrict();
 
 ?>
 <!DOCTYPE html>
@@ -167,9 +169,7 @@ use views\components\Modules;
 
                 let value = bar.children[0].innerHTML;
 
-                console.log(parseInt(value));
-
-                if (parseInt(value) >= 0) {
+                if (parseInt(value) > 0) {
                     bar.style.height = value + "%";
                 }
             });

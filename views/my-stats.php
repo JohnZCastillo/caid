@@ -40,21 +40,6 @@ if (isset($data['data'])) {
             }
         }
 
-        // array_push($datas, ['', 50, 50]);
-        // array_push($datas, ['', 60, 60]);
-        // array_push($datas, ['', 80, 80]);
-        // array_push($datas, ['', 80, 80]);
-        // array_push($datas, ['', 80, 80]);
-
-        // $datas = [
-        //     ['Fruit', 'Jane', 'John', 'Average'],
-        //     ['Apples', 3, 2, 2.5],
-        //     ['Oranges', 2, 3, 2.5],
-        //     ['Pears', 1, 5, 3],
-        //     ['Bananas', 3, 9, 6],
-        //     ['Plums', 4, 2, 3]
-        // ];
-
         echo json_encode(['message' => $datas]);
         die();
     } catch (Exception $e) {
@@ -110,7 +95,7 @@ if (isset($data['data'])) {
                     <script language="JavaScript">
                         async function drawChart() {
                             try {
-                                let result = await fetch("./rewards", {
+                                let result = await fetch("./my-stats", {
                                     method: "POST",
                                     headers: {
                                         'Content-Type': "application/json"

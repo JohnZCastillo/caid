@@ -27,11 +27,16 @@ $topicId = $_REQUEST['id'];
     <style>
         .content-wrapper {
             padding-block: 50px;
-            display: flex;
-            height: 100%;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
             align-items: center;
+            height: 100%;
             gap: 50px;
+        }
+
+        .content-wrapper>a {
+            margin-inline: auto;
         }
 
         .content-right {
@@ -55,15 +60,15 @@ $topicId = $_REQUEST['id'];
                     ?>
                 </nav>
             </div>
-            <div class="content-right rainbow">
+            <div class="content-right rainbow bg bg-dashboard">
                 <section class="filler">
                     <?php
                     try {
                         $contents = Contents::getContents($topicId);
-                        echo "<div class='content-wrapper  bg-dashboard'> $contents</div>";
+                        echo "<div class='content-wrapper  '> $contents</div>";
                     } catch (Exception $e) {
                         $message = $e->getMessage();
-                        echo "<div class='content-none bg-dashboard'>$message</div>";
+                        echo "<div class='content-none '>$message</div>";
                     }
                     ?>
                 </section>

@@ -142,9 +142,7 @@ use views\components\Modules;
 
                 let value = bar.children[0].innerHTML;
 
-                console.log(parseInt(value));
-
-                if (parseInt(value) >= 0) {
+                if (parseInt(value) > 0) {
                     bar.style.height = value + "%";
                 }
             });

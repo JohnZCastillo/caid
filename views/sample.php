@@ -96,10 +96,9 @@ use views\components\Profile;
         .name {
             flex-basis: 80%;
             background-color: inherit;
-
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: start;
         }
 
         .user-name {

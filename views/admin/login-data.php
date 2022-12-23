@@ -3,8 +3,10 @@
 require_once 'autoload.php';
 
 use db\UserDb;
-use views\components\Modules;
-use views\components\Profile;
+use views\components\Security;
+
+Security::adminOnlyStrict();
+
 
 ?>
 <!DOCTYPE html>

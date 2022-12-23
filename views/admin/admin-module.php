@@ -5,7 +5,9 @@ require_once 'autoload.php';
 use db\TopicDb;
 use db\ContentDb;
 use db\QuestionDb;
-use views\components\Modules;
+use views\components\Security;
+
+Security::adminOnlyStrict();
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');

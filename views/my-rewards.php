@@ -25,6 +25,26 @@ error_reporting(0);
             padding: 6px;
             background-color: white;
         }
+
+        .cert-holder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            gap: 10px
+        }
+
+        .filler {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .scroll {
+            overflow-y: scroll;
+            height: 100%;
+        }
     </style>
     <section class="main-wrapper bg-dashboard">
         <header class="header">COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</header>
@@ -35,45 +55,50 @@ error_reporting(0);
                 </nav>
             </div>
             <div class="content-right rainbow">
-                <section class="filler">
-                    <?php
-                    try {
-                        $ids = QuizResult::getQuizIds();
-                        $location = "./assets/cert/";
+                <div class="scroll">
 
-                        foreach ($ids as $id) {
-                            $stats = QuizResult::getResult($id);
-                            // $name = $id->getTitle();
+                    <section class="filler">
+                        <?php
+                        try {
+                            $ids = QuizResult::getQuizIds();
+                            $location = "./assets/cert/";
 
-                            if ($stats !== NULL) {
+                            foreach ($ids as $id) {
+                                $stats = QuizResult::getResult($id);
+                                // $name = $id->getTitle();
 
-                                $score = (int) $stats['score'];
-                                $perfect = (int)$stats['perfect'];
+                                if ($stats !== NULL) {
 
-                                if ($score >= 30 && $score <= 35) {
-                                    $name =  Certificate::getBronze("yawa");
-                                    $path = $location . $name;
-                                    echo "<a href='$path'><img src='$path' class='cert'></a>";
-                                    echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
-                                } else if ($score >= 40 && $score <= 45) {
-                                    $name =  Certificate::getSilver("yawa");
-                                    $path = $location . $name;
-                                    echo "<a href='$path'><img src='$path' class='cert'></a>";
-                                    echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
-                                } else if ($score == 50) {
-                                    $name =  Certificate::getGold("yawa");
-                                    $path = $location . $name;
-                                    echo "<a href='$path'><img src='$path' class='cert'></a>";
-                                    echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
+                                    $score = (int) $stats['score'];
+                                    $perfect = (int)$stats['perfect'];
+
+                                    echo $score > 30 ? "<div class='cert-holder'>" : "";
+
+                                    if ($score >= 30 && $score <= 35) {
+                                        $name =  Certificate::getBronze("yawa");
+                                        $path = $location . $name;
+                                        echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                        echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
+                                    } else if ($score >= 40 && $score <= 45) {
+                                        $name =  Certificate::getSilver("yawa");
+                                        $path = $location . $name;
+                                        echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                        echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
+                                    } else if ($score == 50) {
+                                        $name =  Certificate::getGold("yawa");
+                                        $path = $location . $name;
+                                        echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                        echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
+                                    }
+                                    echo $score > 30 ? "</div>" : "";
                                 }
                             }
+                        } catch (Exception $e) {
+                            echo "An error has occured";
                         }
-                    } catch (Exception $e) {
-                        echo "An error has occured";
-                    }
-                    ?>
-
-                </section>
+                        ?>
+                    </section>
+                </div>
             </div>
         </section>
     </section>

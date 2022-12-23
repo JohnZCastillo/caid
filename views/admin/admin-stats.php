@@ -4,8 +4,9 @@ require_once 'autoload.php';
 
 use db\UserDb;
 use db\QuizResult;
-use views\components\Modules;
+use views\components\Security;
 
+Security::adminOnlyStrict();
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');
