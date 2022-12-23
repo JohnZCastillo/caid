@@ -3,6 +3,7 @@
 require_once 'autoload.php';
 
 use views\components\Modules;
+use views\components\Profile;
 
 
 ?>
@@ -20,11 +21,6 @@ use views\components\Modules;
 <body>
 
     <style>
-        .profile {
-            min-height: 300px;
-            background-color: yellow;
-        }
-
         .content-right {
             padding: 6px;
             background-color: blue;
@@ -53,7 +49,8 @@ use views\components\Modules;
         <section class="content">
             <div class="content-left">
                 <div class="profile">
-
+                    <?php Profile::getProfile() ?>
+                    <h3>Admin Profile</h3>
                 </div>
                 <nav class="nav">
                     <a href="./admin" class="nav__link btn">Dashboard</a>
@@ -65,11 +62,13 @@ use views\components\Modules;
                 <section class="filler">
                     <a href="./signup-admin" class="btn-img bg bg-new-admin scale shadow"></a>
                     <a href="./signup" class="btn-img bg bg-new-student scale shadow"></a>
-                    <a href="./logindata" class="btn-img bg bg-account-data scale shadow"></a>
+                    <a href="./login-data" class="btn-img bg bg-account-data scale shadow"></a>
                 </section>
             </div>
         </section>
     </section>
+    <script src="./resources/js/profile.js"></script>
+
 </body>
 
 </html>

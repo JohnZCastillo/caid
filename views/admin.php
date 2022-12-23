@@ -28,7 +28,6 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-
     <link rel="stylesheet" href="./resources/css/general.css">
     <link rel="stylesheet" href="./resources/css/admin.css">
 

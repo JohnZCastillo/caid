@@ -19,6 +19,10 @@ a {
   transform: scale(1.2);
 }
 
+.hide {
+  display: none;
+}
+
 .content-none {
   padding-block: 20px;
   font-size: 20px;
@@ -226,7 +230,6 @@ a {
 .bg-new-admin {
   background-image: url("../images/icons/new-admin.jpg");
 }
-
 .bg-new-student {
   background-image: url("../images/icons/new-user.jpg");
 }
@@ -261,4 +264,50 @@ a {
 .cert {
   width: 300px;
   height: auto;
+}
+
+/* Profile */
+.profile-pic-div {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid grey;
+  z-index: 999999;
+}
+
+#photo {
+  height: 100%;
+  width: 100%;
+}
+#file {
+  display: none;
+}
+#uploadBtn {
+  height: 40px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: wheat;
+  line-height: 30px;
+  font-family: sans-serif;
+  font-size: 15px;
+  cursor: pointer;
+  display: none;
+}
+
+.profile {
+  /* min-height: 300px; */
+  height: 300px;
+  background-color: yellow;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

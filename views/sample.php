@@ -3,6 +3,7 @@
 require_once 'autoload.php';
 
 use views\components\Modules;
+use views\components\Profile;
 
 ?>
 <!DOCTYPE html>
@@ -30,6 +31,8 @@ use views\components\Modules;
             flex-basis: 20%;
             border-radius: 10px;
             padding: 10px 20px;
+
+            display: flex;
         }
 
         .bio {
@@ -61,6 +64,10 @@ use views\components\Modules;
             overflow-y: auto;
             border-radius: 10px;
         }
+
+        .pointer {
+            cursor: pointer;
+        }
     </style>
     <section class="main-wrapper bg bg-dashboard">
         <header class="header">COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</header>
@@ -76,10 +83,13 @@ use views\components\Modules;
             </div>
             <div class="content-right">
                 <div class="bg bg-student student">
+                    <div class="profile">
+                        <?php Profile::getProfile() ?>
+                    </div>
                     <section class="bio">
-                        <a href="./logout" class="bg btn-logout scale shadow"></a>
-
+                        <a onclick="logout()" class="bg btn-logout scale shadow pointer"></a>
                     </section>
+
                     <?php
                     //show default profile
                     // if (!isset($_SESSION['userProfile'])) {
@@ -100,6 +110,8 @@ use views\components\Modules;
             </div>
         </section>
     </section>
+    <script src="./resources/js/profile.js"></script>
+    <script src="./resources/js/logout.js"></script>
 </body>
 
 </html>

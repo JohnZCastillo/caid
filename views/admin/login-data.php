@@ -2,6 +2,7 @@
 
 require_once 'autoload.php';
 
+use db\UserDb;
 use views\components\Modules;
 use views\components\Profile;
 
@@ -46,29 +47,49 @@ use views\components\Profile;
         <header class="header">COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</header>
         <section class="content">
             <div class="content-left">
-                <div class="profile">
-                    <?php Profile::getProfile() ?>
-                    <h3>Admin Profile</h3>
-                </div>
                 <nav class="nav">
-                    <a href="#" class="nav__link btn onview">Dashboard</a>
-                    <a href="./accounts" class="nav__link btn">Accounts</a>
-                    <a onclick="logout()" class="nav__link btn">Logout</a>
+                    <a href="./accounts" class="nav__link btn">Back</a>
                 </nav>
             </div>
             <div class="content-right rainbow">
                 <section class="filler">
-                    <a href="./my-rewards" class="btn-img bg bg-rewards scale shadow"></a>
-                    <a href="./admin-progress" class="btn-img bg bg-mastery scale shadow"></a>
-                    <a href="./admin-score" class="btn-img bg bg-quiz-score scale shadow"></a>
-                    <a href="./admin-stats" class="btn-img bg bg-stats scale shadow"></a>
-                    <a href="./admin-module" class="btn-img bg bg-modules scale shadow"></a>
+                    <table class="styled-tabled">
+                        <thead>
+                            <tr>
+                                <th>Student Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Course</th>
+                                <th>Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            foreach (UserDb::getUsers() as $user) {
+
+                                $id = $user->getId();
+                                $fname = $user->getFname();
+                                $lname = $user->getLname();
+                                $course = $user->getCourse();
+                                $year = $user->getYear();
+
+                                echo "<tr>";
+                                echo "<td>$id</td>";
+                                echo "<td>$fname</td>";
+                                echo "<td>$lname</td>";
+                                echo "<td>$course</td>";
+                                echo "<td>$year</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </section>
             </div>
         </section>
     </section>
     <script src="./resources/js/profile.js"></script>
-    <script src="./resources/js/logout.js"></script>
 </body>
 
 </html>

@@ -46,8 +46,8 @@ switch ($request) {
     case $base . 'answers':
         require __DIR__ . '/controller/topic/Answers.php';
         break;
-    case $base . 'logindata':
-        require __DIR__ . '/views/admin/logindata.php';
+    case $base . 'login-data':
+        require __DIR__ . '/views/admin/login-data.php';
         break;
     case $base . 'admin':
         require __DIR__ . '/views/admin/admin.php';
