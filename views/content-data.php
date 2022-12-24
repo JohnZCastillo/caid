@@ -70,7 +70,7 @@ $payload = array_pop($dataValue);
         <section class="content">
             <div class="content-left">
                 <nav class="nav">
-                    <a href="./student" class="nav__link btn">Back</a>
+                    <a href="./intro?id=<?php echo $topicId ?>" class="nav__link btn">Back</a>
                 </nav>
                 <div class="next-topic">
                     <?php
