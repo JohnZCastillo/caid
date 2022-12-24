@@ -311,3 +311,17 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+.blink {
+  animation: blinking 0.5s;
+  animation-iteration-count: 50;
+}
+
+@keyframes blinking {
+  from {
+    box-shadow: 1px 2px 20px 5px #f3fb7c;
+  }
+  to {
+    box-shadow: 1px 2px 20px 10px rgb(110, 110, 255);
+  }
+}

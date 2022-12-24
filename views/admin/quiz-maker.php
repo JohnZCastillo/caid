@@ -174,7 +174,6 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
             alert(error.message);
         }
 
-
     })
 
     form.addEventListener('submit', async (event) => {
@@ -206,11 +205,12 @@ if (isset($data['questions'], $data['topic'], $data['name'])) {
             const status = result.ok;
             result = await result.json();
 
-            if (!status)
-                throw new Error(result.message);
+            if (!status) throw new Error(result.message);
 
-            alert("Added");
-            window.location.reload();
+            alert("Quiz Added!");
+
+            window.location.replace("./admin-module");
+
         } catch (error) {
             alert(error.message);
             //clear questions uppon error

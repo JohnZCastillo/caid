@@ -60,7 +60,7 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
 
         FileDb::addFile($file);
 
-        header("location: ./modules");
+        header("location: ./admin-module");
     } catch (Exception $e) {
         echo $e->getMessage();
     }

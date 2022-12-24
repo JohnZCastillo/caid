@@ -57,7 +57,7 @@ Security::adminOnlyStrict();
                 <nav class="nav">
                     <a href="./admin" class="nav__link btn">Dashboard</a>
                     <a href="#" class="nav__link btn onview">Accounts</a>
-                    <a href="./logout" class="nav__link btn">Logout</a>
+                    <a onclick="logout()" class="nav__link btn">Logout</a>
                 </nav>
             </div>
             <div class="content-right rainbow">
@@ -70,6 +70,7 @@ Security::adminOnlyStrict();
         </section>
     </section>
     <script src="./resources/js/profile.js"></script>
+    <script src="./resources/js/logout.js"></script>
 
 </body>
 

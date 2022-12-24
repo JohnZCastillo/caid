@@ -61,7 +61,7 @@ try {
 
     //add user to db    
     UserDb::addUser($user);
-    header('Location: ./signup');
+    header('Location: ./accounts');
     die();
 } catch (Exception $ex) {
     http_response_code(403);
