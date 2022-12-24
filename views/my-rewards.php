@@ -63,6 +63,8 @@ error_reporting(0);
                             $ids = QuizResult::getQuizIds();
                             $location = "./assets/cert/";
 
+                            $hasReward = null;
+
                             foreach ($ids as $id) {
                                 $stats = QuizResult::getResult($id);
                                 // $name = $id->getTitle();
@@ -72,7 +74,9 @@ error_reporting(0);
                                     $score = (int) $stats['score'];
                                     $perfect = (int)$stats['perfect'];
 
-                                    echo $score > 30 ? "<div class='cert-holder'>" : "";
+                                    echo $score >= 30 ? "<div class='cert-holder'>" : "";
+
+                                    $hasReward = $score >= 30 && $hasReward === null ?  true : false;
 
                                     if ($score >= 30 && $score <= 35) {
                                         $name =  Certificate::getBronze("yawa");
@@ -90,8 +94,12 @@ error_reporting(0);
                                         echo "<a href='$path'><img src='$path' class='cert'></a>";
                                         echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
                                     }
-                                    echo $score > 30 ? "</div>" : "";
+                                    echo $score >= 30 ? "</div>" : "";
                                 }
+                            }
+
+                            if (!$hasReward) {
+                                echo "<div>No Rewards Yet</div>";
                             }
                         } catch (Exception $e) {
                             echo "An error has occured";
