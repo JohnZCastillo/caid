@@ -104,7 +104,7 @@ switch ($request) {
         require __DIR__ . '/views/add-video.php';
         break;
     case $base . 'quiz-maker':
-        require __DIR__ . '/views/admin/quiz-maker.php';
+        require __DIR__ . '/views/admin/admin-quiz.php';
         break;
     case $base . 'data':
         require __DIR__ . '/views/data.php';
