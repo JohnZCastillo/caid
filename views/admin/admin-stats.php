@@ -25,7 +25,9 @@ if (isset($data['data'])) {
 
         foreach ($users as $user) {
 
-            $datas = [['', 'test', 'Average']];
+            $name = $user->getFName();
+
+            $datas = [[$name, 'test', 'Average']];
             $userId = $user->getId();
 
             $score = 0;
@@ -154,7 +156,7 @@ if (isset($data['data'])) {
             div.setAttribute('id', id);
             div.setAttribute('class', "container");
             filler.appendChild(div);
-
+            options.title = (data[0])[0];
             let chart = new google.visualization.ComboChart(div);
             let value = google.visualization.arrayToDataTable(data);
             chart.draw(value, options);
