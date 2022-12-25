@@ -215,6 +215,9 @@ a {
   background-image: url("../images/bg/Dashboard.jpg");
 }
 
+.bg-game {
+  background-image: url("../images/bg/game.jpg");
+}
 .bg-student {
   background-image: url("../images/bg/13.jpg");
 }

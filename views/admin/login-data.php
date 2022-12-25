@@ -34,7 +34,7 @@ Security::adminOnlyStrict();
 
         .filler {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
             padding-block: 50px;
             padding-inline: 50px;
             /* flex-wrap: wrap; */
@@ -43,6 +43,27 @@ Security::adminOnlyStrict();
             /* justify-content: space-evenly; */
             overflow-y: auto;
             border-radius: 10px;
+        }
+
+        table,
+        tr,
+        td {
+            color: white;
+        }
+
+        th {
+            color: yellow;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 5px;
         }
     </style>
     <section class="main-wrapper bg bg-dashboard">

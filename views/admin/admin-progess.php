@@ -57,6 +57,7 @@ Security::adminOnlyStrict();
             width: 100%;
             border-radius: 10px;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            background-color: white;
         }
 
         .student-progress {
@@ -85,7 +86,6 @@ Security::adminOnlyStrict();
 
         .content-right {
             padding: 6px;
-            background-color: white;
         }
 
         .filler {
@@ -109,54 +109,8 @@ Security::adminOnlyStrict();
                 </nav>
             </div>
             <div class="content-right rainbow">
-                <section class="filler">
+                <section class="filler bg bg-dashboard">
                     <?php
-
-                    // try {
-
-                    //     $topics = TopicDb::getAllTopics();
-
-                    //     foreach ($topics as $topic) {
-                    //         $title = $topic->getTitle();
-                    //         $id = $topic->getId();
-                    //         $percent = 0;
-                    //         $userCount = 0;
-
-                    //         foreach (UserDb::getUsers() as $user) {
-
-                    //             if ($user->getRole() == 'ADMIN') {
-                    //                 continue;
-                    //             }
-
-                    //             $userCount++;
-
-                    //             $userId = $user->getId();
-
-                    //             $percent += MasteryDb::getStudentPercent($id, $userId);
-                    //         }
-
-                    //         $percent = $percent / $userCount;
-
-                    //         //format decimal when percent is not whole number eg 33.3333
-                    //         if (str_contains($percent, ".")) {
-                    //             $percent = number_format($percent, 2);
-                    //         }
-
-                    //         echo "
-                    //             <div class='progress'> 
-                    //                 <span class='progress-title'>$title</span>
-                    //                 <div class='border'>
-                    //                     <div class='main'>
-                    //                          <label class='value'>$percent</label>
-                    //                     </div>
-                    //                 </div>
-                    //             </div>";
-                    //     }
-                    // } catch (Exception  $e) {
-                    //     echo $e->getMessage();
-                    // }
-
-
                     try {
 
                         $topics = TopicDb::getAllTopics();

@@ -10,7 +10,7 @@ class Certificate
     // private static $path = "http://localhost/caid/resources/cert/";
     private static $path = "./resources/cert/";
 
-    public static function generate($certificate, $topic, $type)
+    public static function generate($certificate, $topic, $type, $name_text)
     {
 
         // // Create Image From Existing File
@@ -23,9 +23,6 @@ class Certificate
         $font_path = Certificate::$path . 'font.ttf';
 
         // $name_text = trim($_SESSION['userName']);
-
-        //replace the spaces with _
-        $name_text = $_SESSION['userName'];
 
         //Uppercase first letter for every word
         $name_text = ucwords($name_text);
@@ -52,18 +49,18 @@ class Certificate
         return $imageName;
     }
 
-    public static function getGold($topic)
+    public static function getGold($topic, $name)
     {
-        return Certificate::generate(Certificate::$path . 'gold.jpg', $topic, "gold");
+        return Certificate::generate(Certificate::$path . 'gold.jpg', $topic, "gold", $name);
     }
 
-    public static function getBronze($topic)
+    public static function getBronze($topic, $name)
     {
-        return Certificate::generate(Certificate::$path . 'bronze.jpg', $topic, "bronze");
+        return Certificate::generate(Certificate::$path . 'bronze.jpg', $topic, "bronze", $name);
     }
 
-    public static function getSilver($topic)
+    public static function getSilver($topic, $name)
     {
-        return Certificate::generate(Certificate::$path . 'silver.jpg', $topic, "silver");
+        return Certificate::generate(Certificate::$path . 'silver.jpg', $topic, "silver", $name);
     }
 }

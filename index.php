@@ -100,11 +100,17 @@ switch ($request) {
     case $base . 'module-file':
         require __DIR__ . '/views/add-file.php';
         break;
+    case $base . 'module-game':
+        require __DIR__ . '/views/add-game.php';
+        break;
     case $base . 'module-video':
         require __DIR__ . '/views/add-video.php';
         break;
+    case $base . 'admin-reward':
+        require __DIR__ . '/views/admin/admin-reward.php';
+        break;
     case $base . 'quiz-maker':
-        require __DIR__ . '/views/admin/quiz-maker.php';
+        require __DIR__ . '/views/admin/admin-quiz.php';
         break;
     case $base . 'data':
         require __DIR__ . '/views/data.php';

@@ -62,6 +62,7 @@ error_reporting(0);
                         try {
                             $ids = QuizResult::getQuizIds();
                             $location = "./assets/cert/";
+                            $studentName = $_SESSION['userName'];
 
                             $hasReward = null;
 
@@ -79,17 +80,17 @@ error_reporting(0);
                                     $hasReward = $score >= 30 && $hasReward === null ?  true : false;
 
                                     if ($score >= 30 && $score <= 35) {
-                                        $name =  Certificate::getBronze("yawa");
+                                        $name =  Certificate::getBronze("yawa", $studentName);
                                         $path = $location . $name;
                                         echo "<a href='$path'><img src='$path' class='cert'></a>";
                                         echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
                                     } else if ($score >= 40 && $score <= 45) {
-                                        $name =  Certificate::getSilver("yawa");
+                                        $name =  Certificate::getSilver("yawa", $studentName);
                                         $path = $location . $name;
                                         echo "<a href='$path'><img src='$path' class='cert'></a>";
                                         echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
                                     } else if ($score == 50) {
-                                        $name =  Certificate::getGold("yawa");
+                                        $name =  Certificate::getGold("yawa", $studentName);
                                         $path = $location . $name;
                                         echo "<a href='$path'><img src='$path' class='cert'></a>";
                                         echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";

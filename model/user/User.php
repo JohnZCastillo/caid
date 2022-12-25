@@ -62,6 +62,10 @@ class User
         return $this->username;
     }
 
+    public function getFullName()
+    {
+        return $this->getFName() . " " . $this->getMName() . " " . $this->getLName();
+    }
     public function getPassword()
     {
         return $this->password;

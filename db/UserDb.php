@@ -5,6 +5,7 @@ namespace db;
 require_once 'autoload.php';
 
 use Exception;
+use model\user\Role;
 use model\user\User;
 
 class UserDb
@@ -252,6 +253,65 @@ class UserDb
         $conn = Database::open();
 
         $stmt = $conn->prepare("SELECT * FROM user");
+
+        // execute prepared statement
+        $stmt->execute();
+
+        $users = array();
+
+        //get result
+        $result = $stmt->get_result();
+
+        while ($data = $result->fetch_assoc()) {
+            //crete user base on collected data | more like format 
+            //create a user object
+            $user = new User(
+                $data["student_number"],
+                $data["username"],
+                $data["password"],
+                $data["email"],
+                $data["first_name"],
+                $data["middle_name"],
+                $data["last_name"],
+                $data["gender"],
+                $data["course_id"],
+                $data["year"],
+                $data["birthdate"]
+            );
+
+            // update user base on db
+            $user->setRole($data['role']);
+
+            // update user profile base on db
+            $user->setProfile($data['profile']);;
+
+            array_push($users, $user);
+        }
+
+        // throw an exception data is null that means username is not present in db
+        if ($users == null) {
+            Database::close($conn);
+            throw new Exception('data null');
+        }
+
+        Database::close($conn);
+
+        return $users;
+    }
+
+    //get user by username    
+    public static function getStudents()
+    {
+
+        $student = Role::$STUDENT;
+
+        // open database connection
+        $conn = Database::open();
+
+        $stmt = $conn->prepare("SELECT * FROM user where role = ?");
+
+        // set the ?'s mark data to parameter's data
+        $stmt->bind_param("s", $student);
 
         // execute prepared statement
         $stmt->execute();

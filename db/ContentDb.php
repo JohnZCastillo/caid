@@ -83,6 +83,9 @@ class ContentDb
             $content->setType($data['type']);
 
             switch ($data['type']) {
+                case 1:
+                    $content->appendData(FileDb::getFile($content));
+                    break;
                 case 3:
                     $content->appendData(FileDb::getFile($content));
                     break;

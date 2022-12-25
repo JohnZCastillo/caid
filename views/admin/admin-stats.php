@@ -17,49 +17,48 @@ $data = json_decode($json, true);
 if (isset($data['data'])) {
 
     try {
-        //return profile name
 
         $ids = QuizResult::getQuizIds();
+        $users = UserDb::getStudents();
 
-        $datas = [['', 'test', 'Average']];
+        $allData = [];
 
-        foreach ($ids as $id) {
+        foreach ($users as $user) {
 
-            $userCount = 0;
+            $name = $user->getFName();
+
+            $datas = [[$name, 'test', 'Average']];
+            $userId = $user->getId();
+
             $score = 0;
             $perfect = 0;
 
-            foreach (UserDb::getUsers() as $user) {
+            foreach ($ids as $id) {
 
-                if ($user->getRole() == 'ADMIN') {
-                    continue;
-                }
-
-                $userCount++;
-                $userId = $user->getId();
                 $stats = QuizResult::getResultByStudent($id, $userId);
 
                 if ($stats !== NULL) {
-                    $score += (int) $stats['score'];
-                    $perfect = (int) $stats['perfect'];
+
+                    $score = (int) $stats['score'];
+                    $perfect = (int)$stats['perfect'];
+
+                    $percent = 0;
+
+                    if ($score > 0) {
+                        $percent = ($score / $perfect) * 100;
+                    }
+                    $temp = ['', $percent, $percent];
+
+                    array_push($datas, $temp);
+                } else {
+                    array_push($datas, ['', 0, 0]);
                 }
             }
 
-
-            $score /= $userCount;
-
-            if ($score > 0 && $perfect > 0) {
-                $score = ($score / $perfect) * 100;
-            } else {
-                $score = 0;
-            }
-
-            $temp = ['', $score, $score];
-
-            array_push($datas, $temp);
+            array_push($allData, $datas);
         }
 
-        echo json_encode(['message' => $datas]);
+        echo json_encode(['message' => $allData]);
         die();
     } catch (Exception $e) {
         http_response_code(403);
@@ -92,11 +91,23 @@ if (isset($data['data'])) {
     <style>
         .content-right {
             padding: 6px;
-            background-color: white;
         }
 
         .filler {
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            overflow-y: auto;
+            padding-block: 10px;
+        }
+
+        .container {
+            flex-shrink: 0;
+            width: 90%;
+            height: 90%;
+            background-color: white;
         }
     </style>
     <section class="main-wrapper bg-dashboard">
@@ -107,66 +118,89 @@ if (isset($data['data'])) {
                     <a href="./admin" class="nav__link btn">Back</a>
                 </nav>
             </div>
-            <div class="content-right rainbow">
-                <section class="filler">
-                    <div id="container" style="width: 100%; height: 100%; margin: 0 auto">
-                    </div>
-                    <script language="JavaScript">
-                        async function drawChart() {
-                            try {
-                                let result = await fetch("./admin-stats", {
-                                    method: "POST",
-                                    headers: {
-                                        'Content-Type': "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        data: "rewards",
-                                    })
-                                });
-
-                                const status = result.ok;
-                                result = await result.json();
-
-                                if (!status) throw new Error(result.message);
-
-                                var data = google.visualization.arrayToDataTable(result.message);
-                                console.log(result.message);
-                            } catch (error) {
-                                console.log(error);
-                                alert(error.message);
-                            }
-
-                            // Set chart options
-                            var options = {
-                                title: 'Stats',
-                                vAxis: {
-                                    title: 'Percent',
-                                    viewWindow: { // <-- set view window
-                                        min: 0,
-                                        max: 100
-                                    }
-                                },
-                                hAxis: {
-                                    title: 'Score',
-                                },
-                                seriesType: 'bars',
-                                series: {
-                                    1: {
-                                        type: 'line'
-                                    }
-                                }
-                            };
-
-                            // Instantiate and draw the chart.
-                            var chart = new google.visualization.ComboChart(document.getElementById('container'));
-                            chart.draw(data, options);
-                        }
-                        google.charts.setOnLoadCallback(drawChart);
-                    </script>
+            <div class="content-right rainbow bg bg-dashboard">
+                <section class="filler ">
+                    <!-- Google Charts here -->
                 </section>
             </div>
         </section>
     </section>
+    <script language="JavaScript">
+        const filler = document.querySelector('.filler');
+        let data = [];
+
+        // Set chart options
+        const options = {
+            title: 'Stats',
+            vAxis: {
+                title: 'Percent',
+                viewWindow: { // <-- set view window
+                    min: 0,
+                    max: 100
+                }
+            },
+            hAxis: {
+                title: 'Score',
+            },
+            seriesType: 'bars',
+            series: {
+                1: {
+                    type: 'line'
+                }
+            }
+        };
+
+        const addData = (id, data) => {
+            let div = document.createElement('div');
+            div.setAttribute('id', id);
+            div.setAttribute('class', "container");
+            filler.appendChild(div);
+            options.title = (data[0])[0];
+            let chart = new google.visualization.ComboChart(div);
+            let value = google.visualization.arrayToDataTable(data);
+            chart.draw(value, options);
+
+        }
+
+        const test = async () => {
+            try {
+                let result = await fetch("./admin-stats", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify({
+                        data: "rewards",
+                    })
+                });
+
+                const status = result.ok;
+                result = await result.json();
+
+                if (!status) throw new Error(result.message);
+
+                data = result.message;
+
+                data.forEach((stats, index) => {
+                    if (stats.length === 1) {
+                        stats = [
+                            stats[0],
+                            ['', 0, 0]
+                        ]
+                    }
+                    console.log(stats);
+                    addData(index, stats);
+                })
+
+            } catch (error) {
+                console.log(error);
+                alert(error.message);
+            }
+        };
+
+        // google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(test);
+    </script>
 </body>
 
 </html>

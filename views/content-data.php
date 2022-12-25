@@ -115,7 +115,8 @@ $payload = array_pop($dataValue);
 
                         switch ($type) {
                             case 1:
-                                echo "<object data='\CAIDSA\Student_Module\topic-1\1.1-Getting-Started.pdf' width='100%' height='100%'>";
+                                $location = $payload->getLocation();
+                                echo "<object data='./assets/game/$location/index.html' width='100%' height='100%'>";
                                 break;
                             case 2:
                                 $id = $data->getId();

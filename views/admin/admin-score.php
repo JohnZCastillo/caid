@@ -4,6 +4,7 @@ require_once 'autoload.php';
 
 use db\UserDb;
 use db\QuizResult;
+use model\user\Role;
 use views\components\Security;
 
 
@@ -26,7 +27,7 @@ Security::adminOnlyStrict();
     <style>
         .container {
             padding: 10px;
-            height: 100%;
+            height: 90%;
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 9fr;
@@ -84,10 +85,30 @@ Security::adminOnlyStrict();
         .filler {
             height: 100%;
             width: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
         .content-right {
             padding: 6px;
+        }
+
+        .no-quiz {
+            /* align-items: center; */
+            align-self: center;
+            color: white;
+        }
+
+        .container-wrapper {
+            flex-shrink: 0;
+            height: 90%;
+            padding: 10px;
+            background-color: white;
+            width: 95%;
+            border-radius: 10px;
         }
     </style>
     <section class="main-wrapper bg-dashboard">
@@ -100,61 +121,62 @@ Security::adminOnlyStrict();
             </div>
             <div class="content-right rainbow bg-dashboard">
                 <section class="filler">
-                    <div class='container'>
-                        <div class='lbl'>
-                            <label>100%</label>
-                            <label>50%</label>
-                        </div>
 
-                        <div class='main'>
-                            <?php
+                    <?php
 
-                            $ids = QuizResult::getQuizIds();
+                    $ids = QuizResult::getQuizIds();
+                    $students = UserDb::getUsers();
 
-                            foreach ($ids as $id) {
+                    foreach ($students as $student) {
 
+                        if ($student->getRole() !== Role::$STUDENT) {
+                            continue;
+                        }
 
-                                $userCount = 0;
-                                $score = 0;
-                                $perfect = 0;
+                        $userId = $student->getId();
+                        $name = $student->getFName();
 
-                                foreach (UserDb::getUsers() as $user) {
-
-                                    if ($user->getRole() == 'ADMIN') {
-                                        continue;
-                                    }
-
-                                    $userCount++;
-                                    $userId = $user->getId();
-                                    $stats = QuizResult::getResultByStudent($id, $userId);
-
-                                    if ($stats !== NULL) {
-                                        $score += (int) $stats['score'];
-                                        $perfect = (int) $stats['perfect'];
-                                    }
-                                }
+                        $hasQuiz = false;
 
 
-                                $score /= $userCount;
+                        echo "<div class='container-wrapper'> <span class='user-name'>$name</span>";
 
-                                if ($score > 0 && $perfect > 0) {
-                                    $score = ($score / $perfect) * 100;
-                                } else {
-                                    $score = 0;
-                                }
+                        echo "<section class='container'>";
+                        echo "<div class='lbl'>  
+                                <label>100%</label>
+                                <label>50%</label>
+                         </div>";
 
-                                if (str_contains($score, ".")) {
-                                    $score = number_format($score, 2);
+                        echo "<div class='main'>";
+
+                        foreach ($ids as $id) {
+
+                            $stats = QuizResult::getResultByStudent($id, $userId);
+
+                            if ($stats !== NULL) {
+
+                                $hasQuiz = true;
+
+                                $score = (int) $stats['score'];
+                                $perfect = (int)$stats['perfect'];
+
+                                $percent = 0;
+
+                                if ($score > 0) {
+                                    $percent = ($score / $perfect) * 100;
                                 }
 
                                 echo "<div class='bar'>
-                                        <div class='bar-value'>$score</div>
-                                                <div class='bar-name'></div>
-                                        </div>";
+                                    <div class='bar-value'>$percent</div>
+                                </div>";
                             }
-                            ?>
-                        </div>
-                    </div>
+                        }
+
+                        echo $hasQuiz ? "" : "<div class='no-quiz'>Student Have not taken any quiz yet</div>";
+
+                        echo "</div></section></div>";
+                    }
+                    ?>
                 </section>
             </div>
         </section>
