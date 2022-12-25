@@ -87,6 +87,7 @@ if (isset($data['id'])) {
                     <a href="./module-file" class="nav__link btn">Add PDF</a>
                     <a href="./module-video" class="nav__link btn">Add Video</a>
                     <a href="./quiz-maker" class="nav__link btn">Add Quiz</a>
+                    <a href="./module-game" class="nav__link btn">Add Game</a>
                 </nav>
             </div>
             <div class="content-right rainbow">
@@ -113,9 +114,8 @@ if (isset($data['id'])) {
 
                                     switch ($type) {
                                         case 1:
-                                            echo "<div id='handout'>
-                                                    <object data='\CAIDSA\Student_Module\topic-1\1.1-Getting-Started.pdf' width='725' height='570'>
-                                                </div>";
+                                            $location = $payload->getLocation();
+                                            echo "<div><a href='./assets/game/$location/index.html'>$name</a></div>";
                                             break;
                                         case 2:
                                             $contenId = $content->getId();
