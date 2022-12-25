@@ -104,7 +104,7 @@ Security::adminOnlyStrict();
 
         .container-wrapper {
             flex-shrink: 0;
-            height: 100%;
+            height: 90%;
             padding: 10px;
             background-color: white;
             width: 95%;
