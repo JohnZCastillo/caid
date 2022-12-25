@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 20, 2022 at 10:56 AM
+-- Generation Time: Dec 25, 2022 at 01:27 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -145,7 +145,8 @@ INSERT INTO `type` (`id`, `title`) VALUES
 (1, 'GAME'),
 (2, 'QUIZ'),
 (3, 'FILE'),
-(4, 'VIDEO');
+(4, 'VIDEO'),
+(5, 'DISCUSSION');
 
 -- --------------------------------------------------------
 
@@ -174,10 +175,18 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`student_number`, `role`, `username`, `password`, `email`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `year`, `birthdate`, `profile`) VALUES
-('a', 'ADMIN', 'a', 'a', 'a', 'a', 'a', 'a', '', '', 0, '2018-01-01', NULL),
+('a', 'ADMIN', 'a', 'a', 'a', 'a', 'a', 'a', '', '', 0, '2018-01-01', 'a.png'),
 ('admin', 'ADMIN', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'Male', 'BSIT', 1, '2018-01-09', 'admin.png'),
+('b', 'STUDENT', 'b', 'b', 'b', 'b', 'b', 'b', 'Male', 'BSIT', 1, '2018-01-01', 'b.png'),
+('c', 'ADMIN', 'c', 'c', 'c', 'c', 'c', 'c', 'Male', 'BSCpE', 1, '2018-01-01', NULL),
+('cs', 'ADMIN', 'cs', 'cs', 'cs', 'cs', 'cs', 'cs', 'Male', 'BSIT', 2, '2018-01-01', NULL),
+('dsdsg', 'STUDENT', 'dsggsd', 'dsgsd', 'sdgdsg', 'gssdg', 'dsg', 'sdg', 'Male', 'BSIT', 1, '2018-01-01', NULL),
+('John', 'STUDENT', 'John', 'John', 'johnzunigacastillo@gmail.com', 'John', 'Castillo', 'Zuniga', 'Male', 'BSIT', 3, '1999-12-10', NULL),
+('sav', 'STUDENT', 'sav', 'ssav', 'asvsdcsa', 'as', 'av', 'asv', 'Female', 'BSIT', 1, '2018-01-17', NULL),
 ('student', 'STUDENT', 'student', 'student', 'student', 'student', 'student', 'student', 'Male', 'BSIT', 1, '2018-01-01', NULL),
-('test', 'STUDENT', 'test', 'test', 'test', 'test', 'test', 'test', 'Male', 'BSCpE', 2, '2018-01-24', 'test.png');
+('test', 'STUDENT', 'test', 'test', 'test', 'test', 'test', 'test', 'Male', 'BSCpE', 2, '2018-01-24', 'test.png'),
+('v', 'ADMIN', 'v', 'v', 'v', 'v', 'v', 'v', '', 'BSIT', 1, '2018-01-01', NULL),
+('yrdy', 'STUDENT', 'sdgdsg', 'PASS_word01...sdgsdg', 'sdg@gmail.com', 'dsg', 'sdg', 'sdg', 'Male', 'BSIT', 1, '2018-01-01', NULL);
 
 --
 -- Indexes for dumped tables
@@ -266,55 +275,55 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `mastery`
 --
 ALTER TABLE `mastery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=430;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=673;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `quiz_choice`
 --
 ALTER TABLE `quiz_choice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
 
 --
 -- AUTO_INCREMENT for table `quiz_data`
 --
 ALTER TABLE `quiz_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `quiz_result`
 --
 ALTER TABLE `quiz_result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
