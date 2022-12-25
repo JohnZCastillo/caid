@@ -37,6 +37,8 @@ if (isset($data['data'])) {
                 $temp = ['', $percent, $percent];
 
                 array_push($datas, $temp);
+            } else {
+                array_push($datas, ['', 0, 0]);
             }
         }
 
