@@ -118,8 +118,8 @@ if (isset($data['data'])) {
                     <a href="./admin" class="nav__link btn">Back</a>
                 </nav>
             </div>
-            <div class="content-right rainbow bg bg-admin">
-                <section class="filler">
+            <div class="content-right rainbow bg bg-dashboard">
+                <section class="filler ">
                     <!-- Google Charts here -->
                 </section>
             </div>
@@ -149,7 +149,6 @@ if (isset($data['data'])) {
                 }
             }
         };
-
 
         const addData = (id, data) => {
             let div = document.createElement('div');
@@ -183,6 +182,12 @@ if (isset($data['data'])) {
                 data = result.message;
 
                 data.forEach((stats, index) => {
+                    if (stats.length === 1) {
+                        stats = [
+                            stats[0],
+                            ['', 0, 0]
+                        ]
+                    }
                     console.log(stats);
                     addData(index, stats);
                 })

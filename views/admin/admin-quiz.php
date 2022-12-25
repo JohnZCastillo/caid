@@ -3,8 +3,50 @@
 require_once 'autoload.php';
 
 use db\TopicDb;
-use views\components\Modules;
+use db\QuestionDb;
+use model\module\Quiz;
+use views\components\Security;
 
+Security::adminOnlyStrict();
+
+// Takes raw data from the request
+$json = file_get_contents('php://input');
+
+// Converts it into a PHP object
+$data = json_decode($json, true);
+
+if (isset($data['questions'], $data['topic'], $data['name'])) {
+    try {
+
+        $questions = $data['questions'];
+        $topic = $data['topic'];
+        $name = $data['name'];
+
+        $quiz = new Quiz();
+
+        $quiz->setName($name);
+        $quiz->setType(2);
+        $quiz->setTypeName("QUIZ");
+        $quiz->setDescription("I am a test");
+        $quiz->setOrder(2);
+        $quiz->setTopicId($topic);
+
+        foreach ($questions as $topic) {
+            $question = $topic['question'];
+            $answer = $topic['answer'];
+            $choices = $topic['choices'];
+            $quiz->addQuestion($question, $answer, $choices);
+        }
+
+        QuestionDb::addQuiz($quiz);
+        echo json_encode(['message' => "Added"]);
+        die();
+    } catch (Exception $e) {
+        http_response_code(403);
+        echo json_encode(['message' => $e->getMessage()]);
+        die();
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +70,7 @@ use views\components\Modules;
 
         .quiz-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             height: 100%;
             overflow-y: auto;
         }
@@ -116,25 +158,25 @@ use views\components\Modules;
                         <form action="" id="form">
                             <div class="quiz-group">
                                 <label for="question">Question</label>
-                                <input type="text" name="question" id="question" required>
+                                <input type="text" name="question" id="question">
                             </div>
                             <div class="choice">
-                                <input type="radio" id="answer-a" name="answer" value="a" required>
+                                <input type="radio" id="answer-a" name="answer" value="a">
                                 <label for="question">A</label>
                                 <input type="text" name="a" id="a">
                             </div>
                             <div class="choice">
-                                <input type="radio" id="answer-b" name="answer" value="a" required>
+                                <input type="radio" id="answer-b" name="answer" value="a">
                                 <label for="question">B</label>
                                 <input type="text" name="b" id="b">
                             </div>
                             <div class="choice">
-                                <input type="radio" id="answer-c" name="answer" value="a" required>
+                                <input type="radio" id="answer-c" name="answer" value="a">
                                 <label for="question">C</label>
                                 <input type="text" name="c" id="c">
                             </div>
                             <div class="choice">
-                                <input type="radio" id="answer-d" name="answer" value="a" required>
+                                <input type="radio" id="answer-d" name="answer" value="a">
                                 <label for="question">D</label>
                                 <input type="text" name="d" id="d">
                             </div>
