@@ -61,6 +61,10 @@ Security::adminOnlyStrict();
             border: 1px solid black;
             border-collapse: collapse;
         }
+
+        td {
+            padding: 5px;
+        }
     </style>
     <section class="main-wrapper bg bg-dashboard">
         <header class="header">COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</header>
