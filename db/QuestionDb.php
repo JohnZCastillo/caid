@@ -277,4 +277,102 @@ class QuestionDb
 
         return $id;
     }
+
+    public static function deleteQuiz($topicId, $contentId, $quizId, $step)
+    {
+
+        $connection = Database::open();
+
+        try {
+            // Delete quiz_choice
+            $deleteQuizChoice = $connection->prepare("Delete from quiz_choice where quiz_id = ?");
+
+            $deleteQuizChoice->bind_param(
+                "d",
+                $quizId
+            );
+
+            $deleteQuizChoice->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete Quiz Choice");
+        }
+
+        try {
+            // Delete quiz_data
+            $deleteQuizData = $connection->prepare("Delete from quiz_data where quiz_id = ?");
+
+            $deleteQuizData->bind_param(
+                "d",
+                $quizId
+            );
+
+            $deleteQuizData->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete Quiz Data");
+        }
+
+        // delete result 
+        try {
+
+            // Delete quiz_data
+            $deleteQuizData = $connection->prepare("DELETE from quiz_result WHERE quiz_id = ?");
+
+
+            $deleteQuizData->bind_param(
+                "d",
+                $quizId
+            );
+
+            $deleteQuizData->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete result");
+        }
+
+        // delete mastery
+        try {
+            // Delete quiz_data
+            $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ? and step = ?");
+
+            $deleteMastery->bind_param(
+                "dd",
+                $topicId,
+                $step
+            );
+
+            $deleteMastery->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete Mastery");
+        }
+
+        try {
+            // Delete quiz
+            $deleteQuiz = $connection->prepare("Delete from quiz where id = ?");
+
+            $deleteQuiz->bind_param(
+                "d",
+                $quizId
+            );
+
+            $deleteQuiz->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete quiz");
+        }
+
+        try {
+
+            // delete content
+            $stmt = $connection->prepare("Delete from content where id = ?");
+
+            $stmt->bind_param(
+                "d",
+                $contentId
+            );
+
+            $stmt->execute();
+        } catch (Exception $e) {
+            throw new Exception("Cant delete content quiz");
+        }
+
+        Database::close($connection);
+    }
 }

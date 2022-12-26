@@ -766,7 +766,7 @@ img#wizardpic10 {
 .content2 {
   width: 512px;
   height: 440px;
-  background-color: blue;
+  background-color: var(--color-blue);
   opacity: 0.4;
   position: absolute;
   top: 465px;
@@ -777,7 +777,7 @@ img#wizardpic10 {
 .content3 {
   width: 512px;
   height: 430px;
-  background-color: blue;
+  background-color: var(--color-blue);
   opacity: 0.4;
   position: absolute;
   top: 912px;
@@ -788,7 +788,7 @@ img#wizardpic10 {
 .content4 {
   width: 512px;
   height: 430px;
-  background-color: blue;
+  background-color: var(--color-blue);
   opacity: 0.4;
   position: absolute;
   top: 1352px;
@@ -799,7 +799,7 @@ img#wizardpic10 {
 .content5 {
   width: 512px;
   height: 440px;
-  background-color: blue;
+  background-color: var(--color-blue);
   opacity: 0.4;
   position: absolute;
   top: 1792px;

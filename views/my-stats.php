@@ -42,6 +42,10 @@ if (isset($data['data'])) {
             }
         }
 
+        if (count($datas) <= 1) {
+            $datas = [['', 'test', 'Average'], ['', 0, 0]];
+        }
+
         echo json_encode(['message' => $datas]);
         die();
     } catch (Exception $e) {

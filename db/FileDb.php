@@ -87,4 +87,65 @@ class FileDb
 
         return $file;
     }
+
+    public static function deleteFile($topicId, $id, $step)
+    {
+
+        $connection = Database::open();
+
+        // delete mastery
+        try {
+            // Delete quiz_data
+            $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ? and step = ?");
+
+            $deleteMastery->bind_param(
+                "dd",
+                $topicId,
+                $step
+            );
+
+            $deleteMastery->execute();
+        } catch (Exception $e) {
+            // throw new Exception("Cant delete Mastery");
+            throw new Exception($e->getMessage());
+        }
+
+        try {
+            // delete file
+            $deleteFile = $connection->prepare("Delete from file where content_id = ?");
+
+            $deleteFile->bind_param(
+                "d",
+                $id
+            );
+
+            $deleteFile->execute();
+        } catch (Exception $e) {
+            throw new Exception("delete file error");
+        }
+
+
+        try {
+            // delete file
+            $deleteFile = $connection->prepare("Delete from content where id = ?");
+
+            $deleteFile->bind_param(
+                "d",
+                $id
+            );
+
+            $deleteFile->execute();
+        } catch (Exception $e) {
+            throw new Exception("delete file error");
+        }
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($error) {
+            throw new Exception($error);
+        }
+        return $error;
+    }
 }

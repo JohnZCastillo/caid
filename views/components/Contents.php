@@ -21,6 +21,7 @@ class Contents
             $nextId = NULL;
 
             $returnValue = "";
+            $firstDescription = null;
 
             // Get the next content after the current content
             for ($i = 0; $i <= count($topics) - 1; $i++) {
@@ -29,8 +30,15 @@ class Contents
                 }
             }
 
+            $descriptionCounter = 0;
+
             // loop through the contents of the current topic
             foreach (ContentDb::getContent($topicId) as $content) {
+
+
+                if ($descriptionCounter++ == 0) {
+                    $firstDescription = $content->getDescription();
+                }
 
                 //check if user has cert on the current content
                 $notBan =  MasteryDb::hasCert($topicId, $count);
@@ -65,6 +73,10 @@ class Contents
                 $returnValue = $returnValue . $currentContent;
 
                 $count++;
+            }
+
+            if ($firstDescription !== null) {
+                $returnValue = $returnValue . "<script>var instruction = '$firstDescription'</script>";
             }
 
             return $returnValue;
