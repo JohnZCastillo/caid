@@ -182,6 +182,8 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                     $payload = array_pop($dataValue);
 
                                     $type = $content->getType();
+                                    $orderId = $content->getOrder();
+
 
                                     switch ($type) {
                                         case 1:
@@ -190,6 +192,11 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             $fileId = $content->getId();
                                             echo "<div class='holder'>
                                             <a href='./assets/game/$location/index.html'>$name</a>
+                                            <div class='holder-wrapper'>
+                                                <select class='order'>
+                                                    <option>$orderId</option>
+                                                </select>
+                                            </div>
                                             <span class='btn del' onclick=\"deleteContent($id,$gameId,$step )\">delete</span>
                                             </div>";
                                             break;
@@ -197,6 +204,11 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             $contenId = $content->getId();
                                             $quizId = QuestionDb::getQuizId($contenId);
                                             echo "<div  class='holder'><a href='./quiz-shower?id=$quizId'>$name</a>
+                                            <div class='holder-wrapper'>
+                                                <select class='order'>
+                                                    <option>$orderId</option>
+                                                </select>
+                                            </div>
                                             <span class='btn del' onclick=\"deleteQuiz($id,$contenId,$quizId,$step )\">delete</span>
                                             </div>";
                                             break;
@@ -207,7 +219,7 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             <a href='./assets/file/$location'>$name</a>
                                             <div class='holder-wrapper'>
                                                 <select class='order'>
-                                                    <option>1</option>
+                                                    <option>$orderId</option>
                                                 </select>
                                             </div>
                                              <span class='btn del' onclick=\"deleteContent($id,$fileId,$step )\">delete</span>
@@ -217,8 +229,12 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             $location = $payload->getLocation();
                                             $fileId = $content->getId();
                                             echo "<div  class='holder'><a href='./assets/video/$location'>$name</a>
+                                            <div class='holder-wrapper'>
+                                                <select class='order'>
+                                                    <option>$orderId</option>
+                                                </select>
+                                            </div>
                                             <span class='btn del' onclick=\"deleteContent($id,$fileId,$step)\">delete</span>
-
                                             </div>";
                                             break;
                                         case 5:
@@ -226,8 +242,12 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             $fileId = $content->getId();
                                             echo "<div  class='holder'>
                                             <a href='./assets/discussion/$location'>$name</a>
+                                            <div class='holder-wrapper'>
+                                                <select class='order'>
+                                                    <option>$orderId</option>
+                                                </select>
+                                            </div>
                                             <span class='btn del' onclick=\"deleteContent($id,$fileId,$step)\">delete</span>
-
                                             </div>";
                                             break;
                                     }
