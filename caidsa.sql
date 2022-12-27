@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 25, 2022 at 01:27 PM
+-- Generation Time: Dec 27, 2022 at 05:25 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `content` (
   `id` int(11) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `description` varchar(300) DEFAULT NULL,
   `order` int(11) NOT NULL,
   `topics` int(11) NOT NULL,
   `type` int(11) NOT NULL
@@ -70,7 +70,7 @@ CREATE TABLE `mastery` (
 
 CREATE TABLE `quiz` (
   `id` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `content_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -83,7 +83,7 @@ CREATE TABLE `quiz` (
 
 CREATE TABLE `quiz_choice` (
   `id` int(11) NOT NULL,
-  `choice` varchar(30) NOT NULL,
+  `choice` varchar(100) NOT NULL,
   `quiz_data` int(11) NOT NULL,
   `quiz_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -97,8 +97,8 @@ CREATE TABLE `quiz_choice` (
 CREATE TABLE `quiz_data` (
   `id` int(11) NOT NULL,
   `quiz_id` int(11) NOT NULL,
-  `question` varchar(30) NOT NULL,
-  `answer` varchar(30) NOT NULL
+  `question` varchar(300) NOT NULL,
+  `answer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -181,6 +181,7 @@ INSERT INTO `user` (`student_number`, `role`, `username`, `password`, `email`, `
 ('c', 'ADMIN', 'c', 'c', 'c', 'c', 'c', 'c', 'Male', 'BSCpE', 1, '2018-01-01', NULL),
 ('cs', 'ADMIN', 'cs', 'cs', 'cs', 'cs', 'cs', 'cs', 'Male', 'BSIT', 2, '2018-01-01', NULL),
 ('dsdsg', 'STUDENT', 'dsggsd', 'dsgsd', 'sdgdsg', 'gssdg', 'dsg', 'sdg', 'Male', 'BSIT', 1, '2018-01-01', NULL),
+('Hello', 'ADMIN', 'Hello', 'hello', 'hello', 'hello', 'hello', 'hello', 'Male', '', 0, '2018-01-24', 'Hello.JPG'),
 ('John', 'STUDENT', 'John', 'John', 'johnzunigacastillo@gmail.com', 'John', 'Castillo', 'Zuniga', 'Male', 'BSIT', 3, '1999-12-10', NULL),
 ('sav', 'STUDENT', 'sav', 'ssav', 'asvsdcsa', 'as', 'av', 'asv', 'Female', 'BSIT', 1, '2018-01-17', NULL),
 ('student', 'STUDENT', 'student', 'student', 'student', 'student', 'student', 'student', 'Male', 'BSIT', 1, '2018-01-01', NULL),
@@ -275,49 +276,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
 
 --
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `mastery`
 --
 ALTER TABLE `mastery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=673;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=769;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `quiz_choice`
 --
 ALTER TABLE `quiz_choice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=764;
 
 --
 -- AUTO_INCREMENT for table `quiz_data`
 --
 ALTER TABLE `quiz_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT for table `quiz_result`
 --
 ALTER TABLE `quiz_result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT for table `type`
