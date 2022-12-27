@@ -2,6 +2,8 @@
 
 require_once 'autoload.php';
 
+use db\ContentDb;
+use db\MasteryDb;
 use views\components\Modules;
 use views\components\Contents;
 
@@ -127,13 +129,22 @@ $topicId = $_REQUEST['id'];
             </div>
         </section>
     </section>
-    <div class="wizard-show wizard hide">
-        <section class="dialog">
-            <section class="dialog__content">
-                <img class="dialog-img" src="./assets/profile/default.png" alt="" srcset="">
-                <p class="dialog-msg">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, officiis?</p>
+
+    <?php
+    try {
+
+        $firstContent = ContentDb::getFirstContent($topicId);
+        $contentId = $firstContent->getId();
+        $instruction = $firstContent->getDescription();
+
+        if (!MasteryDb::hasCert($topicId, $contentId)) {
+            echo "  <div class='wizard-show wizard hide'>
+        <section class='dialog'>
+            <section class='dialog__content'>
+                <img class='dialog-img' src='./assets/profile/default.png' alt='' srcset=''>
+                <p class='dialog-msg'>$instruction </p>
             </section>
-            <button class="btn-ok">Okay</button>
+            <button class='btn-ok'>Okay</button>
         </section>
     </div>
     <script>
@@ -152,16 +163,18 @@ $topicId = $_REQUEST['id'];
         }
 
         const showWizard = () => {
-            if (instruction) {
-                msg.innerHTML = instruction;
-            }
             wizard.classList.remove('hide');
         }
 
         function load() {
             showWizard();
         }
-    </script>
+    </script>";
+        }
+    } catch (Exception $e) {
+        //an error has occured
+    }
+    ?>
 </body>
 
 </html>

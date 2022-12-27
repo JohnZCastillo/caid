@@ -286,7 +286,6 @@ if (isset($data['topicId'], $data['contentId'], $data['order'])) {
 
                             echo "<div class='module__btn'>";
                             echo "<button onclick=\"deleteTopic($id)\" class='btn' id='$title'>Delete Module</button>";
-                            echo "<button onclick=\"deleteTopic($id)\" class='btn' id='$title'>Update Order</button>";
                             echo "</div>";
                             echo "</div>";
                         }
