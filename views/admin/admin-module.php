@@ -170,7 +170,7 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                             echo "<div class='module'>";
                             echo "<h2>$title</h2>";
 
-                            $step = 0;
+                            $step = -1;
 
                             try {
                                 foreach (ContentDb::getContent($id) as $content) {

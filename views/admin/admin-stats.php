@@ -27,7 +27,7 @@ if (isset($data['data'])) {
 
             $name = $user->getFullName();
 
-            $datas = [[$name, 'test', 'Average']];
+            $datas = [[$name, 'Score', 'Average']];
             $userId = $user->getId();
 
             $score = 0;

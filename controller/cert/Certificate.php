@@ -22,8 +22,6 @@ class Certificate
         // // Set Path to Font File
         $font_path = Certificate::$path . 'font.ttf';
 
-        // $name_text = trim($_SESSION['userName']);
-
         //Uppercase first letter for every word
         $name_text = ucwords($name_text);
 
@@ -36,7 +34,7 @@ class Certificate
 
         imagettftext($jpg_image, 100, 0, $position, 830, $white, $font_path, $name_text);
 
-        $imageName = $name_text . "_"  . $topic . "_" . $type . ".jpg";
+        $imageName = $name_text . ".jpg";
 
         $imagePath = "assets/cert/";
 
