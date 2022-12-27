@@ -130,7 +130,7 @@ Security::adminOnlyStrict();
                                 $percent = MasteryDb::getStudentPercent($id, $studentId);
 
                                 //format decimal when percent is not whole number eg 33.3333
-                                if (str_contains($percent, ".")) {
+                                if (strpos($percent, ".")) {
                                     $percent = number_format($percent, 2);
                                 }
 

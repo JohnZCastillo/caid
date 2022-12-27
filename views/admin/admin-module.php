@@ -176,6 +176,21 @@ if (isset($data['topicId'], $data['contentId'], $data['order'])) {
                 <section class="filler">
                     <?php
                     try {
+
+                        function setOrder($id, $max, $order, $contentId)
+                        {
+                            $orders = " <select class='order' id='myId$id$contentId' onchange=\"changeOrder($id,$contentId,$order)\">";
+
+                            for ($i = 1; $i <= $max; $i++) {
+                                if ($i == $order) {
+                                    $orders = $orders . "<option selected value='$i'>$i</option>";
+                                } else {
+                                    $orders = $orders . "<option value='$i'>$i</option>";
+                                }
+                            }
+                            return $orders . "</select>";
+                        }
+
                         foreach (TopicDb::getAllTopics() as $topic) {
 
                             $title = $topic->getTitle();
@@ -185,28 +200,9 @@ if (isset($data['topicId'], $data['contentId'], $data['order'])) {
                             echo "<div class='module'>";
                             echo "<h2>$title</h2>";
 
-
                             try {
 
                                 $contents = ContentDb::getContent($id);
-
-
-                                function setOrder($max, $order, $contentId)
-                                {
-                                    global $id;
-
-                                    $orders = " <select class='order' id='myId$id$contentId' onchange=\"changeOrder($id,$contentId,$order)\">";
-
-                                    for ($i = 1; $i <= $max; $i++) {
-                                        if ($i == $order) {
-                                            $orders = $orders . "<option selected value='$i'>$i</option>";
-                                        } else {
-                                            $orders = $orders . "<option value='$i'>$i</option>";
-                                        }
-                                    }
-                                    return $orders . "</select>";
-                                }
-
 
                                 foreach ($contents as $content) {
 
@@ -219,8 +215,7 @@ if (isset($data['topicId'], $data['contentId'], $data['order'])) {
                                     $type = $content->getType();
                                     $orderId = $content->getOrder();
 
-                                    $orders = setOrder(count($contents), $orderId, $step);
-
+                                    $orders = setOrder($id, count($contents), $orderId, $step);
 
                                     switch ($type) {
                                         case 1:
@@ -280,7 +275,7 @@ if (isset($data['topicId'], $data['contentId'], $data['order'])) {
                                             break;
                                     }
                                 }
-                            } catch (Exception $error) {
+                            } catch (Exception $err) {
                                 echo "no content found";
                             }
 
