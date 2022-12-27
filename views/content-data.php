@@ -97,7 +97,7 @@ $payload = array_pop($dataValue);
                     try {
 
                         // register to mastery if not yet registered
-                        if (MasteryDb::hasCert($topicId, $index)) {
+                        if (!(MasteryDb::hasCert($topicId, $index))) {
                             MasteryDb::register($topicId, $index);
                         }
 
