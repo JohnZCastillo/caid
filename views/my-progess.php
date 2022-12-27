@@ -136,13 +136,24 @@ use views\components\Modules;
 
                 let progress = 0;
 
+                console.log(maxValue);
+
                 let interval = setInterval(() => {
-                    progress++;
+
+                    if (maxValue === 0) {
+                        clearInterval(interval);
+                    }
+
                     border[index].style.background = `conic-gradient(rgba(255, 247, 86, 0.5) ${progress * 3.6}deg,grey  ${progress * 3.6}deg)`;
                     currentValue.textContent = progress + "%";
+
                     if (progress >= maxValue) {
                         clearInterval(interval);
                     }
+
+                    progress++;
+
+
                 }, 20)
 
 
