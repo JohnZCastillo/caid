@@ -4,7 +4,9 @@ require_once 'autoload.php';
 
 use db\QuizResult;
 use views\components\Modules;
+use views\components\Security;
 
+Security::studentOnlyStrict();
 
 ?>
 <!DOCTYPE html>

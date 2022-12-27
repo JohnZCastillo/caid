@@ -6,7 +6,11 @@ use db\ContentDb;
 use db\MasteryDb;
 use db\QuestionDb;
 use views\components\Modules;
+use views\components\Security;
 use views\components\TopicBg;
+
+
+Security::studentOnlyStrict();
 
 // Initialize URL to the variable
 $topicId = $_REQUEST['id'];
