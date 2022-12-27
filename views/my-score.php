@@ -99,8 +99,8 @@ use views\components\Modules;
                 <section class="filler">
                     <div class='container'>
                         <div class='lbl'>
-                            <label>100%</label>
-                            <label>50%</label>
+                            <label>50</label>
+                            <label>25</label>
                         </div>
 
                         <div class='main'>
@@ -108,20 +108,15 @@ use views\components\Modules;
                             $ids = QuizResult::getQuizIds();
                             foreach ($ids as $id) {
                                 $stats = QuizResult::getResult($id);
+                                $quizName = QuizResult::getQuizName($id);
 
                                 if ($stats !== NULL) {
 
                                     $score = (int) $stats['score'];
-                                    $perfect = (int)$stats['perfect'];
-
-                                    $percent = 0;
-
-                                    if ($score > 0) {
-                                        $percent = ($score / $perfect) * 100;
-                                    }
 
                                     echo "<div class='bar'>
-                                                <div class='bar-value'>$percent</div>
+                                                <div class='bar-value'>$score</div>
+                                                <div class='bar-name'>$quizName</div>
                                           </div>";
                                 }
                             }
@@ -143,7 +138,7 @@ use views\components\Modules;
                 let value = bar.children[0].innerHTML;
 
                 if (parseInt(value) > 0) {
-                    bar.style.height = value + "%";
+                    bar.style.height = (value * 2) + "%";
                 }
             });
         }

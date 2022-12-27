@@ -81,9 +81,7 @@ error_reporting(0);
 
                                 foreach ($ids as $id) {
 
-
                                     $stats = QuizResult::getResultByStudent($id, $studentId);
-                                    // $name = $id->getTitle();
 
                                     if ($stats !== NULL) {
 
@@ -95,18 +93,18 @@ error_reporting(0);
                                         $hasReward = $score >= 30 && $hasReward === null ?  true : false;
 
                                         if ($score >= 30 && $score <= 35) {
-                                            $name =  Certificate::getBronze("bronze", $name);
-                                            $path = $location . $name;
+                                            $certName =  Certificate::getBronze("bronze", $name);
+                                            $path = $location . $certName;
                                             echo "<a href='$path'><img src='$path' class='cert'></a>";
                                             echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
                                         } else if ($score >= 40 && $score <= 45) {
-                                            $name =  Certificate::getSilver("silver", $name);
-                                            $path = $location . $name;
+                                            $certName =  Certificate::getSilver("silver", $name);
+                                            $path = $location . $certName;
                                             echo "<a href='$path'><img src='$path' class='cert'></a>";
                                             echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
                                         } else if ($score == 50) {
-                                            $name =  Certificate::getGold("gold", $name);
-                                            $path = $location . $name;
+                                            $certName =  Certificate::getGold("gold", $name);
+                                            $path = $location . $certName;
                                             echo "<a href='$path'><img src='$path' class='cert'></a>";
                                             echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
                                         }

@@ -990,6 +990,7 @@ img#wizardpic10 {
   padding: 1rem;
   text-align: center;
   margin: 0;
+  word-break: break-word;
 }
 .quiz-container ul {
   list-style-type: none;

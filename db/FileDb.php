@@ -121,7 +121,7 @@ class FileDb
 
             $deleteFile->execute();
         } catch (Exception $e) {
-            throw new Exception("delete file error");
+            throw new Exception("delete file error " . $e->getMessage());
         }
 
 

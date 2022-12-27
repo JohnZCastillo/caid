@@ -25,7 +25,7 @@ if (isset($data['data'])) {
 
         foreach ($users as $user) {
 
-            $name = $user->getFName();
+            $name = $user->getFullName();
 
             $datas = [[$name, 'test', 'Average']];
             $userId = $user->getId();
@@ -47,7 +47,10 @@ if (isset($data['data'])) {
                     if ($score > 0) {
                         $percent = ($score / $perfect) * 100;
                     }
-                    $temp = ['', $percent, $percent];
+
+                    $quizName = QuizResult::getQuizName($id);
+
+                    $temp = [$quizName, $percent, $percent];
 
                     array_push($datas, $temp);
                 } else {
