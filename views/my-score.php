@@ -106,12 +106,15 @@ use views\components\Modules;
                         <div class='main'>
                             <?php
                             $ids = QuizResult::getQuizIds();
+                            $hasReward = false;
+
                             foreach ($ids as $id) {
                                 $stats = QuizResult::getResult($id);
                                 $quizName = QuizResult::getQuizName($id);
 
                                 if ($stats !== NULL) {
 
+                                    $hasReward = true;
                                     $score = (int) $stats['score'];
 
                                     echo "<div class='bar'>
@@ -120,6 +123,8 @@ use views\components\Modules;
                                           </div>";
                                 }
                             }
+
+                            echo $hasReward ? "" : "<div style='color:white;'>NO QUIZ TAKEN<div>";
                             ?>
                         </div>
                     </div>

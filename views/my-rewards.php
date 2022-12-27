@@ -101,7 +101,7 @@ error_reporting(0);
                             }
 
                             if (!$hasReward) {
-                                echo "<div>No Rewards Yet</div>";
+                                echo "<div>None Medals to display</div>";
                             }
 
                             $topics = TopicDb::getAllTopics();

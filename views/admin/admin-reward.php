@@ -143,7 +143,7 @@ error_reporting(0);
                                 if ($myPercent === $maxPercent) {
 
                                     $meron = true;
-                                    $studentName =  ucwords($studentName);
+                                    $studentName =  ucwords($name);
 
                                     $certName = $studentName . ".jpg";
 

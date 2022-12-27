@@ -184,7 +184,7 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
                 </div>
                 <div>
                     <label for="file">File</label>
-                    <input type="file" name="file" required>
+                    <input type="file" name="file" accept="video/*" required>
                 </div>
                 <div>
                     <label for="file">Description</label>

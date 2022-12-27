@@ -24,7 +24,7 @@ class Profile
 
         echo   " <div class='profile-pic-div'>
                     $image
-                    <input type='file' id='file' class='hide'>
+                    <input type='file' id='file'  accept='image/*' class='hide'>
                     <label for='file' id='uploadBtn'>Choose</label>
                 </div>";
     }
