@@ -310,6 +310,21 @@ a {
   display: none;
 }
 
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.progress-title {
+  color: white;
+  background-color: var(--color-blue);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: -2px 3px 1px 2px var(--color-yellow);
+}
+
 .profile {
   /* min-height: 300px; */
   height: 300px;
