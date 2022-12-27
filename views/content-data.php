@@ -12,15 +12,12 @@ use views\components\TopicBg;
 $topicId = $_REQUEST['id'];
 $index = $_REQUEST['index'];
 
-$nextTopic = NULL;
 
 if (isset($_REQUEST['next'])) {
     $nextTopic = $_REQUEST['next'];
 }
 
-$content = ContentDb::getContent($topicId);
-
-$data = $content[$index];
+$data = ContentDb::getContentById($topicId, $index);
 
 $type = $data->getType();
 $dataValue = $data->getData();
@@ -35,7 +32,7 @@ $payload = array_pop($dataValue);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./resources/css/style.css">
-    <title>Test Layout</title>
+    <title>Topics</title>
 </head>
 
 <body>
@@ -76,30 +73,17 @@ $payload = array_pop($dataValue);
                     <?php
                     try {
 
-                        if (!((count($content) - 1) == $index)) {
+                        $nextContentId = MasteryDb::getNextStepId($topicId, $index);
 
-                            $nextIndex = $index + 1;
-                            MasteryDb::register($topicId, $nextIndex);
-                            $nextContent = ContentDb::getContent($topicId);
+                        if ($nextContentId != $index) {
 
-                            $nextType = $nextContent[$nextIndex]->getType();
+                            $nextContent = ContentDb::getContentById($topicId, $nextContentId);
 
-                            $iconId = TopicBg::getTopicBackground($nextType);
+                            $iconId = TopicBg::getTopicBackground($nextContent->getType());
 
                             $iconId = $iconId . " bg img-btn-sm";
 
-                            $icon = "<a href='./data?id=$topicId&index=$nextIndex&next=$nextTopic' class='$iconId'></a>";
-
-                            if ($nextTopic !== NULL) {
-                                echo $icon;
-                            } else {
-                                echo "<a href='./data?id=$topicId&index=$nextIndex' class='$iconId'></a>";
-                            }
-                        } else {
-                            //register next topic 
-                            if ($nextTopic !== NULL) {
-                                MasteryDb::register($nextTopic, 0);
-                            }
+                            echo "<a href='./data?id=$topicId&index=$nextContentId' class='$iconId'></a>";
                         }
                     } catch (Exception $e) {
                         echo $e->getMessage();
@@ -111,7 +95,11 @@ $payload = array_pop($dataValue);
                 <section class="filler">
                     <?php
                     try {
-                        MasteryDb::register($topicId, $index);
+
+                        // register to mastery if not yet registered
+                        if (MasteryDb::hasCert($topicId, $index)) {
+                            MasteryDb::register($topicId, $index);
+                        }
 
                         switch ($type) {
                             case 1:

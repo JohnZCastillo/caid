@@ -13,6 +13,33 @@ session_start();
 class MasteryDb
 {
 
+    public static function getNextStepId($topicId, $currentStep)
+    {
+        //get all contents of the current topic
+        $steps = ContentDb::getContent($topicId);
+
+        $contentSize = count($steps);
+
+        //assument that the current content is first
+        $currentIndex = 0;
+
+        //loop through all the contents and find the current index
+        for ($i = 0; $i <= $contentSize - 1; $i++) {
+            if ($steps[$i]->getId() == $topicId && $steps[$i]->getId() == $currentStep) {
+                $currentIndex = $i;
+                break;
+            }
+        }
+
+        //if the index is last then return the current index
+        if (($contentSize - 1) == $currentIndex) {
+            return $steps[$currentIndex]->getId();
+        }
+
+        //next index
+        return $steps[$currentIndex + 1]->getId();
+    }
+
     public static function register($topicId, $step)
     {
 

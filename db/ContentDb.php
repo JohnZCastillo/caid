@@ -113,4 +113,66 @@ class ContentDb
         }
         return $contents;
     }
+
+
+    public static function getContentById($topicId, $contentId)
+    {
+
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT * FROM content WHERE topics = ? and id = ?");
+
+        $stmt->bind_param(
+            "dd",
+            $topicId,
+            $contentId
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+
+        $data = $result->fetch_assoc();
+
+        $content = new Content();
+
+        $content->setId($data['id']);
+        $content->setName($data['name']);
+        $content->setDescription($data['description']);
+        $content->setOrder($data['order']);
+        $content->setTopics($data['topics']);
+        $content->setType($data['type']);
+
+        switch ($data['type']) {
+            case 1:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 3:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 4:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 5:
+                $content->appendData(FileDb::getFile($content));
+                break;
+        }
+
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($content == null) {
+            throw new Exception('Empty Contents');
+        }
+
+        if ($error) {
+            throw new Exception("An error has occured");
+        }
+
+        return $content;
+    }
 }
