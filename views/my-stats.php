@@ -4,6 +4,9 @@ require_once 'autoload.php';
 
 use db\QuizResult;
 use views\components\Modules;
+use views\components\Security;
+
+Security::studentOnlyStrict();
 
 
 // Takes raw data from the request

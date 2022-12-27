@@ -2,13 +2,17 @@
 
 require_once 'autoload.php';
 
+use db\UserDb;
 use db\TopicDb;
 use db\MasteryDb;
 use db\QuizResult;
+use views\components\Security;
 use controller\cert\Certificate;
-use db\UserDb;
 
 error_reporting(0);
+
+Security::studentOnlyStrict();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
