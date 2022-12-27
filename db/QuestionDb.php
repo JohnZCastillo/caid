@@ -16,8 +16,8 @@ class QuestionDb
         $name = $quiz->getName();
         $description = $quiz->getDescription();
         $type = $quiz->getType();
-        $order = $quiz->getOrder();
         $topicId = $quiz->getTopicId();
+        $order = ContentDb::getOrder($topicId);
 
         $connection = Database::open();
 

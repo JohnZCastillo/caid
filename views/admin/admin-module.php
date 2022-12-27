@@ -29,7 +29,6 @@ if (isset($data['id'])) {
     }
 }
 
-
 if (isset($data['deleteFile'], $data['step'], $data['topicId'])) {
     try {
         $id = $data['deleteFile'];
@@ -63,6 +62,22 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
         die();
     }
 }
+
+if (isset($data['topicId'], $data['contentId'], $data['order'])) {
+    try {
+        $order = $data['order'];
+        $topicId = $data['topicId'];
+        $contentId = $data['contentId'];
+        ContentDb::updateOrder($topicId, $contentId, $order);
+        echo json_encode(['message' => "Order Updated"]);
+        die();
+    } catch (Exception $e) {
+        http_response_code(403);
+        echo json_encode(['message' => $e->getMessage()]);
+        die();
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -172,8 +187,28 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
 
 
                             try {
-                                foreach (ContentDb::getContent($id) as $content) {
 
+                                $contents = ContentDb::getContent($id);
+
+
+                                function setOrder($max, $order, $contentId)
+                                {
+                                    global $id;
+
+                                    $orders = " <select class='order' id='myId$id$contentId' onchange=\"changeOrder($id,$contentId,$order)\">";
+
+                                    for ($i = 1; $i <= $max; $i++) {
+                                        if ($i == $order) {
+                                            $orders = $orders . "<option selected value='$i'>$i</option>";
+                                        } else {
+                                            $orders = $orders . "<option value='$i'>$i</option>";
+                                        }
+                                    }
+                                    return $orders . "</select>";
+                                }
+
+
+                                foreach ($contents as $content) {
 
                                     $step = $content->getId();
 
@@ -184,6 +219,8 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                     $type = $content->getType();
                                     $orderId = $content->getOrder();
 
+                                    $orders = setOrder(count($contents), $orderId, $step);
+
 
                                     switch ($type) {
                                         case 1:
@@ -193,9 +230,7 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             echo "<div class='holder'>
                                             <a href='./assets/game/$location/index.html'>$name</a>
                                             <div class='holder-wrapper'>
-                                                <select class='order'>
-                                                    <option>$orderId</option>
-                                                </select>
+                                                    $orders
                                             </div>
                                             <span class='btn del' onclick=\"deleteContent($id,$gameId,$step )\">delete</span>
                                             </div>";
@@ -203,11 +238,10 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                         case 2:
                                             $contenId = $content->getId();
                                             $quizId = QuestionDb::getQuizId($contenId);
-                                            echo "<div  class='holder'><a href='./quiz-shower?id=$quizId'>$name</a>
+                                            echo "<div  class='holder'>
+                                            <a href='./quiz-shower?id=$quizId'>$name</a>
                                             <div class='holder-wrapper'>
-                                                <select class='order'>
-                                                    <option>$orderId</option>
-                                                </select>
+                                                $orders
                                             </div>
                                             <span class='btn del' onclick=\"deleteQuiz($id,$contenId,$quizId,$step )\">delete</span>
                                             </div>";
@@ -218,9 +252,7 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             echo "<div  class='holder'>
                                             <a href='./assets/file/$location'>$name</a>
                                             <div class='holder-wrapper'>
-                                                <select class='order'>
-                                                    <option>$orderId</option>
-                                                </select>
+                                                    $orders
                                             </div>
                                              <span class='btn del' onclick=\"deleteContent($id,$fileId,$step )\">delete</span>
                                             </div>";
@@ -230,9 +262,7 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             $fileId = $content->getId();
                                             echo "<div  class='holder'><a href='./assets/video/$location'>$name</a>
                                             <div class='holder-wrapper'>
-                                                <select class='order'>
-                                                    <option>$orderId</option>
-                                                </select>
+                                                    $orders
                                             </div>
                                             <span class='btn del' onclick=\"deleteContent($id,$fileId,$step)\">delete</span>
                                             </div>";
@@ -243,9 +273,7 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
                                             echo "<div  class='holder'>
                                             <a href='./assets/discussion/$location'>$name</a>
                                             <div class='holder-wrapper'>
-                                                <select class='order'>
-                                                    <option>$orderId</option>
-                                                </select>
+                                                    $orders
                                             </div>
                                             <span class='btn del' onclick=\"deleteContent($id,$fileId,$step)\">delete</span>
                                             </div>";
@@ -422,6 +450,43 @@ if (isset($data['quizId'], $data['contentId'], $data['topicId'], $data['step']))
             } catch (error) {
                 alert(error.message);
             }
+        }
+
+        const changeOrder = async (topicId, contentId, originalValue) => {
+
+            try {
+
+                const target = document.querySelector("#myId" + topicId + contentId);
+
+                if (!(window.confirm('Are you sure you want to change order?'))) {
+                    target.value = originalValue;
+                    return;
+                }
+
+                let result = await fetch("./admin-module", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify({
+                        topicId: topicId,
+                        contentId: contentId,
+                        order: target.value,
+                    })
+                });
+
+                const status = result.ok;
+                result = await result.json();
+
+                if (!status) throw new Error(result.message);
+
+                alert(result.message);
+                window.location.reload();
+
+            } catch (error) {
+                console.log(error.message);
+            }
+
         }
     </script>
 </body>
