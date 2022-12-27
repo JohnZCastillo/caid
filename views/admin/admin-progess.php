@@ -156,15 +156,38 @@ Security::adminOnlyStrict();
     <script>
         function load() {
 
-            let value = document.querySelector(".value");
-            let border = document.querySelector(".border");
+            let value = document.querySelectorAll(".value");
+            let border = document.querySelectorAll(".border");
 
-            value.textContent = value.textContent + "%";
+            value.forEach((currentValue, index) => {
 
-            border.style.background = `conic-gradient(
-        rgba(255, 247, 86, 0.5) ${parseInt(value.textContent) * 3.6}deg,
-        grey  ${parseInt(value.textContent) * 3.6}deg
-        )`;
+                let maxValue = currentValue.textContent;
+
+                let progress = 0;
+
+                console.log(maxValue);
+
+                let interval = setInterval(() => {
+
+                    if (maxValue === 0) {
+                        clearInterval(interval);
+                    }
+
+                    border[index].style.background = `conic-gradient(rgba(255, 247, 86, 0.5) ${progress * 3.6}deg,grey  ${progress * 3.6}deg)`;
+                    currentValue.textContent = progress + "%";
+
+                    if (progress >= maxValue) {
+                        clearInterval(interval);
+                    }
+
+                    progress++;
+
+
+                }, 20)
+
+
+            });
+
         }
     </script>
 </body>
