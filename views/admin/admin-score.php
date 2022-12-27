@@ -134,7 +134,7 @@ Security::adminOnlyStrict();
                         }
 
                         $userId = $student->getId();
-                        $name = $student->getFName();
+                        $name = $student->getFullName();
 
                         $hasQuiz = false;
 
@@ -143,8 +143,8 @@ Security::adminOnlyStrict();
 
                         echo "<section class='container'>";
                         echo "<div class='lbl'>  
-                                <label>100%</label>
-                                <label>50%</label>
+                                <label>50</label>
+                                <label>25</label>
                          </div>";
 
                         echo "<div class='main'>";
@@ -152,6 +152,7 @@ Security::adminOnlyStrict();
                         foreach ($ids as $id) {
 
                             $stats = QuizResult::getResultByStudent($id, $userId);
+                            $quizName = QuizResult::getQuizName($id);
 
                             if ($stats !== NULL) {
 
@@ -167,7 +168,8 @@ Security::adminOnlyStrict();
                                 }
 
                                 echo "<div class='bar'>
-                                    <div class='bar-value'>$percent</div>
+                                    <div class='bar-value'>$score</div>
+                                    <div class='bar-name'>$quizName</div>
                                 </div>";
                             }
                         }
@@ -192,7 +194,7 @@ Security::adminOnlyStrict();
                 let value = bar.children[0].innerHTML;
 
                 if (parseInt(value) > 0) {
-                    bar.style.height = value + "%";
+                    bar.style.height = (value * 2) + "%";
                 }
             });
         }

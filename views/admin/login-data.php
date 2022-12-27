@@ -25,7 +25,7 @@ Security::adminOnlyStrict();
     <style>
         .content-right {
             padding: 6px;
-            background-color: blue;
+            background-color: var(--color-blue);
         }
 
         .btn-img {
@@ -37,10 +37,8 @@ Security::adminOnlyStrict();
             grid-template-columns: 1fr;
             padding-block: 50px;
             padding-inline: 50px;
-            /* flex-wrap: wrap; */
             gap: 20px;
             height: 100%;
-            /* justify-content: space-evenly; */
             overflow-y: auto;
             border-radius: 10px;
         }

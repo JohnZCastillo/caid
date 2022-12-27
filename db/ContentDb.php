@@ -13,9 +13,10 @@ class ContentDb
 
         $name = $content->getName();
         $description = $content->getDescription();
-        $order = $content->getOrder();
         $type = $content->getType();
         $topics = $content->getTopics();
+        $order = ContentDb::getOrder($topics);
+
 
         $connection = Database::open();
 
@@ -57,7 +58,7 @@ class ContentDb
 
         $connection = Database::open();
 
-        $stmt = $connection->prepare("SELECT * FROM content WHERE topics = ?");
+        $stmt = $connection->prepare("SELECT * FROM content WHERE topics = ? order by `order`");
 
         $stmt->bind_param(
             "d",
@@ -112,5 +113,183 @@ class ContentDb
             throw new Exception("An error has occured");
         }
         return $contents;
+    }
+
+    public static function getFirstContent($id)
+    {
+
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT * FROM content WHERE topics = ? order by `order`");
+
+        $stmt->bind_param(
+            "d",
+            $id
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+        $data = $result->fetch_assoc();
+
+        $content = new Content();
+
+        $content->setId($data['id']);
+        $content->setName($data['name']);
+        $content->setDescription($data['description']);
+        $content->setOrder($data['order']);
+        $content->setTopics($data['topics']);
+        $content->setType($data['type']);
+
+        switch ($data['type']) {
+            case 1:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 3:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 4:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 5:
+                $content->appendData(FileDb::getFile($content));
+                break;
+        }
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($content == null) {
+            throw new Exception('Empty Contents');
+        }
+
+        if ($error) {
+            throw new Exception("An error has occured");
+        }
+
+        return $content;
+    }
+
+
+    public static function getContentById($topicId, $contentId)
+    {
+
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT * FROM content WHERE topics = ? and id = ?");
+
+        $stmt->bind_param(
+            "dd",
+            $topicId,
+            $contentId
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+
+        $data = $result->fetch_assoc();
+
+        $content = new Content();
+
+        $content->setId($data['id']);
+        $content->setName($data['name']);
+        $content->setDescription($data['description']);
+        $content->setOrder($data['order']);
+        $content->setTopics($data['topics']);
+        $content->setType($data['type']);
+
+        switch ($data['type']) {
+            case 1:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 3:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 4:
+                $content->appendData(FileDb::getFile($content));
+                break;
+            case 5:
+                $content->appendData(FileDb::getFile($content));
+                break;
+        }
+
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($content == null) {
+            throw new Exception('Empty Contents');
+        }
+
+        if ($error) {
+            throw new Exception("An error has occured");
+        }
+
+        return $content;
+    }
+
+    public static function getOrder($topicId)
+    {
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT count(id) as total FROM content WHERE topics = ?");
+
+        $stmt->bind_param(
+            "d",
+            $topicId,
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+
+        $data = $result->fetch_assoc();
+
+        $order = $data['total'];
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($error) {
+            throw new Exception("An error has occured");
+        }
+
+        return $order + 1;
+    }
+
+    public static function updateOrder($topicId, $contentId, $order)
+    {
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("update `content` set `order` = ? where id = ? and topics = ?");
+
+        $stmt->bind_param(
+            "ddd",
+            $order,
+            $contentId,
+            $topicId
+        );
+
+        $stmt->execute();
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($error) {
+            throw new Exception("An error has occured");
+        }
+
+        return $error;
     }
 }

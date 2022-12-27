@@ -23,7 +23,7 @@ Security::adminOnlyStrict();
     <style>
         .content-right {
             padding: 6px;
-            background-color: blue;
+            background-color: var(--color-blue);
         }
 
         .btn-img {

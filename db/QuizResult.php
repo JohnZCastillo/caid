@@ -138,4 +138,35 @@ class QuizResult
 
         return $ids;
     }
+
+    public static function getQuizName($id)
+    {
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT name from quiz where id = ?");
+
+        $stmt->bind_param(
+            "d",
+            $id,
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+        $error = mysqli_error($connection);
+
+        $data = $result->fetch_assoc();
+
+        $name = $data["name"];
+
+        Database::close($connection);
+
+        return $name;
+    }
+
+    public static function getModuleName($id){
+        
+    }
 }

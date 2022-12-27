@@ -17,23 +17,24 @@ class Contents
 
             $count = 0;
 
-            $topics = TopicDb::getAllTopics();
             $nextId = NULL;
 
             $returnValue = "";
+            $firstDescription = null;
 
-            // Get the next content after the current content
-            for ($i = 0; $i <= count($topics) - 1; $i++) {
-                if ($topics[$i]->getId() == $topicId && $i <  (count($topics) - 1)) {
-                    $nextId = $topics[$i + 1]->getId();
-                }
-            }
+            $descriptionCounter = 0;
 
             // loop through the contents of the current topic
             foreach (ContentDb::getContent($topicId) as $content) {
 
+                $contentId = $content->getId();
+
+                if ($descriptionCounter++ == 0) {
+                    $firstDescription = $content->getDescription();
+                }
+
                 //check if user has cert on the current content
-                $notBan =  MasteryDb::hasCert($topicId, $count);
+                $notBan =  MasteryDb::hasCert($topicId, $contentId);
 
                 //get the content type of the content eg: quiz, etc..
                 $type = $content->getType();
@@ -46,11 +47,11 @@ class Contents
                     $notBan = true;
                 }
 
+                $contentId = $content->getId();
+
                 //change url base on progress
-                if ($notBan && $nextId !== NULL) {
-                    $url = "./data?id=$topicId&index=$count&next=$nextId";
-                } else if ($notBan) {
-                    $url = "./data?id=$topicId&index=$count";
+                if ($notBan) {
+                    $url = "./data?id=$topicId&index=$contentId";
                 } else {
                     $url = "";
                     $classlist = "btn-img-l bg ban scale shadow";
@@ -65,6 +66,10 @@ class Contents
                 $returnValue = $returnValue . $currentContent;
 
                 $count++;
+            }
+
+            if ($firstDescription !== null) {
+                $returnValue = $returnValue . "<script>var instruction = '$firstDescription'</script>";
             }
 
             return $returnValue;

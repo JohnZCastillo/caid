@@ -121,7 +121,7 @@ Security::adminOnlyStrict();
                             }
 
                             $studentId = $user->getId();
-                            $studentName = $user->getFName();
+                            $studentName = $user->getFullName();
 
                             echo "<div class='student'>$studentName <div class='student-progress'>";
                             foreach ($topics as $topic) {

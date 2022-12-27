@@ -44,8 +44,6 @@ try {
         $_POST['middlename'],
         $_POST['lastname'],
         $_POST['gender'],
-        $_POST['course'],
-        $_POST['year'],
         $_POST['birthdate']
     )) {
 

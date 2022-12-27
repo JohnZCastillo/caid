@@ -2,9 +2,11 @@
 
 require_once 'autoload.php';
 
-use controller\cert\Certificate;
-use db\QuizResult;
 use db\UserDb;
+use db\TopicDb;
+use db\MasteryDb;
+use db\QuizResult;
+use controller\cert\Certificate;
 
 error_reporting(0);
 ?>
@@ -29,13 +31,14 @@ error_reporting(0);
 
         .cert-holder {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             padding: 10px;
             gap: 10px;
             overflow-x: auto;
         }
 
         .filler {
+            padding-block: 10px;
             display: grid;
             grid-template-columns: 1fr;
             justify-content: center;
@@ -51,6 +54,17 @@ error_reporting(0);
         .scroll {
             overflow-y: scroll;
             height: 100%;
+        }
+
+        .student {
+            width: 90%;
+            margin-inline: auto;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 300px;
+            padding: 10px;
+            background-color: blue;
         }
     </style>
     <section class="main-wrapper bg-dashboard">
@@ -68,58 +82,86 @@ error_reporting(0);
                         <?php
                         try {
 
-
                             $ids = QuizResult::getQuizIds();
                             $students = UserDb::getStudents();
                             $location = "./assets/cert/";
+                            $topics = TopicDb::getAllTopics();
 
                             $hasReward = null;
+                            $maxPercent = (int)count($topics) * 100;
 
                             foreach ($students as $student) {
+
+
                                 $studentId = $student->getId();
                                 $name = $student->getFullName();
 
+                                echo "<div class='student'><div class='student-name'> $name</div>";
+
+                                $meron = false;
+
                                 foreach ($ids as $id) {
-
-
+                                    $quizName = QuizResult::getQuizName($id);
                                     $stats = QuizResult::getResultByStudent($id, $studentId);
-                                    // $name = $id->getTitle();
 
                                     if ($stats !== NULL) {
 
-                                        $score = (int) $stats['score'];
-                                        $perfect = (int)$stats['perfect'];
+                                        $meron = true;
 
-                                        echo $score >= 30 ? "<div><div class='student-name'>$name</div><div class='cert-holder'>" : "";
+                                        $score = (int) $stats['score'];
+
+                                        echo $score >= 30 ? "<div class='cert-holder'>" : "";
 
                                         $hasReward = $score >= 30 && $hasReward === null ?  true : false;
 
                                         if ($score >= 30 && $score <= 35) {
-                                            $name =  Certificate::getBronze("bronze", $name);
-                                            $path = $location . $name;
-                                            echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                            echo "<span>$quizName</span>";
                                             echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
                                         } else if ($score >= 40 && $score <= 45) {
-                                            $name =  Certificate::getSilver("silver", $name);
-                                            $path = $location . $name;
-                                            echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                            echo "<span>$quizName</span>";
                                             echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
                                         } else if ($score == 50) {
-                                            $name =  Certificate::getGold("gold", $name);
-                                            $path = $location . $name;
-                                            echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                            echo "<span>$quizName</span>";
                                             echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
+                                        } else {
+                                            $meron = false;
                                         }
-                                        echo $score >= 30 ? "</div></div>" : "";
+                                        echo $score >= 30 ? "</div>" : "";
+                                    } else {
+                                        $meron = false;
                                     }
                                 }
-                            }
 
-                            if (!$hasReward) {
-                                echo "<div>No Rewards Yet</div>";
+                                $myPercent = (int)0;
+
+                                foreach ($topics as $topic) {
+                                    $id = $topic->getId();
+                                    $percent = MasteryDb::getStudentPercent($id, $studentId);
+                                    $myPercent  += $percent;
+                                }
+
+                                if ($myPercent === $maxPercent) {
+
+                                    $meron = true;
+                                    $studentName =  ucwords($name);
+
+                                    $certName = $studentName . ".jpg";
+
+                                    if (!file_exists($location . $certName)) {
+                                        $certName =  Certificate::getGold("", $studentName);
+                                    }
+
+                                    $path = $location . $certName;
+
+                                    echo "<a href='$path' class='cert-link'><img src='$path' class='cert'></a>";
+                                }
+
+                                echo $meron ? "" : "<br>no rewords yet";
+
+                                echo "</div>";
                             }
                         } catch (Exception $e) {
-                            echo "An error has occured";
+                            echo "No Rewards Yet";
                         }
 
                         ?>

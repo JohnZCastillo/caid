@@ -2,8 +2,11 @@
 
 require_once 'autoload.php';
 
-use controller\cert\Certificate;
+use db\TopicDb;
+use db\MasteryDb;
 use db\QuizResult;
+use controller\cert\Certificate;
+use db\UserDb;
 
 error_reporting(0);
 ?>
@@ -36,7 +39,7 @@ error_reporting(0);
 
         .filler {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             justify-content: center;
             gap: 20px;
         }
@@ -44,6 +47,11 @@ error_reporting(0);
         .scroll {
             overflow-y: scroll;
             height: 100%;
+        }
+
+        .cert {
+            display: block;
+            margin-inline: auto;
         }
     </style>
     <section class="main-wrapper bg-dashboard">
@@ -68,31 +76,24 @@ error_reporting(0);
 
                             foreach ($ids as $id) {
                                 $stats = QuizResult::getResult($id);
-                                // $name = $id->getTitle();
+                                $quizName = QuizResult::getQuizName($id);
 
                                 if ($stats !== NULL) {
 
                                     $score = (int) $stats['score'];
-                                    $perfect = (int)$stats['perfect'];
 
                                     echo $score >= 30 ? "<div class='cert-holder'>" : "";
 
                                     $hasReward = $score >= 30 && $hasReward === null ?  true : false;
 
                                     if ($score >= 30 && $score <= 35) {
-                                        $name =  Certificate::getBronze("yawa", $studentName);
-                                        $path = $location . $name;
-                                        echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                        echo "<span>$quizName</span>";
                                         echo "<img src='./resources/cert/bronzeMedal.jpg' class='cert'>";
                                     } else if ($score >= 40 && $score <= 45) {
-                                        $name =  Certificate::getSilver("yawa", $studentName);
-                                        $path = $location . $name;
-                                        echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                        echo "<span>$quizName</span>";
                                         echo "<img src='./resources/cert/silverMedal.jpg' class='cert'>";
                                     } else if ($score == 50) {
-                                        $name =  Certificate::getGold("yawa", $studentName);
-                                        $path = $location . $name;
-                                        echo "<a href='$path'><img src='$path' class='cert'></a>";
+                                        echo "<span>$quizName</span>";
                                         echo "<img src='./resources/cert/goldMedal.jpg' class='cert'>";
                                     }
                                     echo $score >= 30 ? "</div>" : "";
@@ -100,7 +101,34 @@ error_reporting(0);
                             }
 
                             if (!$hasReward) {
-                                echo "<div>No Rewards Yet</div>";
+                                echo "<div>None Medals to display</div>";
+                            }
+
+                            $topics = TopicDb::getAllTopics();
+
+                            $maxPercent = (int)count($topics) * 100;
+                            $myPercent = (int)0;
+
+                            foreach ($topics as $topic) {
+                                $id = $topic->getId();
+                                $percent = MasteryDb::getPercent($id);
+
+                                $myPercent  += $percent;
+                            }
+
+                            if ($myPercent === $maxPercent) {
+
+                                $studentName =  ucwords($studentName);
+
+                                $certName = $studentName . ".jpg";
+
+                                if (!file_exists($location . $certName)) {
+                                    $certName =  Certificate::getGold("", $studentName);
+                                }
+
+                                $path = $location . $certName;
+
+                                echo "<a href='$path' class='cert-link'><img src='$path' class='cert'></a>";
                             }
                         } catch (Exception $e) {
                             echo "An error has occured";

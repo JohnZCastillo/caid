@@ -152,7 +152,7 @@ if (isset($_POST['title'], $_POST['description'], $_POST['topic'])) {
                     </select>
                 </div>
                 <div>
-                    <label for="file">Description</label>
+                    <label for="file">Instruction</label>
                     <textarea name="description"> </textarea>
                 </div>
                 <div class="btn-wrapper">

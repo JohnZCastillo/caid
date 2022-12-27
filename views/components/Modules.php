@@ -2,6 +2,7 @@
 
 namespace views\components;
 
+use db\ContentDb;
 use Exception;
 use db\TopicDb;
 use db\MasteryDb;
@@ -14,22 +15,44 @@ class Modules
 
         try {
 
-            $count = -1;
+            //get all the topics
+            $topics = TopicDb::getAllTopics();
+
+            //store the current topic where the user is currently working on
+            $latestTopic = -1;
 
             //loop through all the topics
-            foreach (TopicDb::getAllTopics() as $topic) {
+            for ($i = 0; $i <= count($topics) - 1; $i++) {
 
-                $count++;
+                $topic = $topics[$i];
 
                 $title = $topic->getTitle();
                 $id = $topic->getId();
 
-                //check weather the student is ban on the current topic
-                $notBan =  MasteryDb::hasCert($id, 0);
-
+                $contents = null;
+                $notBan = false;
                 $classlist = $id == $topicId ? "nav__link btn onview" :  "nav__link btn";
 
-                if ($notBan || $count == 0) {
+                try {
+                    //get all contents  of the current topic
+                    $contents = ContentDb::getContent($id);
+                    //get the last content of the topic
+                    $lastContent = $contents[count($contents) - 1];
+
+                    //get the id of last content
+                    $lastContentId = $lastContent->getId();
+
+                    // //check weather the student is ban on the current topic
+                    $notBan =  MasteryDb::hasCert($id, $lastContentId);
+
+
+                    //update the latest topic if user is not ban 
+                    $latestTopic = $notBan ? $i : $latestTopic;
+                } catch (Exception $e) {
+                    //no content found
+                }
+
+                if ($notBan || ($latestTopic + 1) == $i) {
                     echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a>";
                     continue;
                 }
@@ -37,7 +60,8 @@ class Modules
                 echo "<a href='' class=\"$classlist ban\">$title</a>";
             }
         } catch (Exception  $e) {
-            echo "<span class='content-none'>No topics yet<span>";
+            echo $e->getMessage();
+            // echo "<span class='content-none'>No topics yet<span>";
         }
     }
 }

@@ -74,11 +74,9 @@ use views\components\Modules;
         .filler {
             padding: 50px;
             height: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-
             overflow-y: auto;
 
         }

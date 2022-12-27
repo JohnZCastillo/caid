@@ -19,12 +19,12 @@ if (isset($data['data'])) {
 
         $ids = QuizResult::getQuizIds();
 
-        $datas = [['', 'test', 'Average']];
+        $datas = [['', 'Score', 'Average']];
 
         foreach ($ids as $id) {
             $stats = QuizResult::getResult($id);
-
             if ($stats !== NULL) {
+                $quizName = QuizResult::getQuizName($id);
 
                 $score = (int) $stats['score'];
                 $perfect = (int)$stats['perfect'];
@@ -34,12 +34,16 @@ if (isset($data['data'])) {
                 if ($score > 0) {
                     $percent = ($score / $perfect) * 100;
                 }
-                $temp = ['', $percent, $percent];
+                $temp = [$quizName, $percent, $percent];
 
                 array_push($datas, $temp);
             } else {
                 array_push($datas, ['', 0, 0]);
             }
+        }
+
+        if (count($datas) <= 1) {
+            $datas = [['', 'test', 'Average'], ['', 0, 0]];
         }
 
         echo json_encode(['message' => $datas]);

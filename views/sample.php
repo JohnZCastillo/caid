@@ -29,7 +29,7 @@ use views\components\Profile;
 
         .student {
 
-            background-color: yellow;
+            background-color: var(--color-yellow);
             flex-basis: 20%;
             border-radius: 10px;
             padding: 20px;

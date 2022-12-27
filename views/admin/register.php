@@ -45,7 +45,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                 <h2>SIGN UP</h2>
                 <div class="inputbox">
                     <input id="id" name="id" type="text" required>
-                    <span>Student Number</span>
+                    <span>Admin Number</span>
                     <i></i>
                 </div>
                 <div class="inputbox">
@@ -89,25 +89,6 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                                 </select>
                             </div>
                         </th>
-                        <th>
-                            <div class="dropdown">
-                                <select name="course" id="Course">
-                                    <option value="" selected>Course</option>
-                                    <option value="BSIT">BSIT</option>
-                                    <option value="BSCpE">BSCpE</option>
-                                </select>
-                            </div>
-                        </th>
-                        <th>
-                            <div class="dropdown">
-                                <select name="year" id="YearLevel">
-                                    <option value="" selected>Year Level</option>
-                                    <option value="1st Year">1st Year</option>
-                                    <option value="2nd Year">2nd Year</option>
-                                    <option value="3rd Year">3rd Year</option>
-                                </select>
-                            </div>
-                        </th>
                     </tr>
                 </table>
                 <div class="inputbox">
@@ -115,7 +96,7 @@ if ($_SESSION['userRole'] !== Role::$ADMIN) {
                     <span>Birth Date</span>
                     <i></i>
                 </div>
-                <button type="submit" class="add-user">Add User</button>
+                <button type="submit" class="add-user">Add Admin</button>
                 <div id="cancelbtn">
                     <a href="./accounts">Cancel</a>
                 </div>
