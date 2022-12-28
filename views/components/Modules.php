@@ -52,7 +52,13 @@ class Modules
                     //no content found
                 }
 
+                if ($i == 0 && (!$notBan)) {
+                }
+
                 if ($notBan || ($latestTopic + 1) == $i) {
+
+
+
                     echo "<a href=\"./intro?id=$id\" class=\"$classlist\">$title</a>";
                     continue;
                 }

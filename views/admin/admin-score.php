@@ -51,7 +51,7 @@ Security::adminOnlyStrict();
             display: flex;
             gap: 2em;
             align-items: end;
-
+            overflow: auto;
         }
 
         .bar {
