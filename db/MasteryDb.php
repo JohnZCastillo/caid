@@ -24,15 +24,16 @@ class MasteryDb
         $currentIndex = 0;
 
         //loop through all the contents and find the current index
-        for ($i = 0; $i <= $contentSize - 1; $i++) {
-            if ($steps[$i]->getId() == $topicId && $steps[$i]->getId() == $currentStep) {
+        for ($i = 0; $i < $contentSize; $i++) {
+            if ($steps[$i]->getId() == $currentStep) {
                 $currentIndex = $i;
                 break;
             }
         }
 
+
         //if the index is last then return the current index
-        if (($contentSize - 1) == $currentIndex) {
+        if (($contentSize - 1) === $currentIndex) {
             return $steps[$currentIndex]->getId();
         }
 
