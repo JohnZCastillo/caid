@@ -3,10 +3,6 @@
 namespace db;
 
 use Exception;
-use model\module\File;
-use DivisionByZeroError;
-use model\module\Content;
-
 
 session_start();
 

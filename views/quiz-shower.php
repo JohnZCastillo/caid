@@ -12,8 +12,9 @@ $quizData = QuestionDb::getQuiz($id);
 
 <head>
     <meta charset="UTF-8">
-    <title>DASHBOARD</title>
-    <link rel="stylesheet" href="./resources/css/topics.css">
+    <title>Quiz</title>
+    <!-- <link rel="stylesheet" href="./resources/css/topics.css"> -->
+    <link rel="stylesheet" href="./resources/css/style.css">
 </head>
 
 <body>
@@ -22,6 +23,12 @@ $quizData = QuestionDb::getQuiz($id);
         body {
             background-image: none;
             background-color: transparent;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
         }
 
         .hide {
@@ -29,6 +36,7 @@ $quizData = QuestionDb::getQuiz($id);
         }
 
         .quiz-container {
+            padding: 10px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 10px 2px black;
@@ -36,6 +44,37 @@ $quizData = QuestionDb::getQuiz($id);
             margin-top: 0;
             text-align: center;
             margin-left: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ul {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        li {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        li>label {
+            word-break: break-all;
+            text-align: left;
+        }
+
+        .quiz-header {
+            max-height: 400px;
+            height: 90vh;
+            overflow-y: auto;
+            padding-inline: 10px;
+            margin-bottom: 10px;
+        }
+
+        .test {
+            overflow-y: auto;
         }
     </style>
 
@@ -79,7 +118,7 @@ $quizData = QuestionDb::getQuiz($id);
             }
 
             echo "</div>";
-            echo "<button id='submit' onclick=\"next()\">Submit</button>";
+            echo "<button class='btn' id='submit' onclick=\"next()\">Submit</button>";
             ?>
         </div>
     </div>

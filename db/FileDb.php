@@ -93,7 +93,7 @@ class FileDb
 
         $connection = Database::open();
 
-        // delete mastery
+        // // delete mastery
         try {
             // Delete quiz_data
             $deleteMastery = $connection->prepare("Delete from mastery where topic_id = ? and step = ?");
@@ -127,16 +127,16 @@ class FileDb
 
         try {
             // delete file
-            $deleteFile = $connection->prepare("Delete from content where id = ?");
+            $deleteContent = $connection->prepare("delete from content where id = ?");
 
-            $deleteFile->bind_param(
+            $deleteContent->bind_param(
                 "d",
                 $id
             );
 
-            $deleteFile->execute();
+            $deleteContent->execute();
         } catch (Exception $e) {
-            throw new Exception("delete file error");
+            throw new Exception("delete file error " + $e->getMessage());
         }
 
         $error = mysqli_error($connection);

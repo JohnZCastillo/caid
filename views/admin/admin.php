@@ -49,7 +49,7 @@ Security::adminOnlyStrict();
             <div class="content-left">
                 <div class="profile">
                     <?php Profile::getProfile() ?>
-                    <h3>Admin Profile</h3>
+                    <h3> <?php echo $_SESSION['userName'] ?></h3>
                 </div>
                 <nav class="nav">
                     <a href="#" class="nav__link btn onview">Dashboard</a>
