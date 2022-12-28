@@ -64,7 +64,8 @@ error_reporting(0);
             grid-template-columns: 1fr;
             min-height: 300px;
             padding: 10px;
-            background-color: blue;
+            background-color: var(--color-blue);
+            color: white;
         }
     </style>
     <section class="main-wrapper bg-dashboard">
