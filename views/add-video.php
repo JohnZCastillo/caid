@@ -9,6 +9,7 @@ use model\module\Content;
 
 session_start();
 
+
 if (!isset($_SESSION["isLogin"])) {
     $_SESSION["loginError"] = "You're not login!. Login First";
     header('Location: ./login');
@@ -30,9 +31,9 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
 
     try {
 
-        //see database type for file type
-
-
+        if ($_FILES['file']['error']) {
+            throw new Exception("Upload Failed | Mb Limit");
+        }
 
         $type =  $_POST['type'];
 
@@ -76,7 +77,7 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
 
         header("location: ./admin-module");
     } catch (Exception $e) {
-        echo $e->getMessage();
+        $_SESSION['videoError'] = $e->getMessage();
     }
 }
 
@@ -145,6 +146,10 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
             background-color: #fff04b;
             color: black;
         }
+
+        .error {
+            color: red;
+        }
     </style>
     <div class="Header">
         <p>COMPUTER AIDED INSTRUCTION MATERIAL FOR DATA STRUCTURE AND ALGORITHM</p>
@@ -152,6 +157,13 @@ if (isset($_FILES['file'], $_POST['title'], $_POST['description'], $_POST['topic
 
     <div class="box">
         <div class="form">
+            <?php
+            if (isset($_SESSION['videoError'])) {
+                $errorData =  $_SESSION['videoError'];
+                echo  "<div class='error'>" . $errorData . "</div>";
+                unset($_SESSION['videoError']);
+            }
+            ?>
             <h1>ADD VIDEO</h1>
             <form action="" method="POST" action="./add-video" enctype="multipart/form-data">
                 <div>
