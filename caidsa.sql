@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 27, 2022 at 05:25 PM
+-- Generation Time: Dec 28, 2022 at 01:08 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -36,6 +36,13 @@ CREATE TABLE `content` (
   `type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `content`
+--
+
+INSERT INTO `content` (`id`, `name`, `description`, `order`, `topics`, `type`) VALUES
+(279, 'Test pdf', ' safasf', 1, 152, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +55,13 @@ CREATE TABLE `file` (
   `topic_id` int(11) NOT NULL,
   `content_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `file`
+--
+
+INSERT INTO `file` (`id`, `location`, `topic_id`, `content_id`) VALUES
+(151, 'Test pdf.pdf', 152, 279);
 
 -- --------------------------------------------------------
 
@@ -83,7 +97,7 @@ CREATE TABLE `quiz` (
 
 CREATE TABLE `quiz_choice` (
   `id` int(11) NOT NULL,
-  `choice` varchar(100) NOT NULL,
+  `choice` varchar(1000) NOT NULL,
   `quiz_data` int(11) NOT NULL,
   `quiz_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -97,8 +111,8 @@ CREATE TABLE `quiz_choice` (
 CREATE TABLE `quiz_data` (
   `id` int(11) NOT NULL,
   `quiz_id` int(11) NOT NULL,
-  `question` varchar(300) NOT NULL,
-  `answer` varchar(100) NOT NULL
+  `question` varchar(1000) NOT NULL,
+  `answer` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -123,8 +137,15 @@ CREATE TABLE `quiz_result` (
 
 CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL
+  `title` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `topics`
+--
+
+INSERT INTO `topics` (`id`, `title`) VALUES
+(152, 'Introduction');
 
 -- --------------------------------------------------------
 
@@ -175,19 +196,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`student_number`, `role`, `username`, `password`, `email`, `first_name`, `middle_name`, `last_name`, `gender`, `course_id`, `year`, `birthdate`, `profile`) VALUES
-('a', 'ADMIN', 'a', 'a', 'a', 'a', 'a', 'a', '', '', 0, '2018-01-01', 'a.png'),
 ('admin', 'ADMIN', 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'Male', 'BSIT', 1, '2018-01-09', 'admin.png'),
-('b', 'STUDENT', 'b', 'b', 'b', 'b', 'b', 'b', 'Male', 'BSIT', 1, '2018-01-01', 'b.png'),
-('c', 'ADMIN', 'c', 'c', 'c', 'c', 'c', 'c', 'Male', 'BSCpE', 1, '2018-01-01', NULL),
-('cs', 'ADMIN', 'cs', 'cs', 'cs', 'cs', 'cs', 'cs', 'Male', 'BSIT', 2, '2018-01-01', NULL),
-('dsdsg', 'STUDENT', 'dsggsd', 'dsgsd', 'sdgdsg', 'gssdg', 'dsg', 'sdg', 'Male', 'BSIT', 1, '2018-01-01', NULL),
-('Hello', 'ADMIN', 'Hello', 'hello', 'hello', 'hello', 'hello', 'hello', 'Male', '', 0, '2018-01-24', 'Hello.JPG'),
-('John', 'STUDENT', 'John', 'John', 'johnzunigacastillo@gmail.com', 'John', 'Castillo', 'Zuniga', 'Male', 'BSIT', 3, '1999-12-10', NULL),
-('sav', 'STUDENT', 'sav', 'ssav', 'asvsdcsa', 'as', 'av', 'asv', 'Female', 'BSIT', 1, '2018-01-17', NULL),
 ('student', 'STUDENT', 'student', 'student', 'student', 'student', 'student', 'student', 'Male', 'BSIT', 1, '2018-01-01', NULL),
-('test', 'STUDENT', 'test', 'test', 'test', 'test', 'test', 'test', 'Male', 'BSCpE', 2, '2018-01-24', 'test.png'),
-('v', 'ADMIN', 'v', 'v', 'v', 'v', 'v', 'v', '', 'BSIT', 1, '2018-01-01', NULL),
-('yrdy', 'STUDENT', 'sdgdsg', 'PASS_word01...sdgsdg', 'sdg@gmail.com', 'dsg', 'sdg', 'sdg', 'Male', 'BSIT', 1, '2018-01-01', NULL);
+('test', 'STUDENT', 'test', 'test', 'test', 'test', 'test', 'test', 'Male', 'BSCpE', 2, '2018-01-24', 'test.png');
 
 --
 -- Indexes for dumped tables
@@ -276,49 +287,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `content`
 --
 ALTER TABLE `content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 
 --
 -- AUTO_INCREMENT for table `file`
 --
 ALTER TABLE `file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT for table `mastery`
 --
 ALTER TABLE `mastery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=769;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=786;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `quiz_choice`
 --
 ALTER TABLE `quiz_choice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=764;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=856;
 
 --
 -- AUTO_INCREMENT for table `quiz_data`
 --
 ALTER TABLE `quiz_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
 -- AUTO_INCREMENT for table `quiz_result`
 --
 ALTER TABLE `quiz_result`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -356,7 +367,7 @@ ALTER TABLE `mastery`
 --
 ALTER TABLE `quiz`
   ADD CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`),
-  ADD CONSTRAINT `quiz_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `content` (`topics`);
+  ADD CONSTRAINT `quiz_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
 
 --
 -- Constraints for table `quiz_choice`

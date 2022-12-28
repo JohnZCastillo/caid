@@ -40,7 +40,7 @@ class Contents
                 $type = $content->getType();
 
                 $url = "";
-                $classlist = "btn-img-l bg scale shadow blink";
+                $classlist = "btn-img-l bg scale shadow";
 
                 //allow for first topic 
                 if ($count == 0) {

@@ -3,10 +3,6 @@
 namespace db;
 
 use Exception;
-use model\module\File;
-use DivisionByZeroError;
-use model\module\Content;
-
 
 session_start();
 
@@ -106,57 +102,62 @@ class MasteryDb
 
     public static function getPercent($topicId)
     {
-
-        $userId = $_SESSION['userId'];
-
-        $connection = Database::open();
-
-        $stmt = $connection->prepare("SELECT * from mastery where user_id = ? and topic_id = ?	group by step");
-
-        $stmt->bind_param(
-            "sd",
-            $userId,
-            $topicId
-        );
-
-        // execute prepared statement
-        $stmt->execute();
-
-        //get result
-        $result = $stmt->get_result();
-
-        $totalStep = 0;
-
-        while ($result->fetch_assoc()) {
-            $totalStep++;
-        }
-
-        $stmt = $connection->prepare("SELECT * from content where topics = ?");
-
-        $stmt->bind_param(
-            "d",
-            $topicId
-        );
-
-        // execute prepared statement
-        $stmt->execute();
-
-        //get result
-        $result = $stmt->get_result();
-
-        $totalContent = 0;
-
-        while ($data = $result->fetch_assoc()) {
-            $totalContent++;
-        }
-
-        $error = mysqli_error($connection);
-
-        Database::close($connection);
-
         try {
+
+            $userId = $_SESSION['userId'];
+
+            $connection = Database::open();
+
+            $stmt = $connection->prepare("SELECT * from mastery where user_id = ? and topic_id = ?	group by step");
+
+            $stmt->bind_param(
+                "sd",
+                $userId,
+                $topicId
+            );
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            $totalStep = 0;
+
+            while ($result->fetch_assoc()) {
+                $totalStep++;
+            }
+
+            $stmt = $connection->prepare("SELECT * from content where topics = ?");
+
+            $stmt->bind_param(
+                "d",
+                $topicId
+            );
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            $totalContent = 0;
+
+            while ($data = $result->fetch_assoc()) {
+                $totalContent++;
+            }
+
+            if ($totalContent == 0 || $totalStep == 0) {
+                throw new Exception('Content is zero');
+            }
+
+
+            $error = mysqli_error($connection);
+
+            Database::close($connection);
+
             return ($totalStep / $totalContent) * 100;
-        } catch (DivisionByZeroError $e) {
+        } catch (Exception $e) {
             return 0;
         }
     }
@@ -164,54 +165,63 @@ class MasteryDb
     public static function getStudentPercent($topicId, $userId)
     {
 
-        $connection = Database::open();
-
-        $stmt = $connection->prepare("SELECT * from mastery where user_id = ? and topic_id = ?	group by step");
-
-        $stmt->bind_param(
-            "sd",
-            $userId,
-            $topicId
-        );
-
-        // execute prepared statement
-        $stmt->execute();
-
-        //get result
-        $result = $stmt->get_result();
-
-        $totalStep = 0;
-
-        while ($result->fetch_assoc()) {
-            $totalStep++;
-        }
-
-        $stmt = $connection->prepare("SELECT * from content where topics = ?");
-
-        $stmt->bind_param(
-            "d",
-            $topicId
-        );
-
-        // execute prepared statement
-        $stmt->execute();
-
-        //get result
-        $result = $stmt->get_result();
-
-        $totalContent = 0;
-
-        while ($data = $result->fetch_assoc()) {
-            $totalContent++;
-        }
-
-        $error = mysqli_error($connection);
-
-        Database::close($connection);
-
         try {
+
+            $connection = Database::open();
+
+            $stmt = $connection->prepare("SELECT * from mastery where user_id = ? and topic_id = ?	group by step");
+
+            $stmt->bind_param(
+                "sd",
+                $userId,
+                $topicId
+            );
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            $totalStep = 0;
+
+            while ($result->fetch_assoc()) {
+                $totalStep++;
+            }
+
+            $stmt = $connection->prepare("SELECT * from content where topics = ?");
+
+            $stmt->bind_param(
+                "d",
+                $topicId
+            );
+
+            // execute prepared statement
+            $stmt->execute();
+
+            //get result
+            $result = $stmt->get_result();
+
+            $totalContent = 0;
+
+            while ($data = $result->fetch_assoc()) {
+                $totalContent++;
+            }
+
+            $error = mysqli_error($connection);
+
+            Database::close($connection);
+
+            if ($error) {
+                throw new Exception($error);
+            }
+
+            if ($totalContent == 0 || $totalStep == 0) {
+                throw new Exception('Contetn is zero');
+            }
+
             return ($totalStep / $totalContent) * 100;
-        } catch (DivisionByZeroError $e) {
+        } catch (Exception $e) {
             return 0;
         }
     }
