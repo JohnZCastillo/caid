@@ -47,6 +47,7 @@ Security::adminOnlyStrict();
 
         table {
             border-collapse: collapse;
+            width: 100%;
         }
 
         table tr td {
@@ -111,7 +112,6 @@ Security::adminOnlyStrict();
                                     <th>Birthdate</th>
                                     <th>Course</th>
                                     <th>Year</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,7 +137,6 @@ Security::adminOnlyStrict();
                                     echo "<td>$birthdate</td>";
                                     echo "<td>$course</td>";
                                     echo "<td>$year</td>";
-                                    echo "<td><button>Update</button><button>Block</button><button>Delete</button></td>";
                                     echo "</tr>";
                                 }
                                 ?>
@@ -155,7 +154,6 @@ Security::adminOnlyStrict();
                                     <th>Username</th>
                                     <th>Gender</th>
                                     <th>Birthdate</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -177,25 +175,6 @@ Security::adminOnlyStrict();
                                     echo "<td>$username</td>";
                                     echo "<td>$gender</td>";
                                     echo "<td>$birthdate</td>";
-
-                                    if ($_SESSION['userId'] == 'admin') {
-
-                                        if ($_SESSION['userId'] == $user->getId()) {
-                                            echo "<td><button>Update</button></td></tr>";
-                                            continue;
-                                        } else {
-                                            echo "<td><button>Update</button><button>Delete</button><button>Block</button></td></tr>";
-                                        }
-
-                                        continue;
-                                    }
-
-                                    if ($_SESSION['userId'] == $user->getId()) {
-                                        echo "<td><button>Update</button></td></tr>";
-                                        continue;
-                                    }
-
-
                                     echo "</tr>";
                                 }
                                 ?>
