@@ -108,6 +108,7 @@ Security::adminOnlyStrict();
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Username</th>
+                                    <th>Password</th>
                                     <th>Gender</th>
                                     <th>Birthdate</th>
                                     <th>Course</th>
@@ -127,12 +128,14 @@ Security::adminOnlyStrict();
                                     $gender = $user->getGender();
                                     $birthdate = $user->getBirthdate();
                                     $username = $user->getUsername();
+                                    $password = $user->getPassword();
 
                                     echo "<tr>";
                                     echo "<td>$id</td>";
                                     echo "<td>$name</td>";
                                     echo "<td>$email</td>";
                                     echo "<td>$username</td>";
+                                    echo "<td>$password</td>";
                                     echo "<td>$gender</td>";
                                     echo "<td>$birthdate</td>";
                                     echo "<td>$course</td>";
