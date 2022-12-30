@@ -108,8 +108,45 @@ class QuizResult
         $stats['score'] =  $data['score'];
         $stats['perfect'] =  $data['perfect'];
 
-
         return $stats;
+    }
+
+    public static function isQuizAlreadyTaken($quizId,  $userId)
+    {
+
+        $connection = Database::open();
+
+        $stmt = $connection->prepare("SELECT score,perfect from quiz_result where quiz_id = ? and user_id = ?  order by id desc LIMIT 1");
+
+        $stmt->bind_param(
+            "ds",
+            $quizId,
+            $userId
+        );
+
+        $stmt->execute();
+
+        //get result
+        $result = $stmt->get_result();
+
+        // store result in array
+        $data = $result->fetch_assoc();
+
+        $error = mysqli_error($connection);
+
+        Database::close($connection);
+
+        if ($data === NULL) {
+            return;
+        }
+
+        if ($error) {
+            return $error;
+        }
+
+        $score = $data['score'];
+
+        return $score;
     }
 
     public static function getQuizIds()
@@ -166,7 +203,7 @@ class QuizResult
         return $name;
     }
 
-    public static function getModuleName($id){
-        
+    public static function getModuleName($id)
+    {
     }
 }

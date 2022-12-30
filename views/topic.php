@@ -31,16 +31,17 @@ $topicId = $_REQUEST['id'];
 <body onload="load()">
     <style>
         .content-wrapper {
-            padding-block: 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
-            align-items: center;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             gap: 50px;
+            overflow-y: auto;
+            padding-block: 40px;
         }
 
         .content-wrapper>a {
+            flex-shrink: 0;
             margin-inline: auto;
         }
 
@@ -51,11 +52,9 @@ $topicId = $_REQUEST['id'];
 
         .filler {
             height: 100%;
-            overflow-y: auto;
         }
 
         /* wizard */
-        /* Wizard */
         .dialog {
 
             position: relative;
