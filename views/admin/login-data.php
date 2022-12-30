@@ -118,29 +118,34 @@ Security::adminOnlyStrict();
                             <tbody>
 
                                 <?php
-                                foreach (UserDb::getStudents() as $user) {
+                                try {
 
-                                    $id = $user->getId();
-                                    $name = $user->getFullName();
-                                    $course = $user->getCourse();
-                                    $year = $user->getYear();
-                                    $email = $user->getEmail();
-                                    $gender = $user->getGender();
-                                    $birthdate = $user->getBirthdate();
-                                    $username = $user->getUsername();
-                                    $password = $user->getPassword();
+                                    foreach (UserDb::getStudents() as $user) {
 
-                                    echo "<tr>";
-                                    echo "<td>$id</td>";
-                                    echo "<td>$name</td>";
-                                    echo "<td>$email</td>";
-                                    echo "<td>$username</td>";
-                                    echo "<td>$password</td>";
-                                    echo "<td>$gender</td>";
-                                    echo "<td>$birthdate</td>";
-                                    echo "<td>$course</td>";
-                                    echo "<td>$year</td>";
-                                    echo "</tr>";
+                                        $id = $user->getId();
+                                        $name = $user->getFullName();
+                                        $course = $user->getCourse();
+                                        $year = $user->getYear();
+                                        $email = $user->getEmail();
+                                        $gender = $user->getGender();
+                                        $birthdate = $user->getBirthdate();
+                                        $username = $user->getUsername();
+                                        $password = $user->getPassword();
+
+                                        echo "<tr>";
+                                        echo "<td>$id</td>";
+                                        echo "<td>$name</td>";
+                                        echo "<td>$email</td>";
+                                        echo "<td>$username</td>";
+                                        echo "<td>$password</td>";
+                                        echo "<td>$gender</td>";
+                                        echo "<td>$birthdate</td>";
+                                        echo "<td>$course</td>";
+                                        echo "<td>$year</td>";
+                                        echo "</tr>";
+                                    }
+                                } catch (Exception $e) {
+                                    //no students
                                 }
                                 ?>
                             </tbody>
@@ -162,23 +167,28 @@ Security::adminOnlyStrict();
                             <tbody>
 
                                 <?php
-                                foreach (UserDb::getAdmins() as $user) {
+                                try {
 
-                                    $id = $user->getId();
-                                    $name = $user->getFullName();
-                                    $email = $user->getEmail();
-                                    $gender = $user->getGender();
-                                    $birthdate = $user->getBirthdate();
-                                    $username = $user->getUsername();
+                                    foreach (UserDb::getAdmins() as $user) {
 
-                                    echo "<tr>";
-                                    echo "<td>$id</td>";
-                                    echo "<td>$name</td>";
-                                    echo "<td>$email</td>";
-                                    echo "<td>$username</td>";
-                                    echo "<td>$gender</td>";
-                                    echo "<td>$birthdate</td>";
-                                    echo "</tr>";
+                                        $id = $user->getId();
+                                        $name = $user->getFullName();
+                                        $email = $user->getEmail();
+                                        $gender = $user->getGender();
+                                        $birthdate = $user->getBirthdate();
+                                        $username = $user->getUsername();
+
+                                        echo "<tr>";
+                                        echo "<td>$id</td>";
+                                        echo "<td>$name</td>";
+                                        echo "<td>$email</td>";
+                                        echo "<td>$username</td>";
+                                        echo "<td>$gender</td>";
+                                        echo "<td>$birthdate</td>";
+                                        echo "</tr>";
+                                    }
+                                } catch (Exception $e) {
+                                    //no admin
                                 }
                                 ?>
                             </tbody>
