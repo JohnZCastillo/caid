@@ -46,6 +46,7 @@ Security::studentOnlyStrict();
             grid-template-columns: 1fr;
             justify-content: center;
             gap: 20px;
+            padding-block: 20px;
         }
 
         .scroll {
@@ -76,7 +77,7 @@ Security::studentOnlyStrict();
                             $location = "./assets/cert/";
                             $studentName = $_SESSION['userName'];
 
-                            $hasReward = null;
+                            $hasReward = false;
 
                             foreach ($ids as $id) {
                                 $stats = QuizResult::getResult($id);
@@ -88,7 +89,7 @@ Security::studentOnlyStrict();
 
                                     echo $score >= 30 ? "<div class='cert-holder'>" : "";
 
-                                    $hasReward = $score >= 30 && $hasReward === null ?  true : false;
+                                    $hasReward = $score >= 30 ?  true : false;
 
                                     if ($score >= 30 && $score <= 35) {
                                         echo "<span>$quizName</span>";

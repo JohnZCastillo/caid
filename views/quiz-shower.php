@@ -1,11 +1,17 @@
 <?php
 
 use db\QuestionDb;
+use db\QuizResult;
+
+error_reporting(0);
+
+session_start();
 
 // Initialize URL to the variable
 $id = $_REQUEST['id'];
 
 $quizData = QuestionDb::getQuiz($id);
+
 
 ?>
 <html lang="en">
@@ -79,11 +85,25 @@ $quizData = QuestionDb::getQuiz($id);
     </style>
 
     <div class="quiz-container" id="quiz">
+
+        <?php
+
+        ?>
         <div class="quiz-header">
 
             <?php
 
             try {
+
+                $userId = $_SESSION['userId'];
+                $result = QuizResult::isQuizAlreadyTaken($id, $userId);
+
+                // prevent quiz from being retaken
+                if ($result  != null) {
+                    echo "<div>You Have Already Taken This Quiz</div>";
+                    echo "<div>You Score is $result</div>";
+                    die();
+                }
 
                 echo "<script>var quizId = $id; </script>";
 
@@ -131,16 +151,10 @@ $quizData = QuestionDb::getQuiz($id);
         const submit = document.querySelector('#submit');
 
         const addAnswer = (number, answer) => {
-            console.log(number, answer);
             answers[number - 1] = answer;
-            console.log(answers);
         }
 
         const next = async () => {
-
-            console.log(currentIndex);
-
-            console.log(questions.length);
 
             if (currentIndex === questions.length) {
                 let result = await processAnswer();
@@ -180,8 +194,6 @@ $quizData = QuestionDb::getQuiz($id);
 
                 if (!status) throw new Error(result.message);
 
-                // alert(result.message);
-                // window.location.reload();
                 return result.message
             } catch (error) {
                 alert(error.message);

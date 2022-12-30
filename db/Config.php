@@ -5,8 +5,8 @@ namespace db;
 require_once 'autoload.php';
 
 class Config
-{
 
+{
     // local development
     private static $servername = "127.0.0.1:3308";
     private static $username = "root";
@@ -14,10 +14,10 @@ class Config
     private static $database = "caidsa";
 
     //configuration
-//     private static $servername = "sql202.epizy.com";
-//     private static $username = "epiz_33126141";
-//     private static $password = "tVhCeR24pfyASFW";
-//     private static $database = "epiz_33126141_caidsa";
+    // private static $servername = "sql104.epizy.com:3306";
+    // private static $username = "epiz_33171096";
+    // private static $password = "5pOXRaRFmSvVY4";
+    // private static $database = "epiz_33171096_caidsa";
 
     public static function getServername()
     {

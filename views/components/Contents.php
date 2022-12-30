@@ -57,6 +57,11 @@ class Contents
                     $classlist = "btn-img-l bg ban scale shadow";
                 }
 
+                //add indicator to the first content
+                if ($count == 0  && (!MasteryDb::hasCert($topicId, $contentId))) {
+                    $classlist = $classlist . ' blink';
+                }
+
                 $topicBg = TopicBg::getTopicBackground($type);
 
                 $classlist = $topicBg . " " . $classlist;
@@ -68,9 +73,9 @@ class Contents
                 $count++;
             }
 
-            if ($firstDescription !== null) {
-                $returnValue = $returnValue . "<script>var instruction = '$firstDescription'</script>";
-            }
+            // if ($firstDescription !== null) {
+            // $returnValue = $returnValue . "<script>var instruction = '$firstDescription'</script>";
+            // }
 
             return $returnValue;
         } catch (Exception $error) {

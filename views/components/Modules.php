@@ -45,7 +45,6 @@ class Modules
                     // //check weather the student is ban on the current topic
                     $notBan =  MasteryDb::hasCert($id, $lastContentId);
 
-
                     //update the latest topic if user is not ban 
                     $latestTopic = $notBan ? $i : $latestTopic;
                 } catch (Exception $e) {

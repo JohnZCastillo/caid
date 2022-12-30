@@ -3,6 +3,7 @@
 require_once 'autoload.php';
 
 use db\UserDb;
+use model\user\Role;
 use views\components\Security;
 
 Security::adminOnlyStrict();
@@ -17,7 +18,7 @@ Security::adminOnlyStrict();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./resources/css/style.css">
-    <title>Test Layout</title>
+    <title>Login Data</title>
 </head>
 
 <body>
@@ -43,6 +44,24 @@ Security::adminOnlyStrict();
             border-radius: 10px;
         }
 
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table tr td {
+            border: 1px solid black;
+        }
+
+        table tr th {
+            border: 1px solid black;
+        }
+
+        table thead tr th {
+            padding: 10px;
+        }
+
         table,
         tr,
         td {
@@ -50,18 +69,24 @@ Security::adminOnlyStrict();
         }
 
         th {
-            color: yellow;
+            color: var(--color-yellow);
         }
 
-        table,
+        tbody,
         th,
         td {
-            border: 1px solid black;
-            border-collapse: collapse;
+
+            padding: 10px 20px;
         }
 
         td {
             padding: 5px;
+        }
+
+        .fluid-table {
+            overflow-x: auto;
+            min-height: 400px;
+            max-height: 600px;
         }
     </style>
     <section class="main-wrapper bg bg-dashboard">
@@ -74,38 +99,88 @@ Security::adminOnlyStrict();
             </div>
             <div class="content-right rainbow">
                 <section class="filler">
-                    <table class="styled-tabled">
-                        <thead>
-                            <tr>
-                                <th>Student Id</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Course</th>
-                                <th>Year</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="fluid-table">
+                        <table class="styled-tabled">
+                            <h2>Students</h2>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Gender</th>
+                                    <th>Birthdate</th>
+                                    <th>Course</th>
+                                    <th>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                            <?php
-                            foreach (UserDb::getUsers() as $user) {
+                                <?php
+                                foreach (UserDb::getStudents() as $user) {
 
-                                $id = $user->getId();
-                                $fname = $user->getFname();
-                                $lname = $user->getLname();
-                                $course = $user->getCourse();
-                                $year = $user->getYear();
+                                    $id = $user->getId();
+                                    $name = $user->getFullName();
+                                    $course = $user->getCourse();
+                                    $year = $user->getYear();
+                                    $email = $user->getEmail();
+                                    $gender = $user->getGender();
+                                    $birthdate = $user->getBirthdate();
+                                    $username = $user->getUsername();
 
-                                echo "<tr>";
-                                echo "<td>$id</td>";
-                                echo "<td>$fname</td>";
-                                echo "<td>$lname</td>";
-                                echo "<td>$course</td>";
-                                echo "<td>$year</td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                    echo "<tr>";
+                                    echo "<td>$id</td>";
+                                    echo "<td>$name</td>";
+                                    echo "<td>$email</td>";
+                                    echo "<td>$username</td>";
+                                    echo "<td>$gender</td>";
+                                    echo "<td>$birthdate</td>";
+                                    echo "<td>$course</td>";
+                                    echo "<td>$year</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="fluid-table">
+                        <table class="styled-tabled">
+                            <h2>Admins</h2>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Gender</th>
+                                    <th>Birthdate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <?php
+                                foreach (UserDb::getAdmins() as $user) {
+
+                                    $id = $user->getId();
+                                    $name = $user->getFullName();
+                                    $email = $user->getEmail();
+                                    $gender = $user->getGender();
+                                    $birthdate = $user->getBirthdate();
+                                    $username = $user->getUsername();
+
+                                    echo "<tr>";
+                                    echo "<td>$id</td>";
+                                    echo "<td>$name</td>";
+                                    echo "<td>$email</td>";
+                                    echo "<td>$username</td>";
+                                    echo "<td>$gender</td>";
+                                    echo "<td>$birthdate</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </section>
